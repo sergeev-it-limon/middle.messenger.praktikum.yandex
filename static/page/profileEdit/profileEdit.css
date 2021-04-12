@@ -1,0 +1,9 @@
+.profileEditForm {
+    .button {
+        width: 280px;
+        margin-bottom: 70px;
+    }
+    .form__bottom {
+        align-self: center;
+    }
+}

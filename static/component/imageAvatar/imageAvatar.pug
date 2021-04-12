@@ -1,0 +1,19 @@
+link(rel='stylesheet', href='../../component/imageAvatar/imageAvatar.css')
+
+mixin imageAvatarView(src, alt, sizeMod, custClass, onClickHandler)
+    figure(class='imageAvatar ' + sizeMod + (custClass === undefined ? '' : ' ' + custClass))
+            img.imageAvatar__image(src=src, alt=alt)
+            //- a.imageAvatar__shadow(href="#", onclick=onClickHandler)
+            //-     div.imageAvatar__editAvatarText="Поменять аватар"
+
+mixin imageAvatar(src, alt, sizeMod, custClass, onClickHandler)
+    case sizeMod
+        when 'size_sm'
+            +imageAvatarView(src, alt, 'imageAvatar_size_sm', custClass, onClickHandler)
+        when 'size_md'
+            +imageAvatarView(src, alt, 'imageAvatar_size_md', custClass, onClickHandler)
+        when 'size_lg'
+            +imageAvatarView(src, alt, 'imageAvatar_size_lg', custClass, onClickHandler)
+        default
+            +imageAvatarView(src, alt, 'imageAvatar_size_md', custClass, onClickHandler)
+    

@@ -1,0 +1,31 @@
+include ../../component/popup/popup.pug
+include ../../component/buttonChatActions/buttonChatActions.pug
+include ../../component/buttonChatPopup/buttonChatPopup.pug
+link(rel='stylesheet', href='../../component/popupChatActions/popupChatActions.css')
+
+mixin popupChatActions
+    +popupWrapper
+            +popup('popupChatActions', 'width: 192px;', 'bottom')
+                ul.popupChatActions__list
+                    li.popupChatActions__listItem
+                        +buttonChatPopup()(id='modalAddUser__trigger')
+                            img.popupChatActions__icon(
+                                src='../../component/popupChatActions/addUser.png',
+                                alt='imageIcon'
+                            )
+                            | Добавить пользователя
+                    li.popupChatActions__listItem
+                        +buttonChatPopup()(id='modalRemoveUser__trigger')
+                            img.popupChatActions__icon(
+                                src='../../component/popupChatActions/removeUser.png',
+                                alt='imageIcon'
+                            )
+                            | Удалить пользователя
+                    li.popupChatActions__listItem
+                        +buttonChatPopup
+                            img.popupChatActions__icon(
+                                src='../../component/popupChatActions/removeChat.png',
+                                alt='imageIcon'
+                            )
+                            | Удалить чат
+            +buttonChatActions()(id='buttonChatActions')

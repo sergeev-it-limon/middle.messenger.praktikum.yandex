@@ -1,0 +1,21 @@
+extends ../../layout.pug
+
+block content
+    link(rel='stylesheet', href='register.css')
+    include ../../component/inputString/inputStringMix.pug
+    include ../../component/button/buttonMix.pug
+
+    main.page
+        form.form.registerForm
+            div.form__top
+                h1.pageHeader Регистрация
+                +inputString("Почта","register-email")
+                +inputString("Логин","register-login")
+                +inputString("Имя","register-name")
+                +inputString("Фамилия","register-lastName")
+                +inputString("Телефон","register-phone")(class='inputString_color_alarm')
+                +inputString("Пароль","register-password", 'password')(class='inputString_color_alarm')
+                +inputString("Пароль (еще раз)","register-password-again", 'password')(class='inputString_color_alarm')
+            nav.form__bottom
+                +button('btnRegister', 'Зарегистрироваться', '/')
+                +buttonTransparent('btnBack', 'Войти', '/auth')

@@ -1,0 +1,17 @@
+include ../../component/imageAvatar/imageAvatar.pug
+include ../../component/textLineClamp/textLineClamp.pug
+link(rel='stylesheet', href='../../component/chatSelectableElem/chatSelectableElem.css')
+
+mixin chatSelectableElem(avatarSrc, avatarAlt, name, previewText, timeLastMsg, unreadedMsgCnt)
+    section.chatSelectableElem
+        .chatSelectableElem__imageAvatar
+            +imageAvatar(avatarSrc, avatarAlt)
+        .chatSelectableElem__contentWrapper
+            +textLineClamp('-webkit-line-clamp: 1;')
+                h2.chatSelectableElem__name= name
+            +textLineClamp('-webkit-line-clamp: 2;')
+                p.chatSelectableElem__previewText= previewText
+        .chatSelectableElem__addInfo
+            time.chatSelectableElem__timeLastMessage= timeLastMsg
+            div.chatSelectableElem__unreadedMessagesCount= unreadedMsgCnt
+        

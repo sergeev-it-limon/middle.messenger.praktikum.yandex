@@ -1,0 +1,13 @@
+extends ../../layout.pug
+
+block content
+    include ../../component/modalAddRemoveUser/modalAddRemoveUser.pug
+    include ../../component/button/buttonMix.pug
+    link(rel="stylesheet", href="../../template/errorPageTmpl/errorPageTmpl.css")
+    .errorPageTmpl__pageWrapper
+        header.errorPageTmpl__header
+            block header
+        main.errorPageTmpl__main
+            block main
+        footer.errorPageTmpl__footer
+            +buttonTransparent('btnRegister', 'Назад к чатам', '/')

@@ -1,0 +1,24 @@
+extends ../../layout.pug
+
+block content
+    link(rel='stylesheet', href='../profile/profile.css')
+    link(rel='stylesheet', href='profileEdit.css')
+    include ../../component/button/buttonMix.pug
+    include ../../component/imageAvatar/imageAvatar.pug
+    include ../../component/inputString/inputStringMix.pug
+    include ../../component/leftNavPanel/leftNavPanel.pug    
+
+    main.page
+        +leftNavPanel('/profile')
+        form.form.profileForm.profileEditForm
+            div.form__top
+                +imageAvatar('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=','', 'size_lg')
+                h1.pageHeader Иван
+                +inputString('Почта','email','text','pochta@yandex.ru')(class='inputString_in_row')
+                +inputString('Логин','login','text','ivanivanov')(class='inputString_in_row')
+                +inputString('Имя','first_name','text','Иван')(class='inputString_in_row')
+                +inputString('Фамилия','second_name','text','Иванов')(class='inputString_in_row')
+                +inputString('Имя в чате','login','text','Иван')(class='inputString_in_row')
+                +inputString('Телефон','phone','text','+7 (909) 967 30 30')(class='inputString_in_row')
+            nav.form__bottom
+                +button('btnSave', 'Сохранить', '/profile')

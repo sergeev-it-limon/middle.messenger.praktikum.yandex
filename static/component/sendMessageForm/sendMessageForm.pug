@@ -1,0 +1,13 @@
+include ../../component/popupAddFile/popupAddFile.pug
+include ../../component/inputSendMessage/inputSendMessage.pug
+include ../../component/buttonSubmitSendMessageForm/buttonSubmitSendMessageForm.pug
+include ../../component/popupAddFile/popupAddFile.pug
+link(rel='stylesheet', href='../../component/sendMessageForm/sendMessageForm.css')
+
+mixin sendMessageForm
+    form.sendMessageForm#sendMessageForm
+        +popupAddFile
+        .sendMessageForm__inputSendMessage
+            +inputSendMessage()(name='messageText')
+        .sendMessageForm__buttonSubmitSendMessageForm
+            +buttonSubmitSendMessageForm
