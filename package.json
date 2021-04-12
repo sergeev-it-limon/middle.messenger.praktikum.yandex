@@ -6,7 +6,7 @@
     "dev:frontend": "parcel watch ./static/page/**/*.pug --out-dir dist",
     "dev:backend": "nodemon --watch ./server --exec node ./server/index.js",
     "prebuild": "shx rm -rf dist",
-    "build": "parcel build static/page/**/*.pug --out-dir dist && mv dist/**/*.html dist/ && mv dist/home.html dist/index.html",
+    "build": "parcel build static/page/**/*.pug --out-dir dist && shx mv dist/**/*.html dist/ && shx mv dist/auth.html dist/index.html",
     "predev": "shx rm -rf dist",
     "start": "concurrently \"npm run dev:backend\" \"npm run dev:frontend\""
   },

@@ -1,3 +1,11 @@
+
+Публикация:
+https://optimistic-darwin-a6d8df.netlify.app/
+
+
+Макеты:
+https://www.figma.com/file/XUCnuti72FOGIadvpPdxLq/yandex-first-project?node-id=0%3A1
+
 ### Откройте pull request изменений из ветки dev (вы можете назвать иначе) в ветку main. ВАЖНО: pull request должен называться "Sprint i", где i — номер спринта.
 ### Также не забудьте проверить, что репозиторий публичный.
 ### Добавьте ниже ссылку на открытый pull request.
