@@ -11,7 +11,7 @@ block content
     - var loaderDialogId='profileAvatarLoader'
     +loaderDialog(loaderDialogId)
     main.page
-        +leftNavPanel('/')
+        +leftNavPanel('/home')
         form.form.profileForm
             div.form__top
                 a.profileForm__avatarLink(href="#", onclick='window.showDialog("'+loaderDialogId+'",true);')

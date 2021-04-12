@@ -24,7 +24,8 @@ const page404Controller = new Page404Controller();
 
 const app = express();
 
-app.get('/', homeController.getPage);
+app.get('/', authController.getPage);
+app.get('/home', homeController.getPage);
 app.get('/selectedChat', selectedChatController.getPage);
 app.get('/auth', authController.getPage);
 app.get('/register', registerController.getPage);
