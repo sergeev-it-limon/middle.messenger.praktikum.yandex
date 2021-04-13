@@ -8,7 +8,7 @@
     "prebuild": "shx rm -rf dist",
     "build": "parcel build static/page/**/*.pug --out-dir dist && shx mv dist/**/*.html dist/ && shx mv dist/auth.html dist/index.html",
     "predev": "shx rm -rf dist",
-    "start": "concurrently \"npm run dev:backend\" \"npm run dev:frontend\""
+    "start": "concurrently \"nodemon --watch ./server --exec node ./server/index.js\" \"parcel watch ./static/page/**/*.pug --out-dir dist\""
   },
   "repository": {
     "type": "git",
