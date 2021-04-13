@@ -1,4 +1,4 @@
-https://github.com/sergeev-it-limon/middle.messenger.praktikum.yandex/pull/1
+https://github.com/sergeev-it-limon/middle.messenger.praktikum.yandex/pull/2
 
 Публикация:
 https://optimistic-darwin-a6d8df.netlify.app/
