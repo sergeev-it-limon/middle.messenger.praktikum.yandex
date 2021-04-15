@@ -3,7 +3,7 @@ include ../../component/buttonMain/buttonMain.pug
 link(rel='stylesheet', href='../../component/modalAddRemoveUser/modalAddRemoveUser.css')
 
 mixin modalAddRemoveUserView(modalId, headerText, buttonText)
-    .modalAddRemoveUser__outerWrapper.modalAddRemoveUser_close(id=modalId)
+    .modalAddRemoveUser__outerWrapper.modalAddRemoveUser_close(id=modalId + '__outerWrapper')
         .modalAddRemoveUser__closeElem(id=modalId + '__close')
         section.modalAddRemoveUser(id=modalId)
             h2.modalAddRemoveUser__header= headerText

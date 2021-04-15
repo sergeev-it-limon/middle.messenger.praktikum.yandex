@@ -5,7 +5,8 @@ const initPopup = (trigger, triggerClassActive, popup) => {
 
     let isOpenPopup = false;
 
-    // На стадии поднятия после клика по триггеру сбросится в false
+    // На стадии поднятия после клика по триггеру
+    // сбросится в false в колбэке popupClose
     let isClickByPopup = true;
 
     trigger.addEventListener('click', popupOpen);
