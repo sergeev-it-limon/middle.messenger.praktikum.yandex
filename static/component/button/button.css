@@ -11,9 +11,6 @@
     background-color: var(--main-color);
     line-height: 37px;
     border-radius: 8px;
-    &_test {
-
-    }
 }
 .buttonTransparent {
     align-self: center;
