@@ -1,0 +1,58 @@
+@import '../../common/variables.css';
+
+.chatSelected {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+    padding: 0 20px;
+
+    &__header {
+        height: 54px;
+        display: flex;
+        align-items: center;
+    }
+
+    &__header-text {
+        font-size: var(--font-size-md);
+        font-weight: 600;
+        margin-left: 10px;
+        flex-grow: 1;
+    }
+
+    &__actions {
+        margin-left: 10px;
+    }
+
+    &__date {
+        font-size: var(--font-size-sm);
+        color: var(--pale_text-color);
+        text-align: center;
+        margin: 30px 0;
+    }
+
+    &__chat {
+        flex-grow: 1;
+        padding: 4px 0;
+        overflow-y: auto;
+    }
+
+    &__my-message-wrapper {
+        display: flex;
+        justify-content: flex-end;
+        margin-top: 24px;
+    }
+
+    &__messageWrapper {
+        margin-top: 24px;
+        
+    }
+
+    &__footer {
+        height: 54px;
+        max-width: 100%;
+        display: flex;
+        align-items: center;
+    }
+
+}

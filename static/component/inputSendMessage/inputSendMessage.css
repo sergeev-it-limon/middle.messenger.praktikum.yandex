@@ -1,0 +1,10 @@
+@import '../../common/variables.css';
+
+.inputSendMessage {
+    background-color: var(--gray-bcg-color);
+    line-height: 32px;
+    padding: 0 20px;
+    border: none;
+    border-radius: 30px;
+    width: 100%;
+}

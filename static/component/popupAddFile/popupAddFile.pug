@@ -1,0 +1,24 @@
+include ../../component/popup/popup.pug
+include ../../component/buttonAddFile/buttonAddFile.pug
+include ../../component/buttonChatPopup/buttonChatPopup.pug
+link(rel='stylesheet', href='../../component/popupAddFile/popupAddFile.css')
+
+mixin popupAddFile
+    +popupWrapper
+            +popup('popupAddFile', 'width: 192px;')
+                ul.popupAddFile__list
+                    li.popupAddFile__listItem
+                        +buttonChatPopup()(type='button')
+                            img.popupAddFile__icon(
+                                src='../../component/popupAddFile/imageIcon.png',
+                                alt='imageIcon'
+                            )
+                            | Фото или видео
+                    li.popupAddFile__listItem
+                        +buttonChatPopup()(type='button')
+                            img.popupAddFile__icon(
+                                src='../../component/popupAddFile/fileIcon.png',
+                                alt='imageIcon'
+                            )
+                            | Файл
+            +buttonAddFile()(id='buttonAddFile')

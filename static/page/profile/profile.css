@@ -1,0 +1,42 @@
+.profileForm {
+    width: 510px;
+    height: 650px;
+    box-shadow: none;
+
+    &__avatarLink {
+        align-self: center;
+        position: relative;
+        display: flex;
+    }
+
+    &__editAvatarText {
+        position: absolute;
+        height: 130px;
+        width: 130px;
+        display: flex;
+        opacity: 0;
+        border-radius: 75px;
+        color: #ffffff;
+        z-index: 1000;
+        text-align: center;
+
+        &:hover {
+            opacity: 1;
+            background-color: rgba(0, 0, 0, 0.5);
+            align-items: center;
+            justify-content: center;
+        }
+    }
+
+	&_editable {
+	    &:hover {
+	        cursor: pointer;
+	        .imageAvatar__shadow {
+	            display: flex;
+	        }        
+	        .imageAvatar__editAvatarText {
+	            display: block;
+	        }
+	    }
+	}
+}

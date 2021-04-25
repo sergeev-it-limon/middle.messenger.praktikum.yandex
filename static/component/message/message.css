@@ -1,0 +1,19 @@
+@import '../../common/variables.css';
+
+.message {
+    max-width: 380px;
+    min-width: 100px;
+    font-size: var(--font-size-sm);
+    padding: 11px;
+    background-color: var(--bcg-message-color);
+    border-radius: 8px;
+    display: inline-block;
+    position: relative;
+
+    &__time {
+        display: block;
+        text-align: end;
+        color: var(--pale_text-color);
+        font-size: var(--font-size-xxs);
+    }
+}
