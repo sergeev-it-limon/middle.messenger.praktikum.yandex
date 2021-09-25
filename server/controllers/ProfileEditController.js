@@ -1,12 +1,9 @@
-const path = require('path');
+const BaseController = require("./BaseController");
 
-class ProfileEditController {
-    getPage(_req, res, _next) {
-        console.log('requested profileEdit.html');
-        res.sendFile(path.join(__dirname, '../../dist/profileEdit/profileEdit.html'));
-    }
+class ProfileEditController extends BaseController {
+  name = "profileEdit";
 }
 
 module.exports = {
-    ProfileEditController,
+  ProfileEditController,
 };

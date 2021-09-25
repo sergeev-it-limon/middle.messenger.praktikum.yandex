@@ -1,12 +1,9 @@
-const path = require('path');
+const BaseController = require("./BaseController");
 
-class RegisterController {
-    getPage(_req, res, _next) {
-        console.log('requested register.html');
-        res.sendFile(path.join(__dirname, '../../dist/register/register.html'));
-    }
+class RegisterController extends BaseController {
+  name = "register";
 }
 
 module.exports = {
-    RegisterController,
+  RegisterController,
 };

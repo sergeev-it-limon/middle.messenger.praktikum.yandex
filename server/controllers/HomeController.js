@@ -1,12 +1,9 @@
-const path = require('path');
+const BaseController = require("./BaseController");
 
-class HomeController {
-    getPage(_req, res, _next) {
-        console.log('requested home.html');
-        res.sendFile(path.join(__dirname, '../../dist/home/home.html'));
-    }
+class HomeController extends BaseController {
+  name = "home";
 }
 
 module.exports = {
-    HomeController,
+  HomeController,
 };

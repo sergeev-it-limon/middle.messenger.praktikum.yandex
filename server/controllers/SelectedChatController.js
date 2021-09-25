@@ -1,12 +1,9 @@
-const path = require('path');
+const BaseController = require("./BaseController");
 
-class SelectedChatController {
-    getPage(_req, res, _next) {
-        console.log('requested selectedChat.html');
-        res.sendFile(path.join(__dirname, '../../dist/selectedChat/selectedChat.html'));
-    }
+class SelectedChatController extends BaseController {
+  name = "selectedChat";
 }
 
 module.exports = {
-    SelectedChatController,
+  SelectedChatController,
 };

@@ -1,12 +1,9 @@
-const path = require('path');
+const BaseController = require("./BaseController");
 
-class ChangePassword {
-    getPage(_req, res, _next) {
-        console.log('requested changePassword.html');
-        res.sendFile(path.join(__dirname, '../../dist/changePassword/changePassword.html'));
-    }
+class ChangePassword extends BaseController {
+  name = "changePassword";
 }
 
 module.exports = {
-    ChangePassword,
+  ChangePassword,
 };
