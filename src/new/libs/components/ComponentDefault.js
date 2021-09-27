@@ -4,7 +4,7 @@ export class ComponentDefault extends Component {
   render() {
     const current = document.createElement(this.props.tag);
 
-    const attributesEntries = Object.entries(this.props.attributes);
+    const attributesEntries = Object.entries(this.props.attributes ?? []);
 
     for (let attributeEntry of attributesEntries) {
       current.setAttribute(attributeEntry[0], attributeEntry[1]);

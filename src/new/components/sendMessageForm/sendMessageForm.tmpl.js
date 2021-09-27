@@ -7,11 +7,9 @@ var pug_has_own_property=Object.prototype.hasOwnProperty;
 var pug_match_html=/["&<>]/;export function template(locals) {var pug_html = "", pug_mixins = {}, pug_interp;;
     var locals_for_with = (locals || {});
     
-    (function (name, style) {
-      pug_html = pug_html + "\u003Cinput" + (pug_attr("class", pug_classes([style.root], [true]), false, false)+" type=\"text\" placeholder=\"Сообщение\""+pug_attr("name", name, true, false)) + "\u002F\u003E";
-    }.call(this, "name" in locals_for_with ?
-        locals_for_with.name :
-        typeof name !== 'undefined' ? name : undefined, "style" in locals_for_with ?
+    (function (style) {
+      pug_html = pug_html + "\u003Cform" + (pug_attr("class", pug_classes([style.root], [true]), false, false)+" data-event-listeners=\"submit:submitHandler\"") + "\u003E\u003Cdiv data-parent-for=\"popupAddFile\"\u003E\u003C\u002Fdiv\u003E\u003Cdiv" + (pug_attr("class", pug_classes([style.inputSendMessage], [true]), false, false)+" data-parent-for=\"inputSendMessage\"") + "\u003E\u003C\u002Fdiv\u003E\u003Cdiv" + (pug_attr("class", pug_classes([style.buttonSubmitSendMessageForm], [true]), false, false)+" data-parent-for=\"buttonSubmitSendMessageForm\"") + "\u003E\u003C\u002Fdiv\u003E\u003C\u002Fform\u003E";
+    }.call(this, "style" in locals_for_with ?
         locals_for_with.style :
         typeof style !== 'undefined' ? style : undefined));
     ;;return pug_html;}

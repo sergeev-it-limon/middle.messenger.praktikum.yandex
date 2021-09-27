@@ -50,6 +50,7 @@
 .footer {
   height: 54px;
   max-width: 100%;
+  margin: 12px;
   display: flex;
   align-items: center;
 }

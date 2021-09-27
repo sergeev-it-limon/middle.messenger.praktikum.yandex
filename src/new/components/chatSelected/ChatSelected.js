@@ -7,6 +7,7 @@ import { getSelectedChatData } from "../../mocks/getSelectedChatData";
 import { MessageImage } from "../messageImage";
 import { Message } from "../message/Message";
 import { Divider } from "../divider";
+import { SendMessageForm } from "../sendMessageForm";
 
 export class ChatSelected extends Component {
   getMeta(messagesData) {
@@ -108,6 +109,9 @@ export class ChatSelected extends Component {
         },
         dividerFooter: {
           Component: Divider,
+        },
+        sendMessageForm: {
+          Component: SendMessageForm,
         },
         ...mesChildren,
       },

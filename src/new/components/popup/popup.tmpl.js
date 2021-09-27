@@ -7,11 +7,20 @@ var pug_has_own_property=Object.prototype.hasOwnProperty;
 var pug_match_html=/["&<>]/;export function template(locals) {var pug_html = "", pug_mixins = {}, pug_interp;;
     var locals_for_with = (locals || {});
     
-    (function (name, style) {
-      pug_html = pug_html + "\u003Cinput" + (pug_attr("class", pug_classes([style.root], [true]), false, false)+" type=\"text\" placeholder=\"Сообщение\""+pug_attr("name", name, true, false)) + "\u002F\u003E";
-    }.call(this, "name" in locals_for_with ?
-        locals_for_with.name :
-        typeof name !== 'undefined' ? name : undefined, "style" in locals_for_with ?
+    (function (position, style, width) {
+      switch (position){
+case 'top':
+pug_html = pug_html + "\u003Csection" + (pug_attr("class", pug_classes([style.root], [true]), false, false)+" style=\"bottom: calc(100% + 22px);\"") + "\u003E\u003Cdiv" + (pug_attr("class", pug_classes([style.inner], [true]), false, false)+pug_attr("sytle", width, true, false)+" data-parent-for=\"content\"") + "\u003E\u003C\u002Fdiv\u003E\u003C\u002Fsection\u003E";
+  break;
+case 'bottom':
+pug_html = pug_html + "\u003Csection" + (pug_attr("class", pug_classes([style.root], [true]), false, false)+" style=\"top: calc(100% + 22px); right: 0;\"") + "\u003E\u003Cdiv" + (pug_attr("class", pug_classes([style.inner], [true]), false, false)+pug_attr("sytle", width, true, false)+" data-parent-for=\"content\"") + "\u003E\u003C\u002Fdiv\u003E\u003C\u002Fsection\u003E";
+  break;
+}
+    }.call(this, "position" in locals_for_with ?
+        locals_for_with.position :
+        typeof position !== 'undefined' ? position : undefined, "style" in locals_for_with ?
         locals_for_with.style :
-        typeof style !== 'undefined' ? style : undefined));
+        typeof style !== 'undefined' ? style : undefined, "width" in locals_for_with ?
+        locals_for_with.width :
+        typeof width !== 'undefined' ? width : undefined));
     ;;return pug_html;}
