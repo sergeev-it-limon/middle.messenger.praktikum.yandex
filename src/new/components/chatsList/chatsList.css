@@ -1,0 +1,27 @@
+@import "../../common/variables.css";
+
+.root {
+  height: 100%;
+}
+
+.list {
+  height: 100%;
+  overflow-y: scroll;
+  overflow-x: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.itemWrapper {
+  width: 100%;
+}
+
+.divider {
+  margin: 2px 0;
+  width: 290px;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  border-bottom: 1px solid var(--divider-color);
+}

@@ -1,0 +1,31 @@
+@import "../../common/variables.css";
+
+.root {
+  max-width: 380px;
+  min-width: 100px;
+  font-size: var(--font-size-sm);
+  border-radius: 8px;
+  display: inline-block;
+  position: relative;
+  overflow: hidden;
+}
+
+.imgContainer {
+  margin: 0;
+}
+
+.img {
+  object-fit: contain;
+  width: 100%;
+}
+
+.time {
+  background-color: var(--gray-img-time-color);
+  color: white;
+  font-size: var(--font-size-xxs);
+  padding: 2px 7px;
+  border-radius: 30px;
+  position: absolute;
+  right: 12px;
+  bottom: 12px;
+}

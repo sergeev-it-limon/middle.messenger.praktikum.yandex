@@ -1,0 +1,10 @@
+@import "../../common/variables.css";
+
+.root {
+  display: flex;
+  height: 100vh;
+}
+
+.mainContent {
+  flex-grow: 1;
+}

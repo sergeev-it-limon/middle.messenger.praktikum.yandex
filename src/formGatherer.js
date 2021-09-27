@@ -1,18 +1,20 @@
 class FormGatherer {
-    constructor(inputElemArray) {
-        this.inputElemArray = inputElemArray;
+    constructor(fieldsArray) {
+        this.fieldsArray = fieldsArray;
     }
 
     getFormValues() {
         let result = {};
-        for (let elem of this.inputElemArray) {
-            result[elem.id] = elem.value;
+        for (let fieldId of this.fieldsArray) {
+            let elem = document.getElementById(fieldId);
+            result[fieldId] = elem.value;
         }
         console.log(result);
     }
 
     addEventLesteners() {
-        for(let elem of this.inputElemArray) {
+        for(let fieldId of this.fieldsArray) {
+            let elem = document.getElementById(fieldId);
             elem.addEventListener("change", () => this.getFormValues());
         }
     }

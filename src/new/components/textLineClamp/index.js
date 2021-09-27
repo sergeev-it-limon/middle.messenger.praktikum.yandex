@@ -1,0 +1,1 @@
+export { TextLineClamp } from "./TextLineClamp";

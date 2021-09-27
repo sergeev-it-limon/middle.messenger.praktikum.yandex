@@ -1,0 +1,20 @@
+:root {
+  --main-color: #3369f3;
+  --main-hover-color: #e4edfd;
+  --bcg-message-color: #f8f8f8;
+  --light-gray-bcg-color: #fbfbfb;
+  --gray-img-time-color: #5252527f;
+  --gray-bcg-color: #efefef;
+  --main-text-color: #1e1e1e;
+  --pale_text-color: #999999;
+  --divider-color: #eaeaea;
+  --alarm-color: #ff2f2f;
+  --faded-color: #bbcdfb;
+
+  --font-size-xl: 20px;
+  --font-size-lg: 15px;
+  --font-size-md: 13px;
+  --font-size-sm: 12px;
+  --font-size-xs: 11px;
+  --font-size-xxs: 9px;
+}

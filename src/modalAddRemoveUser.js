@@ -29,12 +29,10 @@ function initForms() {
 function initModals() {
     const addModalElem = document.querySelector('#modalAddUser__outerWrapper');
     const addCloseElem = addModalElem.querySelector('#modalAddUser__close');
-    // Триггер - это кнопка вызывающая модальное окно, и располагается вне модального окна
     const addTrigger = document.querySelector('#modalAddUser__trigger');
     
     const removeModalElem = document.querySelector('#modalRemoveUser__outerWrapper');
     const removeCloseElem = removeModalElem.querySelector('#modalRemoveUser__close');
-    // Триггер - это кнопка вызывающая модальное окно, и располагается вне модального окна
     const removeTrigger = document.querySelector('#modalRemoveUser__trigger');
 
     initModal(addModalElem, addCloseElem, addTrigger);

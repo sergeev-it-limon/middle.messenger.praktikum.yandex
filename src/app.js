@@ -10,7 +10,10 @@ window.onload = () => {
     // Ищем на странице элементы ввода, с котрых нужо собирать данные (элементы с классом inputStringItem)
     const inputElemsArr=[...document.querySelectorAll('.inputString__input')];
     if (inputElemsArr.length > 0) {        
-        const gatherer = new FormGatherer(inputElemsArr);
+        // Получим массив с идентификаторами
+        const inputElemIdArr = inputElemsArr.map((item)=>item.id);
+        // Создаем экземпляр сборщика
+        const gatherer = new FormGatherer(inputElemIdArr);
         // Навешиваем обработчики события
         gatherer.addEventLesteners();        
     }

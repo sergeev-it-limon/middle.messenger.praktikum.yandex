@@ -1,0 +1,1 @@
+export function template(locals) {var pug_html = "", pug_mixins = {}, pug_interp;pug_html = pug_html + "\u003Cform data-event-listeners=\"submit:submitHandler\" data-parent-for=\"inputSearch\"\u003E\u003C\u002Fform\u003E";;return pug_html;}
