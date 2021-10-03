@@ -6,7 +6,6 @@ import style from "./chatPageTmpl.css.json";
 
 export class ChatPageTmpl extends Component {
   render() {
-    console.log(this.props);
     return {
       current: htmlFromStr(template({ style })),
       children: {

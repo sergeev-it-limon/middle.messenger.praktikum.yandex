@@ -6,6 +6,7 @@ import "./sendMessageForm.css";
 import style from "./sendMessageForm.css.json";
 import { InputSendMessage } from "../inputSendMessage";
 import { ButtonSubmitSendMessageForm } from "../buttonSubmitSendMessageForm";
+import { PopupAddFile } from "../popupAddFile";
 
 export class SendMessageForm extends Component {
   submitHandler(e) {
@@ -24,6 +25,7 @@ export class SendMessageForm extends Component {
         submitHandler: this.submitHandler,
       },
       children: {
+        popupAddFile: { Component: PopupAddFile },
         inputSendMessage: {
           Component: InputSendMessage,
           props: {

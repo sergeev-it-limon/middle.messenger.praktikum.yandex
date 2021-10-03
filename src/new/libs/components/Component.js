@@ -14,7 +14,9 @@ export class Component {
     const isNotNeedUpdate = !this.#isNeedUpdate(this.props, state);
     if (isNotNeedUpdate) return false;
 
+    this.prevState = this.state;
     this.state = { ...this.state, ...state };
+
     this.#updateDomElement();
   }
 
@@ -45,6 +47,7 @@ export class Component {
 
     this.props = props;
     this.parent = parent;
+    this.prevState = null;
 
     if (typeof this.initialState === "function") {
       this.state = this.initialState();

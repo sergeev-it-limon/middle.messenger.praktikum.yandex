@@ -10,7 +10,9 @@ export class ComponentDefault extends Component {
       current.setAttribute(attributeEntry[0], attributeEntry[1]);
     }
 
-    current.innerText = this.props.innerText;
+    if (this.props.innerText != null) {
+      current.innerText = this.props.innerText;
+    }
 
     return {
       current,

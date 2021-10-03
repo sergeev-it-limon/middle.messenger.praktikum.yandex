@@ -1,15 +1,15 @@
-@import '../../common/variables.css';
+@import "../../common/variables.css";
 
-.popupAddFile {
-    &__list {
-        width: 196px;
-    }
+.root {
+  &__list {
+    width: 196px;
+  }
 
-    &__listItem:nth-child(even) {
-        margin-top: 16px;
-    }
+  &__listItem:nth-child(even) {
+    margin-top: 16px;
+  }
 
-    &__icon {
-        margin-right: 16px;
-    }
+  &__icon {
+    margin-right: 16px;
+  }
 }

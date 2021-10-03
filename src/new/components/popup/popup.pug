@@ -1,7 +1,20 @@
+mixin popupView(style, popupClassName, openClassName, styleAtr)
+    section(class=style.root+' '+popupClassName style=styleAtr)
+        div(class=style.inner+' '+openClassName sytle=width data-parent-for='content')
+
+mixin popupOpenable(style, popupClassName, isOpen, styleAtr)
+    case isOpen
+        when true
+            +popupView(style, popupClassName, style.inner_open, styleAtr)
+        when false
+            +popupView(style, popupClassName, '', styleAtr)
+
 case position
     when 'top'
-        section(class=style.root style='bottom: calc(100% + 22px);')
-            div(class=style.inner sytle=width data-parent-for='content')
+        +popupOpenable(style, popupClassName, isOpen, 'bottom: calc(100% + 22px); width: '+width+';')
+        //- section(class=style.root+' '+popupClassName style='bottom: calc(100% + 22px); width: '+width+';')
+        //-     div(class=style.inner sytle=width data-parent-for='content')
     when 'bottom'
-        section(class=style.root style='top: calc(100% + 22px); right: 0;')
-            div(class=style.inner sytle=width data-parent-for='content')
+        +popupOpenable(style, popupClassName, isOpen, 'top: calc(100% + 22px); right: 0; '+width+';')
+        //- section(class=style.root+' '+popupClassName style='top: calc(100% + 22px); right: 0; '+width+';')
+        //-     div(class=style.inner sytle=width data-parent-for='content')

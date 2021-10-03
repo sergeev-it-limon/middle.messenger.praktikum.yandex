@@ -71,7 +71,6 @@ export class ChatSelected extends Component {
   }
 
   getTextMesChild(mes) {
-    console.log(mes);
     return {
       Component: Message,
       props: {

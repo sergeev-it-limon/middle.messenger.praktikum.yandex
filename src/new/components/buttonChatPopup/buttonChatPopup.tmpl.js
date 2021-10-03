@@ -7,9 +7,11 @@ var pug_has_own_property=Object.prototype.hasOwnProperty;
 var pug_match_html=/["&<>]/;export function template(locals) {var pug_html = "", pug_mixins = {}, pug_interp;;
     var locals_for_with = (locals || {});
     
-    (function (style) {
-      pug_html = pug_html + "\u003Cdiv" + (pug_attr("class", pug_classes([style.root], [true]), false, false)+" data-parent-for=\"content\"") + "\u003E\u003C\u002Fdiv\u003E";
+    (function (style, type) {
+      pug_html = pug_html + "\u003Cbutton" + (pug_attr("class", pug_classes([style.root], [true]), false, false)+pug_attr("type", type, true, false)+" data-parent-for=\"img,text\"") + "\u003E\u003C\u002Fbutton\u003E";
     }.call(this, "style" in locals_for_with ?
         locals_for_with.style :
-        typeof style !== 'undefined' ? style : undefined));
+        typeof style !== 'undefined' ? style : undefined, "type" in locals_for_with ?
+        locals_for_with.type :
+        typeof type !== 'undefined' ? type : undefined));
     ;;return pug_html;}
