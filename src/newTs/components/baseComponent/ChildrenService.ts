@@ -21,7 +21,7 @@ export class ChildrenService {
 	}
 
 	/** Добавить дочерние элементы */
-	public bindChildren() {
+	public bindChildren(): void {
 		this.initChildrenPlacesSet();
 		this.insertChildren();
 	}
@@ -33,13 +33,13 @@ export class ChildrenService {
 	private insertChildren() {
 		const keys = Object.keys(this.childrenPlacesSet);
 
-		for (let key of keys) {
+		for (const key of keys) {
 			this.replaceWithChild(this.childrenPlacesSet[key], this.children[key]);
 		}
 	}
 
 	private replaceWithChild(places: HTMLElement[], child: HTMLElement) {
-		for (let place of places) {
+		for (const place of places) {
 			place.parentNode?.replaceChild(child, place);
 		}
 	}

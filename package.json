@@ -9,7 +9,9 @@
 		"prebuild": "shx rm -rf dist",
 		"build": "parcel build static/page/**/*.pug --out-dir dist && shx mv dist/**/*.html dist/ && shx mv dist/auth.html dist/index.html",
 		"predev": "shx rm -rf dist",
-		"start": "concurrently \"npm run dev:frontend\" \"npm run dev:pug-builder\" \"npm run dev:backend\""
+		"start": "concurrently \"npm run dev:frontend\" \"npm run dev:pug-builder\" \"npm run dev:backend\"",
+		"lint": "esw src/newTs --ext .ts --watch --clear",
+		"fix": "eslint src/newTs --ext .ts --fix"
 	},
 	"repository": {
 		"type": "git",
@@ -28,6 +30,7 @@
 		"autoprefixer": "~9.8.6",
 		"concurrently": "~6.0.0",
 		"eslint": "^7.32.0",
+		"eslint-watch": "^7.0.0",
 		"express": "~4.17.1",
 		"faker": "^5.5.3",
 		"glob": "~7.1.7",

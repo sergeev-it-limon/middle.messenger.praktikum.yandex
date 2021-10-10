@@ -21,11 +21,11 @@ export class ActionsService {
 	/** Привязываем экшны к тэгам. К одному тэгу можно привязать экшны только одного типа.
 	 * Пример атрибута: data-actions="click:onClick,logger".
 	 * */
-	public bindActions() {
+	public bindActions(): void {
 		const elemsByActionsGroups = getElemsByDataset(this.ref, ACTIONS_ATTR);
 		const typesNamesRelations = Object.keys(elemsByActionsGroups);
 
-		for (let typeNames of typesNamesRelations) {
+		for (const typeNames of typesNamesRelations) {
 			const elems = elemsByActionsGroups[typeNames];
 			const [actionType, actionNamesStr] = typeNames.split(":");
 			const actionNames = actionNamesStr.split(",");
@@ -39,7 +39,7 @@ export class ActionsService {
 		elems: HTMLElement[],
 		actionNames: string[]
 	) {
-		for (let elem of elems) {
+		for (const elem of elems) {
 			this.addEventListenersForElemByType(actionType, elem, actionNames);
 		}
 	}
@@ -49,7 +49,7 @@ export class ActionsService {
 		elem: HTMLElement,
 		actionNames: string[]
 	) {
-		for (let actionName of actionNames) {
+		for (const actionName of actionNames) {
 			elem.addEventListener(actionType, this.actions[actionName]);
 		}
 	}

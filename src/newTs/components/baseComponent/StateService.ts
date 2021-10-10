@@ -2,7 +2,7 @@ import { getElemsByDataset, TElemsByDataset } from "./getElemsByDataset";
 
 const VALUE_USED_ATTR = "[data-value-used]";
 
-export type TState = { [key: string]: string | number };
+export type TState = { [key: string]: string | number } | null;
 
 /** Сервис, реализующий логику работы со стейтом компонента и логику его обновления на связанных тэгах.
  * Объект стейта является реактивным, изменение свойств в нем будет вызывать ререндер связанных компонентов */
@@ -22,7 +22,9 @@ export class StateService {
 	}
 
 	/** Связать стейт с соответствующими тэгами */
-	public bindState() {
+	public bindState(): void {
+		if (this.state == null) return;
+
 		this.initValueUsedArr();
 		this.bindValues();
 	}
@@ -36,8 +38,8 @@ export class StateService {
 	private bindValues() {
 		const keys = Object.keys(this.valueUsedKeys);
 
-		for (let key of keys) {
-			let valueOld = this.state[key];
+		for (const key of keys) {
+			let valueOld = this.state?.[key];
 			Object.defineProperty(this.state, key, {
 				set: (valueNew: string | number) => {
 					if (valueNew !== valueOld) {
@@ -56,7 +58,7 @@ export class StateService {
 	private updateElements(key: string, valueNew: string | number) {
 		const elems = this.valueUsedKeys[key];
 
-		for (let elem of elems) {
+		for (const elem of elems) {
 			this.updateElement(elem, String(valueNew));
 		}
 	}
@@ -71,7 +73,7 @@ export class StateService {
 	}
 
 	private getStrNumValue(key: string, value: string | number) {
-		if (typeof this.state[key] === "number") {
+		if (typeof this.state?.[key] === "number") {
 			return Number(value);
 		} else {
 			return value;

@@ -3,7 +3,7 @@ import { ChildrenService, TChildren } from "./ChildrenService";
 import { StateService, TState as TStateBase } from "./stateService";
 
 /** асбтрактый класс, реализующий основную логику работы компонентов */
-export abstract class BaseComponent<TState extends TStateBase> {
+export abstract class BaseComponent<TState extends TStateBase = null> {
 	private stateService: StateService;
 	private actionsService: ActionsService;
 	private childrenService: ChildrenService;
@@ -12,7 +12,7 @@ export abstract class BaseComponent<TState extends TStateBase> {
 	public readonly ref: HTMLElement;
 
 	/** Стейт компонента, связанный с тэгами */
-	public get state() {
+	public get state(): TState {
 		return this.stateService.state as TState;
 	}
 
@@ -21,7 +21,7 @@ export abstract class BaseComponent<TState extends TStateBase> {
 	 * доступ к реактивному состоянию через state.
 	 * @param state Дефолтный стейт компонента.
 	 */
-	constructor(state: TState) {
+	constructor(state: TState = null as TState) {
 		this.ref = this.render(state);
 
 		this.stateService = new StateService(this.ref, state);

@@ -12,7 +12,10 @@ type TSubscribers = { [key in TEventName]: TSubscriber<key>[] };
 export default class EventBus {
 	private subscribers: TSubscribers;
 
-	subscribe<T extends TEventName>(eventName: T, callback: TSubscriber<T>) {
+	subscribe<T extends TEventName>(
+		eventName: T,
+		callback: TSubscriber<T>
+	): void {
 		const subsCur = this.subscribers[eventName] as TSubscriber<T>[];
 		const isExist = subsCur.some((sub) => sub === callback);
 
@@ -24,7 +27,10 @@ export default class EventBus {
 		subsCur.push(callback);
 	}
 
-	unsubscribe<T extends TEventName>(eventName: T, callback: TSubscriber<T>) {
+	unsubscribe<T extends TEventName>(
+		eventName: T,
+		callback: TSubscriber<T>
+	): void {
 		const subsCur = this.subscribers[eventName] as TSubscriber<T>[];
 		const isNotExist = subsCur.every((sub) => sub !== callback);
 
@@ -40,10 +46,10 @@ export default class EventBus {
 		this.subscribers[eventName] = subsNew;
 	}
 
-	emit<T extends TEventName>(eventName: T, payload: TEvents[T]) {
+	emit<T extends TEventName>(eventName: T, payload: TEvents[T]): void {
 		const subsCur = this.subscribers[eventName] as TSubscriber<T>[];
 
-		for (let sub of subsCur) {
+		for (const sub of subsCur) {
 			sub(payload);
 		}
 	}

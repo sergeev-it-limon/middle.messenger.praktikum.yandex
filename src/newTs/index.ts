@@ -8,7 +8,7 @@ if (root == null) {
 
 const pathname = window.location.pathname;
 if (pathname === "/home") {
-	const homePage = new HomePage({});
+	const homePage = new HomePage();
 	console.log(homePage.ref);
 	root.appendChild(homePage.ref);
 }

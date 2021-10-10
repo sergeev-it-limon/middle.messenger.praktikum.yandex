@@ -6,7 +6,6 @@
 		"module": "commonjs",
 		"strictNullChecks": true,
 		"sourceMap": true,
-		"noImplicitAny": false,
 		"noUnusedLocals": true,
 		"noUnusedParameters": true,
 		"resolveJsonModule": true,
