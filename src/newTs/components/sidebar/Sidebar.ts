@@ -4,9 +4,7 @@ import { template } from "./sidebar.tmpl.js";
 import "./sidebar.css";
 import style from "./sidebar.css.json";
 import { ProfileLink } from "../profileLink";
-// import { ChatsList } from "../chatsList";
-// import { ProfileLink } from "../ProfileLink";
-// import { SearchChatForm } from "../searchChatForm";
+import { SearchChatForm } from "../searchChatForm";
 
 export class Sidebar extends BaseComponent {
 	render(): HTMLElement {
@@ -16,7 +14,7 @@ export class Sidebar extends BaseComponent {
 	initChildren(): TChildren {
 		return {
 			profileLink: new ProfileLink().ref,
-			searchChatForm: htmlFromStr("<div>searchChatForm</div>"),
+			searchChatForm: new SearchChatForm().ref,
 			chatsList: htmlFromStr("<div>chatsList</div>"),
 		};
 	}
