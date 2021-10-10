@@ -1,3 +1,4 @@
+import "./common/commonStyles.css";
 import { HomePage } from "./pages/homePage";
 
 const root = document.getElementById("root");
