@@ -5,6 +5,7 @@ import "./sidebar.css";
 import style from "./sidebar.css.json";
 import { ProfileLink } from "../profileLink";
 import { SearchChatForm } from "../searchChatForm";
+import { ChatsList } from "../chatsList";
 
 export class Sidebar extends BaseComponent {
 	render(): HTMLElement {
@@ -15,7 +16,7 @@ export class Sidebar extends BaseComponent {
 		return {
 			profileLink: new ProfileLink().ref,
 			searchChatForm: new SearchChatForm().ref,
-			chatsList: htmlFromStr("<div>chatsList</div>"),
+			chatsList: new ChatsList().ref,
 		};
 	}
 }
