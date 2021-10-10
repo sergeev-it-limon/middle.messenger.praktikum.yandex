@@ -1,5 +1,6 @@
 import "./common/commonStyles.css";
 import { HomePage } from "./pages/homePage";
+import { htmlFromStr } from "./utils/htmlFrom";
 
 const root = document.getElementById("root");
 
@@ -8,8 +9,12 @@ if (root == null) {
 }
 
 const pathname = window.location.pathname;
+let componentNode: HTMLElement;
+
 if (pathname === "/home") {
-	const homePage = new HomePage();
-	console.log(homePage.ref);
-	root.appendChild(homePage.ref);
+	componentNode = new HomePage().ref;
+} else {
+	componentNode = htmlFromStr("<div>Not Found</div>");
 }
+
+root.appendChild(componentNode);
