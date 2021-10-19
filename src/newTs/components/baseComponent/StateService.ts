@@ -1,75 +1,97 @@
-import { getElemsByDataset, TElemsByDataset } from "./getElemsByDataset";
+import { getElemsByDataset } from "./getElemsByDataset";
+import { StateChangeEventBus, TStateBase } from "./StateChangeEventBus";
 
-const VALUE_USED_ATTR = "[data-value-used]";
-
-export type TState = { [key: string]: string | number } | null;
+const STATE_ATTR = "[data-state]";
 
 /** Сервис, реализующий логику работы со стейтом компонента и логику его обновления на связанных тэгах.
  * Объект стейта является реактивным, изменение свойств в нем будет вызывать ререндер связанных компонентов */
-export class StateService {
+export class StateService<TState extends TStateBase> {
 	/** Реактивное состояние компонента, где каждое свойство может быть привязано к определенным тэгам */
 	public state: TState;
+	private readonly stateChangeEventBus: StateChangeEventBus<TState>;
 
-	/** Ссылка на элемент в котором надо искать привязки к стейту */
-	private readonly ref: HTMLElement;
-
-	/** Ключи из стейта, привязанные к определенным тэгам */
-	private valueUsedKeys: TElemsByDataset = {};
-
-	constructor(ref: HTMLElement, defaultState: TState) {
+	constructor(defaultState: TState) {
 		this.state = defaultState;
-		this.ref = ref;
+		this.stateChangeEventBus = new StateChangeEventBus<TState>();
 	}
 
-	/** Связать стейт с соответствующими тэгами */
-	public bindState(): void {
+	/** Связать стейт с соответствующими тэгами в переданном элементе */
+	public bindState(ref: HTMLElement): void {
 		if (this.state == null) return;
 
-		this.initValueUsedArr();
-		this.bindValues();
-	}
-
-	/** Получаем все значения из стейта, которые используются с привязкой к тэгам */
-	private initValueUsedArr() {
-		this.valueUsedKeys = getElemsByDataset(this.ref, VALUE_USED_ATTR);
+		this.bindValues(ref);
 	}
 
 	/** Добавляем сеттеры к тем значениям стейта, которые используются */
-	private bindValues() {
-		const keys = Object.keys(this.valueUsedKeys);
+	private bindValues(ref: HTMLElement) {
+		const stateAttrKeys = getElemsByDataset(ref, STATE_ATTR);
 
-		for (const key of keys) {
-			let valueOld = this.state?.[key];
-			Object.defineProperty(this.state, key, {
-				set: (valueNew: string | number) => {
+		// строки вида attr1:stateKey1,attr2:stateKey2,stateKey3,attr4:stateKey4
+		const stateAttrStrArr = Object.keys(stateAttrKeys);
+
+		for (const stateAttrStr of stateAttrStrArr) {
+			const stateAttrArr = stateAttrStr.split(","); // получаем строки вида attr:stateKey и stateKey
+			const elems = stateAttrKeys[stateAttrStr];
+
+			for (const stateAttr of stateAttrArr) {
+				const stateAttrEntry = stateAttr.split(":"); // получаем массив [attr, stateKey], либо [stateKey]
+
+				for (const elem of elems) {
+					if (stateAttrEntry.length === 2) {
+						const [attr, stateKey] = stateAttrEntry;
+
+						const stateValue = this.state[stateKey];
+
+						if (stateValue == null) {
+							console.error(
+								`Can not find state for key ${stateKey} in data-state ${stateAttrStr}`
+							);
+						} else {
+							elem.setAttribute(attr, stateValue.toString());
+							this.stateChangeEventBus.subscribe(stateKey, (stateValue) => {
+								elem.setAttribute(attr, stateValue.toString());
+							});
+						}
+					} else if (stateAttrEntry.length === 1) {
+						const [stateKey] = stateAttrEntry;
+						const stateValue = this.state[stateKey];
+
+						if (stateValue == null) {
+							console.error(
+								`Can not find state for key ${stateKey} in data-state ${stateAttrStr}`
+							);
+						} else {
+							elem.innerText = stateValue.toString();
+							this.stateChangeEventBus.subscribe(stateKey, (stateValue) => {
+								elem.innerText = stateValue.toString();
+							});
+						}
+					}
+				}
+			}
+			this.createReactiveState();
+		}
+	}
+
+	private createReactiveState(): void {
+		const stateKeys = Object.keys(this.state);
+
+		for (const stateKey of stateKeys) {
+			let valueOld = this.state[stateKey];
+			Object.defineProperty(this.state, stateKey, {
+				set: (valueNew: typeof valueOld) => {
 					if (valueNew !== valueOld) {
-						console.log("update!");
-						this.updateElements(key, valueNew);
-					} else {
-						console.log("not update");
+						this.stateChangeEventBus.emit(
+							stateKey as keyof TState,
+							valueNew as TState[keyof TState]
+						);
 					}
 
-					valueOld = this.getStrNumValue(key, valueNew);
+					valueOld = this.getStrNumValue(stateKey, valueNew);
 				},
+				get: () => valueOld,
 			});
 		}
-	}
-
-	private updateElements(key: string, valueNew: string | number) {
-		const elems = this.valueUsedKeys[key];
-
-		for (const elem of elems) {
-			this.updateElement(elem, String(valueNew));
-		}
-	}
-
-	private updateElement(elem: HTMLElement, value: string): void {
-		if (elem instanceof HTMLInputElement) {
-			(elem as HTMLInputElement).value = String(value);
-			return;
-		}
-
-		elem.innerText = value;
 	}
 
 	private getStrNumValue(key: string, value: string | number) {

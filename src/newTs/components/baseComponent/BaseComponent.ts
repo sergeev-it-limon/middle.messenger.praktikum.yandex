@@ -1,10 +1,14 @@
 import { ActionsService, TActions } from "./ActionsService";
 import { ChildrenService, TChildren } from "./ChildrenService";
-import { StateService, TState as TStateBase } from "./stateService";
+import { TStateBase } from "./StateChangeEventBus";
+import { StateService } from "./stateService";
 
 /** асбтрактый класс, реализующий основную логику работы компонентов */
-export abstract class BaseComponent<TState extends TStateBase = null> {
-	private stateService: StateService;
+export abstract class BaseComponent<
+	TState extends TStateBase = {},
+	TProps = {}
+> {
+	private stateService: StateService<TState>;
 	private actionsService: ActionsService;
 	private childrenService: ChildrenService;
 
@@ -19,24 +23,47 @@ export abstract class BaseComponent<TState extends TStateBase = null> {
 	/**
 	 * Создает компонент, доступ к dom-элементу можно получить через ref,
 	 * доступ к реактивному состоянию через state.
-	 * @param state Дефолтный стейт компонента.
+	 * @param props Данные на основе которых формируется состояние компонента.
 	 */
-	constructor(state: TState = null as TState) {
-		this.ref = this.render(state);
+	constructor(props: TProps) {
+		this.stateService = new StateService(this.initState());
+		this.update(props);
+		this.componentWillInit();
 
-		this.stateService = new StateService(this.ref, state);
+		this.ref = this.render();
+
 		this.actionsService = new ActionsService(this.ref, this.initActions());
 		this.childrenService = new ChildrenService(this.ref, this.initChildren());
 
-		this.stateService.bindState();
+		this.stateService.bindState(this.ref);
 		this.actionsService.bindActions();
 		this.childrenService.bindChildren();
 	}
 
+	/** Метод, обновляющий состояние компонента, основываясь на новых пропсах */
+	public update(propsNew: TProps) {
+		this.propsToState(propsNew);
+	}
+
+	/** Коллбэк, вызывающийся перед тем, как начется инициализация компонента */
+	protected componentWillInit(): void {}
+
 	/** Метод, возвращающий элемент компонента для переданных props */
-	abstract render(state: TState): HTMLElement;
+	protected abstract render(): HTMLElement;
 
 	/** Метод, возвращающий начальный стейт */
+	protected initState(): TState {
+		return {} as TState;
+	}
+
+	/** Метод, производящий обновление стейта на основе пропсов. */
+	protected propsToState(props: TProps) {
+		if (this.state == null && props != null) {
+			console.error(
+				"props resieved for component, but propsToState is not implemented."
+			);
+		}
+	}
 
 	/** Метод, возвращающий дочерние компоненты */
 	protected initChildren(): TChildren {
