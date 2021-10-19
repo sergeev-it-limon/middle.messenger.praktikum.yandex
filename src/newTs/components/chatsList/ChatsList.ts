@@ -10,7 +10,7 @@ import { ChatsListItem } from "../chatsListItem";
 export class ChatsList extends BaseComponent {
 	private chatsData: TChatItem[];
 
-	render() {
+	render(): HTMLElement {
 		this.chatsData = getChatsData();
 
 		return htmlFromStr(

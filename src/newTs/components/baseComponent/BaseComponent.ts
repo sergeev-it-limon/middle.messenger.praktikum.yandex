@@ -3,10 +3,15 @@ import { ChildrenService, TChildren } from "./ChildrenService";
 import { TStateBase } from "./StateChangeEventBus";
 import { StateService } from "./stateService";
 
+export interface BaseComponent {
+	/** Коллбэк, вызывающийся перед тем, как начется инициализация компонента */
+	componentWillInit?(): void;
+}
+
 /** асбтрактый класс, реализующий основную логику работы компонентов */
 export abstract class BaseComponent<
-	TState extends TStateBase = {},
-	TProps = {}
+	TState extends TStateBase = null,
+	TProps = null
 > {
 	private stateService: StateService<TState>;
 	private actionsService: ActionsService;
@@ -28,7 +33,9 @@ export abstract class BaseComponent<
 	constructor(props: TProps) {
 		this.stateService = new StateService(this.initState());
 		this.update(props);
-		this.componentWillInit();
+		if (this.componentWillInit != null) {
+			this.componentWillInit();
+		}
 
 		this.ref = this.render();
 
@@ -41,23 +48,20 @@ export abstract class BaseComponent<
 	}
 
 	/** Метод, обновляющий состояние компонента, основываясь на новых пропсах */
-	public update(propsNew: TProps) {
+	public update(propsNew: TProps): void {
 		this.propsToState(propsNew);
 	}
-
-	/** Коллбэк, вызывающийся перед тем, как начется инициализация компонента */
-	protected componentWillInit(): void {}
 
 	/** Метод, возвращающий элемент компонента для переданных props */
 	protected abstract render(): HTMLElement;
 
 	/** Метод, возвращающий начальный стейт */
 	protected initState(): TState {
-		return {} as TState;
+		return null as TState;
 	}
 
 	/** Метод, производящий обновление стейта на основе пропсов. */
-	protected propsToState(props: TProps) {
+	protected propsToState(props: TProps): void {
 		if (this.state == null && props != null) {
 			console.error(
 				"props resieved for component, but propsToState is not implemented."

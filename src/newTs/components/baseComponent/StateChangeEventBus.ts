@@ -1,4 +1,4 @@
-export type TStateBase = { [key: string]: string | number };
+export type TStateBase = { [key: string]: string | number } | null;
 
 type TEvents<TState extends TStateBase> = {
 	[key in keyof TState]: TState[key];

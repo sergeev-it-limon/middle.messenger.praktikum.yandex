@@ -15,7 +15,7 @@ export class ChatsListItem extends BaseComponent<
 	TChatItemState,
 	TChatItemProps
 > {
-	componentWillInit() {
+	componentWillInit(): void {
 		this.handleChatChange = this.handleChatChange.bind(this);
 		this.handleChatChanged = this.handleChatChanged.bind(this);
 
@@ -27,7 +27,7 @@ export class ChatsListItem extends BaseComponent<
 		const classLinkActive = isActive ? style.link_active : "";
 
 		console.log(classLinkActive);
-		
+
 		this.state.classLink = `${style.link} ${classLinkActive}`;
 	}
 
@@ -54,7 +54,7 @@ export class ChatsListItem extends BaseComponent<
 		};
 	}
 
-	propsToState(props: TChatItemProps) {
+	propsToState(props: TChatItemProps): void {
 		const classLinkActive = `${style.link} ${style.link_active}`;
 		const classLink = props.isActive ? classLinkActive : style.link;
 
