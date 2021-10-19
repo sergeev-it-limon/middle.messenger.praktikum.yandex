@@ -12,7 +12,7 @@ const pathname = window.location.pathname;
 let componentNode: HTMLElement;
 
 if (pathname === "/home") {
-	componentNode = new HomePage().ref;
+	componentNode = new HomePage({}).ref;
 } else {
 	componentNode = htmlFromStr("<div>Not Found</div>");
 }

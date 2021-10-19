@@ -14,9 +14,9 @@ export class Sidebar extends BaseComponent {
 
 	initChildren(): TChildren {
 		return {
-			profileLink: new ProfileLink().ref,
-			searchChatForm: new SearchChatForm().ref,
-			chatsList: new ChatsList().ref,
+			profileLink: new ProfileLink({}).ref,
+			searchChatForm: new SearchChatForm({}).ref,
+			chatsList: new ChatsList({}).ref,
 		};
 	}
 }

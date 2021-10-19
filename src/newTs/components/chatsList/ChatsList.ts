@@ -5,6 +5,7 @@ import "./chatsList.css";
 import style from "./chatsList.css.json";
 import { getChatsData } from "../../mocks/getChatsData";
 import { TChatItem } from "./types";
+import { ChatsListItem } from "../chatsListItem";
 
 export class ChatsList extends BaseComponent {
 	private chatsData: TChatItem[];
@@ -21,10 +22,8 @@ export class ChatsList extends BaseComponent {
 	}
 
 	initChildren(): TChildren {
-		return this.chatsData.reduce((items, chatData) => {
-			items[`item_${chatData.chatId}`] = htmlFromStr(
-				`<div>chat ${chatData.name}</div>`
-			);
+		return this.chatsData.reduce<TChildren>((items, chatData) => {
+			items[`item_${chatData.chatId}`] = new ChatsListItem(chatData).ref;
 
 			return items;
 		}, {});

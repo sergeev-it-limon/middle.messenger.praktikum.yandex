@@ -1,30 +1,33 @@
 type TEvents = {
-	auth: { userName: string };
-	mesagesResived: { text: string }[];
+	chatChanged: { chatIdNew: number };
 };
 
 type TEventName = keyof TEvents;
 
 type TSubscriber<T extends TEventName> = (payload: TEvents[T]) => void;
 
-type TSubscribers = { [key in TEventName]: TSubscriber<key>[] };
+type TSubscribers = { [key in TEventName]?: TSubscriber<key>[] };
 
 export default class EventBus {
-	private subscribers: TSubscribers;
+	private subscribers: TSubscribers = {};
 
 	subscribe<T extends TEventName>(
 		eventName: T,
 		callback: TSubscriber<T>
 	): void {
 		const subsCur = this.subscribers[eventName] as TSubscriber<T>[];
-		const isExist = subsCur.some((sub) => sub === callback);
+		const isExist = subsCur?.some((sub) => sub === callback) ?? false;
 
 		if (isExist) {
 			console.error(`callback ${callback.name} already subscribed`);
 			return;
 		}
 
-		subsCur.push(callback);
+		if (subsCur == null) {
+			this.subscribers[eventName] = [callback];
+		} else {
+			subsCur.push(callback);
+		}
 	}
 
 	unsubscribe<T extends TEventName>(
