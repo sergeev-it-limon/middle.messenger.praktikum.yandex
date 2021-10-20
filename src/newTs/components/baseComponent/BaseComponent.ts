@@ -62,7 +62,11 @@ export abstract class BaseComponent<
 
 	/** Метод, производящий обновление стейта на основе пропсов. */
 	protected propsToState(props: TProps): void {
-		if (this.state == null && props != null) {
+		if (props == null) return;
+
+		const isProps = Object.keys(props).length !== 0;
+
+		if (this.state == null && isProps) {
 			console.error(
 				"props resieved for component, but propsToState is not implemented."
 			);
