@@ -1,16 +1,15 @@
-import { ChatStub } from "../components/chatStub";
 import { Sidebar } from "../components/sidebar";
 import { ChatPageTmpl } from "../templates/chatPageTmpl";
 
-export class HomePage extends ChatPageTmpl {
+export class SelectedChatPage extends ChatPageTmpl {
 	initSidebar(): HTMLElement {
 		const sidebar = new Sidebar(null);
 		sidebar.build();
 		return sidebar.ref;
 	}
 	initMainContent(): HTMLElement {
-		const chatStub = new ChatStub(null);
-		chatStub.build();
-		return chatStub.ref;
+		const div = document.createElement("div");
+		div.innerText = "MainContent";
+		return div;
 	}
 }
