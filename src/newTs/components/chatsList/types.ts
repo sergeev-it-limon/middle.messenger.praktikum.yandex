@@ -6,5 +6,4 @@ export type TChatItem = {
 	unreadedMsgCnt: number;
 	src: string;
 	alt: string;
-	isActive: boolean;
 };

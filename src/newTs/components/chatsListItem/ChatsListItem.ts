@@ -27,21 +27,6 @@ export class ChatsListItem extends BaseComponent<
 		timeLastMsg: "",
 		unreadedMsgCnt: 0,
 	});
-
-	componentWillInit(): void {
-		this.handleChatChange = this.handleChatChange.bind(this);
-		this.handleChatChanged = this.handleChatChanged.bind(this);
-
-		eventBus.subscribe("chatChanged", this.handleChatChanged);
-	}
-
-	private handleChatChanged({ chatIdNew }: { chatIdNew: number }): void {
-		const isActive = this.getId(this.state.href) === chatIdNew;
-		const classLinkActive = isActive ? style.link_active : "";
-
-		this.state.classLink = `${style.link} ${classLinkActive}`;
-	}
-
 	private handleChatChange(): void {
 		eventBus.emit("chatChanged", { chatIdNew: this.getId(this.state.href) });
 	}
@@ -76,13 +61,15 @@ export class ChatsListItem extends BaseComponent<
 	}
 
 	propsToState(): void {
-		const { chatId, isActive, ...otherProps } = this.props;
+		const { chatId, ...otherProps } = this.props;
+
+		this.state.href = `/selectedChat/${chatId}`;
 
 		const classLinkActive = `${style.link} ${style.link_active}`;
+		const isActive = this.state.href === location.pathname;
 		const classLink = isActive ? classLinkActive : style.link;
 
 		this.state.classLink = classLink;
-		this.state.href = `/selectedChat/${chatId}`;
 
 		this.chatSelectableElem.update(otherProps);
 	}

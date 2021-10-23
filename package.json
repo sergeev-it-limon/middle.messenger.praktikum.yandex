@@ -3,7 +3,7 @@
 	"version": "1.0.0",
 	"description": "Учебный проект веб-мессенджера",
 	"scripts": {
-		"dev:frontend": "parcel watch ./static/pages/*.html --out-dir dist",
+		"dev:frontend": "parcel watch ./static/pages/*.html --out-dir dist --public-url dist",
 		"dev:backend": "nodemon --watch ./server --exec node ./server/index.js",
 		"dev:pug-builder": "node src/newTs/libs/pugBuilder/buildWatch.js src/newTs",
 		"prebuild": "shx rm -rf dist",
