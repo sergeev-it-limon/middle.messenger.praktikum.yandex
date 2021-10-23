@@ -13,10 +13,18 @@ export class Sidebar extends BaseComponent {
 	}
 
 	initChildren(): TChildren {
+		const profileLink = new ProfileLink(null);
+		const searchChatForm = new SearchChatForm(null);
+		const chatsList = new ChatsList(null);
+
+		profileLink.build();
+		searchChatForm.build();
+		chatsList.build();
+
 		return {
-			profileLink: new ProfileLink({}).ref,
-			searchChatForm: new SearchChatForm({}).ref,
-			chatsList: new ChatsList({}).ref,
+			profileLink: profileLink.ref,
+			searchChatForm: searchChatForm.ref,
+			chatsList: chatsList.ref,
 		};
 	}
 }

@@ -3,7 +3,9 @@ import { ChatPageTmpl } from "../templates/chatPageTmpl";
 
 export class HomePage extends ChatPageTmpl {
 	initSidebar(): HTMLElement {
-		return new Sidebar({}).ref;
+		const sidebar = new Sidebar(null);
+		sidebar.build();
+		return sidebar.ref;
 	}
 	initMainContent(): HTMLElement {
 		const div = document.createElement("div");

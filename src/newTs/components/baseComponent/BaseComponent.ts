@@ -10,7 +10,7 @@ export interface BaseComponent {
 
 /** асбтрактый класс, реализующий основную логику работы компонентов */
 export abstract class BaseComponent<
-	TState extends TStateBase = null,
+	TState extends TStateBase = TStateBase,
 	TProps = null
 > {
 	private stateService: StateService<TState>;
@@ -18,12 +18,15 @@ export abstract class BaseComponent<
 	private childrenService: ChildrenService;
 
 	/** Ссылка на элемент компонента */
-	public readonly ref: HTMLElement;
+	public ref: HTMLElement;
 
 	/** Стейт компонента, связанный с тэгами */
 	public get state(): TState {
 		return this.stateService.state as TState;
 	}
+
+	/** Данные, полученные компонентом */
+	protected props: TProps;
 
 	/**
 	 * Создает компонент, доступ к dom-элементу можно получить через ref,
@@ -31,8 +34,12 @@ export abstract class BaseComponent<
 	 * @param props Данные на основе которых формируется состояние компонента.
 	 */
 	constructor(props: TProps) {
+		this.props = props;
+	}
+
+	/** Собрать компонент */
+	public build() {
 		this.stateService = new StateService(this.initState());
-		this.update(props);
 		if (this.componentWillInit != null) {
 			this.componentWillInit();
 		}
@@ -45,11 +52,14 @@ export abstract class BaseComponent<
 		this.stateService.bindState(this.ref);
 		this.actionsService.bindActions();
 		this.childrenService.bindChildren();
+
+		this.update(this.props);
 	}
 
 	/** Метод, обновляющий состояние компонента, основываясь на новых пропсах */
-	public update(propsNew: TProps): void {
-		this.propsToState(propsNew);
+	public update(props: TProps): void {
+		this.props = props;
+		this.propsToState();
 	}
 
 	/** Метод, возвращающий элемент компонента для переданных props */
@@ -57,14 +67,14 @@ export abstract class BaseComponent<
 
 	/** Метод, возвращающий начальный стейт */
 	protected initState(): TState {
-		return null as TState;
+		return {} as TState;
 	}
 
 	/** Метод, производящий обновление стейта на основе пропсов. */
-	protected propsToState(props: TProps): void {
-		if (props == null) return;
+	protected propsToState(): void {
+		if (this.props == null) return;
 
-		const isProps = Object.keys(props).length !== 0;
+		const isProps = Object.keys(this.props).length !== 0;
 
 		if (this.state == null && isProps) {
 			console.error(

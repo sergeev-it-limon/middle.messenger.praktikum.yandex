@@ -8,7 +8,7 @@ var pug_match_html=/["&<>]/;export function template(locals) {var pug_html = "",
     var locals_for_with = (locals || {});
     
     (function (style) {
-      pug_html = pug_html + "\u003Cli" + (pug_attr("class", pug_classes([style.root], [true]), false, false)) + "\u003E\u003Ca data-state=\"href:href,class:classLink\" data-actions=\"click:handleChatChange\"\u003E\u003Cdiv data-component=\"chatSelectableElem\"\u003E\u003C\u002Fdiv\u003E\u003C\u002Fa\u003E\u003C\u002Fli\u003E";
+      pug_html = pug_html + "\u003Cdiv" + (pug_attr("class", pug_classes([style.root], [true]), false, false)+" data-state=\"style:lineClamp\"") + "\u003E\u003Cdiv data-component=\"content\"\u003E\u003C\u002Fdiv\u003E\u003C\u002Fdiv\u003E";
     }.call(this, "style" in locals_for_with ?
         locals_for_with.style :
         typeof style !== 'undefined' ? style : undefined));

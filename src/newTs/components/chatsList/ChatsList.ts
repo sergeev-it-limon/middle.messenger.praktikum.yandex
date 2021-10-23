@@ -23,7 +23,9 @@ export class ChatsList extends BaseComponent {
 
 	initChildren(): TChildren {
 		return this.chatsData.reduce<TChildren>((items, chatData) => {
-			items[`item_${chatData.chatId}`] = new ChatsListItem(chatData).ref;
+			const chatsListItem = new ChatsListItem(chatData);
+			chatsListItem.build();
+			items[`item_${chatData.chatId}`] = chatsListItem.ref;
 
 			return items;
 		}, {});

@@ -8,7 +8,7 @@ var pug_match_html=/["&<>]/;export function template(locals) {var pug_html = "",
     var locals_for_with = (locals || {});
     
     (function (style) {
-      pug_html = pug_html + "\u003Cli" + (pug_attr("class", pug_classes([style.root], [true]), false, false)) + "\u003E\u003Ca data-state=\"href:href,class:classLink\" data-actions=\"click:handleChatChange\"\u003E\u003Cdiv data-component=\"chatSelectableElem\"\u003E\u003C\u002Fdiv\u003E\u003C\u002Fa\u003E\u003C\u002Fli\u003E";
+      pug_html = pug_html + "\u003Csection" + (pug_attr("class", pug_classes([style.root], [true]), false, false)) + "\u003E\u003Cdiv" + (pug_attr("class", pug_classes([style.imageAvatar], [true]), false, false)) + "\u003E\u003Cdiv data-component=\"imageAvatar\"\u003E\u003C\u002Fdiv\u003E\u003C\u002Fdiv\u003E\u003Cdiv" + (pug_attr("class", pug_classes([style.contentWrapper], [true]), false, false)) + "\u003E\u003Cdiv data-component=\"name\"\u003E\u003C\u002Fdiv\u003E\u003Cdiv data-component=\"previewText\"\u003E\u003C\u002Fdiv\u003E\u003C\u002Fdiv\u003E\u003Cdiv" + (pug_attr("class", pug_classes([style.addInfo], [true]), false, false)) + "\u003E\u003Ctime" + (pug_attr("class", pug_classes([style.timeLastMessage], [true]), false, false)+" data-state=\"timeLastMsg\"") + "\u003E\u003C\u002Ftime\u003E\u003Cdiv" + (pug_attr("class", pug_classes([style.unreadedMessagesCount], [true]), false, false)+" data-state=\"unreadedMsgCnt\"") + "\u003E\u003C\u002Fdiv\u003E\u003C\u002Fdiv\u003E\u003C\u002Fsection\u003E";
     }.call(this, "style" in locals_for_with ?
         locals_for_with.style :
         typeof style !== 'undefined' ? style : undefined));

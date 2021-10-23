@@ -1,4 +1,4 @@
-export type TStateBase = { [key: string]: string | number } | null;
+export type TStateBase = { [key: string]: string | number };
 
 type TEvents<TState extends TStateBase> = {
 	[key in keyof TState]: TState[key];
@@ -58,6 +58,7 @@ export class StateChangeEventBus<TState extends TStateBase> {
 		payload: TEvents<TState>[T]
 	): void {
 		const subsCur = this.subscribers[eventName] as TSubscriber<TState, T>[];
+		if (subsCur === undefined) return;
 
 		for (const sub of subsCur) {
 			sub(payload);

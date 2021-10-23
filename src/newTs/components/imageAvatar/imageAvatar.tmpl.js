@@ -7,9 +7,13 @@ var pug_has_own_property=Object.prototype.hasOwnProperty;
 var pug_match_html=/["&<>]/;export function template(locals) {var pug_html = "", pug_mixins = {}, pug_interp;;
     var locals_for_with = (locals || {});
     
-    (function (style) {
-      pug_html = pug_html + "\u003Cli" + (pug_attr("class", pug_classes([style.root], [true]), false, false)) + "\u003E\u003Ca data-state=\"href:href,class:classLink\" data-actions=\"click:handleChatChange\"\u003E\u003Cdiv data-component=\"chatSelectableElem\"\u003E\u003C\u002Fdiv\u003E\u003C\u002Fa\u003E\u003C\u002Fli\u003E";
-    }.call(this, "style" in locals_for_with ?
+    (function (alt, src, style) {
+      pug_html = pug_html + "\u003Cfigure data-state=\"class:class\"\u003E\u003Cimg" + (pug_attr("class", pug_classes([style.image], [true]), false, false)+pug_attr("src", src, true, false)+pug_attr("alt", alt, true, false)+" data-state=\"src:src,alt:alt\"") + "\u002F\u003E\u003C\u002Ffigure\u003E";
+    }.call(this, "alt" in locals_for_with ?
+        locals_for_with.alt :
+        typeof alt !== 'undefined' ? alt : undefined, "src" in locals_for_with ?
+        locals_for_with.src :
+        typeof src !== 'undefined' ? src : undefined, "style" in locals_for_with ?
         locals_for_with.style :
         typeof style !== 'undefined' ? style : undefined));
     ;;return pug_html;}

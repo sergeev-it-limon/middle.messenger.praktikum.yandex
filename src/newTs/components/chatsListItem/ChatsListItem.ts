@@ -7,14 +7,27 @@ import { TChatItem } from "../chatsList/types";
 import { eventBus } from "../../controllers/EventBus";
 import { TChildren } from "../baseComponent/ChildrenService";
 import { TActions } from "../baseComponent/ActionsService";
+import { ChatSelectableElem } from "../chatSelectableElem";
 
-type TChatItemState = Omit<TChatItem, "isActive"> & { classLink: string };
+type TChatItemState = {
+	href: string;
+	classLink: string;
+};
 type TChatItemProps = TChatItem;
 
 export class ChatsListItem extends BaseComponent<
 	TChatItemState,
 	TChatItemProps
 > {
+	private chatSelectableElem = new ChatSelectableElem({
+		alt: "",
+		name: "",
+		previewText: "",
+		src: "",
+		timeLastMsg: "",
+		unreadedMsgCnt: 0,
+	});
+
 	componentWillInit(): void {
 		this.handleChatChange = this.handleChatChange.bind(this);
 		this.handleChatChanged = this.handleChatChanged.bind(this);
@@ -23,54 +36,36 @@ export class ChatsListItem extends BaseComponent<
 	}
 
 	private handleChatChanged({ chatIdNew }: { chatIdNew: number }): void {
-		const isActive = this.state.chatId === chatIdNew;
+		const isActive = this.getId(this.state.href) === chatIdNew;
 		const classLinkActive = isActive ? style.link_active : "";
-
-		console.log(classLinkActive);
 
 		this.state.classLink = `${style.link} ${classLinkActive}`;
 	}
 
 	private handleChatChange(): void {
-		eventBus.emit("chatChanged", { chatIdNew: this.state.chatId });
+		eventBus.emit("chatChanged", { chatIdNew: this.getId(this.state.href) });
+	}
+
+	private getId(link: string): number {
+		return Number(link.split("/")[2]);
 	}
 
 	render(): HTMLElement {
-		return htmlFromStr(
-			template({ style: { root: style.root }, chatId: this.state.chatId })
-		);
+		return htmlFromStr(template({ style }));
 	}
 
 	initState(): TChatItemState {
 		return {
-			alt: "",
-			chatId: 0,
+			href: "/selectedChat/0",
 			classLink: style.link,
-			name: "",
-			previewText: "",
-			src: "",
-			timeLastMsg: "",
-			unreadedMsgCnt: 0,
 		};
 	}
 
-	propsToState(props: TChatItemProps): void {
-		const classLinkActive = `${style.link} ${style.link_active}`;
-		const classLink = props.isActive ? classLinkActive : style.link;
-
-		this.state.alt = props.alt;
-		this.state.chatId = props.chatId;
-		this.state.classLink = classLink;
-		this.state.name = props.name;
-		this.state.previewText = props.previewText;
-		this.state.src = props.src;
-		this.state.timeLastMsg = props.timeLastMsg;
-		this.state.unreadedMsgCnt = props.unreadedMsgCnt;
-	}
-
 	initChildren(): TChildren {
+		this.chatSelectableElem.build();
+
 		return {
-			chatSelectableElem: htmlFromStr("<div>chatSelectableElem</div>"),
+			chatSelectableElem: this.chatSelectableElem.ref,
 		};
 	}
 
@@ -78,5 +73,17 @@ export class ChatsListItem extends BaseComponent<
 		return {
 			handleChatChange: this.handleChatChange,
 		};
+	}
+
+	propsToState(): void {
+		const { chatId, isActive, ...otherProps } = this.props;
+
+		const classLinkActive = `${style.link} ${style.link_active}`;
+		const classLink = isActive ? classLinkActive : style.link;
+
+		this.state.classLink = classLink;
+		this.state.href = `/selectedChat/${chatId}`;
+
+		this.chatSelectableElem.update(otherProps);
 	}
 }
