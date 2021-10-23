@@ -2,6 +2,7 @@ import { BaseComponent, TActions, TChildren } from "../baseComponent";
 import { htmlFromStr } from "../../utils/htmlFrom";
 import { template } from "./searchChatForm.tmpl.js";
 import { getFormEntries } from "../../utils/getFormEntries";
+import { InputSearch } from "../inputSearch";
 
 export class SearchChatForm extends BaseComponent {
 	handleSubmit(e: SubmitEvent): void {
@@ -18,8 +19,11 @@ export class SearchChatForm extends BaseComponent {
 	}
 
 	initChildren(): TChildren {
+		const inputSearch = new InputSearch({ name: "searchedText" });
+		inputSearch.build();
+
 		return {
-			inputSearch: htmlFromStr('<input name="searchedText" />'),
+			inputSearch: inputSearch.ref,
 		};
 	}
 

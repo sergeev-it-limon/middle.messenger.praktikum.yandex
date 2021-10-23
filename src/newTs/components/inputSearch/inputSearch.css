@@ -1,0 +1,18 @@
+@import "../../common/variables.css";
+
+.root {
+  background-color: var(--gray-bcg-color);
+  line-height: 32px;
+  width: 100%;
+  padding: 0;
+  border: none;
+  border-radius: 5px;
+  padding: 0 4px;
+
+  &::placeholder {
+    text-align: center;
+    background-image: url("./searchIcon.svg");
+    background-repeat: no-repeat;
+    background-position: 100px 50%;
+  }
+}

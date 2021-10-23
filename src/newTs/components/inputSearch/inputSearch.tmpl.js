@@ -1,0 +1,1 @@
+export function template(locals) {var pug_html = "", pug_mixins = {}, pug_interp;pug_html = pug_html + "\u003Cinput type=\"text\" placeholder=\"Поиск\" data-state=\"class:className,name:name\"\u002F\u003E";;return pug_html;}

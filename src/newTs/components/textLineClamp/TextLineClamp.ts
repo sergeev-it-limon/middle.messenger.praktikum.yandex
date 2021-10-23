@@ -18,7 +18,6 @@ export class TextLineClamp extends BaseComponent<
 	TTextLineClampProps
 > {
 	render(): HTMLElement {
-		console.log(template({ style }));
 		return htmlFromStr(template({ style }));
 	}
 
