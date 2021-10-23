@@ -55,7 +55,7 @@ export class ImageAvatar extends BaseComponent<
 		};
 	}
 
-	propsToState() {
+	propsToState(): void {
 		this.state.alt = this.props.alt;
 		this.state.class = `${style.root} ${this.getStyleSize(this.props.sizeMod)}`;
 		this.state.src = this.props.src;

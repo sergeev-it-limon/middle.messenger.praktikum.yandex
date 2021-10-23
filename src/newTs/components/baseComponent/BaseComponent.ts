@@ -38,7 +38,7 @@ export abstract class BaseComponent<
 	}
 
 	/** Собрать компонент */
-	public build() {
+	public build(): void {
 		this.stateService = new StateService(this.initState());
 		if (this.componentWillInit != null) {
 			this.componentWillInit();

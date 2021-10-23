@@ -34,7 +34,7 @@ export class TextLineClamp extends BaseComponent<
 		};
 	}
 
-	propsToState() {
+	propsToState(): void {
 		this.state.lineClamp = `-webkit-line-clamp: ${this.props.countStr};`;
 	}
 }

@@ -28,7 +28,7 @@ export class ChatSelectableElemName extends BaseComponent<
 		};
 	}
 
-	propsToState() {
+	propsToState(): void {
 		this.state.text = this.props.text;
 	}
 }
