@@ -9,6 +9,7 @@ import { TMessage, TMessagesByDay } from "./chatSelectedTypes";
 import { MessageImage } from "../messageImage";
 import { Message } from "../message";
 import { Divider } from "../divider";
+import { SendMessageForm } from "../sendMessageForm";
 // import { MessageImage } from "../messageImage";
 // import { Message } from "../message/Message";
 // import { Divider } from "../divider";
@@ -132,10 +133,13 @@ export class ChatSelected extends BaseComponent {
 		dividerFooter.build();
 		dividerHeader.build();
 
+		const sendMessageForm = new SendMessageForm(null);
+		sendMessageForm.build();
+
 		return {
 			dividerHeader: dividerHeader.ref,
 			dividerFooter: dividerFooter.ref,
-			sendMessageForm: htmlFromStr("<div>sendMessageForm</div>"),
+			sendMessageForm: sendMessageForm.ref,
 			imageAvatar: htmlFromStr("<div>imageAvatar</div>"),
 			popupChatActions: htmlFromStr("<div>popupChatActions</div>"),
 			...messages,
