@@ -6,6 +6,7 @@ import "./chatSelected.css";
 import style from "./chatSelected.css.json";
 import { getSelectedChatData } from "../../mocks/getSelectedChatData";
 import { TMessage, TMessagesByDay, TMessageType } from "./chatSelectedTypes";
+import { MessageImage } from "../messageImage";
 // import { MessageImage } from "../messageImage";
 // import { Message } from "../message/Message";
 // import { Divider } from "../divider";
@@ -70,7 +71,12 @@ export class ChatSelected extends BaseComponent {
 	}
 
 	getImgMesChild(mes: TMessage): HTMLElement {
-		return htmlFromStr("<div>image</div>");
+		const imgMes = new MessageImage({
+			src: mes.content.src ?? "",
+			time: mes.content.time,
+		});
+		imgMes.build();
+		return imgMes.ref;
 	}
 
 	getTextMesChild(mes: TMessage): HTMLElement {

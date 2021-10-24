@@ -10,7 +10,6 @@ export class SelectedChatPage extends ChatPageTmpl {
 	}
 	initMainContent(): HTMLElement {
 		const selectedChat = new ChatSelected(null);
-		debugger
 		selectedChat.build();
 		return selectedChat.ref;
 	}
