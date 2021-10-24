@@ -5,9 +5,10 @@ import { template } from "./chatSelected.tmpl.js";
 import "./chatSelected.css";
 import style from "./chatSelected.css.json";
 import { getSelectedChatData } from "../../mocks/getSelectedChatData";
-import { TMessage, TMessagesByDay, TMessageType } from "./chatSelectedTypes";
+import { TMessage, TMessagesByDay } from "./chatSelectedTypes";
 import { MessageImage } from "../messageImage";
 import { Message } from "../message";
+import { Divider } from "../divider";
 // import { MessageImage } from "../messageImage";
 // import { Message } from "../message/Message";
 // import { Divider } from "../divider";
@@ -125,9 +126,15 @@ export class ChatSelected extends BaseComponent {
 
 	initChildren(): TChildren {
 		const messages = this.getMessages();
+
+		const dividerFooter = new Divider(null);
+		const dividerHeader = new Divider(null);
+		dividerFooter.build();
+		dividerHeader.build();
+
 		return {
-			dividerHeader: htmlFromStr("<div>dividerHeader</div>"),
-			dividerFooter: htmlFromStr("<div>dividerFooter</div>"),
+			dividerHeader: dividerHeader.ref,
+			dividerFooter: dividerFooter.ref,
 			sendMessageForm: htmlFromStr("<div>sendMessageForm</div>"),
 			imageAvatar: htmlFromStr("<div>imageAvatar</div>"),
 			popupChatActions: htmlFromStr("<div>popupChatActions</div>"),
