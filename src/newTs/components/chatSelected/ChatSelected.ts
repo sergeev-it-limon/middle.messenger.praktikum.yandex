@@ -7,6 +7,7 @@ import style from "./chatSelected.css.json";
 import { getSelectedChatData } from "../../mocks/getSelectedChatData";
 import { TMessage, TMessagesByDay, TMessageType } from "./chatSelectedTypes";
 import { MessageImage } from "../messageImage";
+import { Message } from "../message";
 // import { MessageImage } from "../messageImage";
 // import { Message } from "../message/Message";
 // import { Divider } from "../divider";
@@ -80,7 +81,13 @@ export class ChatSelected extends BaseComponent {
 	}
 
 	getTextMesChild(mes: TMessage): HTMLElement {
-		return htmlFromStr("<div>textMes</div>");
+		const textMes = new Message({
+			text: mes.content.text ?? "",
+			time: mes.content.time,
+			type: mes.isMy ? "my" : "default",
+		});
+		textMes.build();
+		return textMes.ref;
 	}
 
 	initSelectedChatData(): void {
