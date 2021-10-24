@@ -1,3 +1,4 @@
+import { ChatSelected } from "../components/chatSelected";
 import { Sidebar } from "../components/sidebar";
 import { ChatPageTmpl } from "../templates/chatPageTmpl";
 
@@ -8,8 +9,9 @@ export class SelectedChatPage extends ChatPageTmpl {
 		return sidebar.ref;
 	}
 	initMainContent(): HTMLElement {
-		const div = document.createElement("div");
-		div.innerText = "MainContent";
-		return div;
+		const selectedChat = new ChatSelected(null);
+		debugger
+		selectedChat.build();
+		return selectedChat.ref;
 	}
 }
