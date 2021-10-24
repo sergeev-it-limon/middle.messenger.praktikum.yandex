@@ -5,6 +5,7 @@ import { getFormEntries } from "../../utils/getFormEntries";
 import "./sendMessageForm.css";
 import style from "./sendMessageForm.css.json";
 import { InputSendMessage } from "../inputSendMessage";
+import { ButtonSubmitSendMessageForm } from "../buttonSubmitSendMessageForm";
 // import { InputSendMessage } from "../inputSendMessage";
 // import { ButtonSubmitSendMessageForm } from "../buttonSubmitSendMessageForm";
 // import { PopupAddFile } from "../popupAddFile";
@@ -25,14 +26,15 @@ export class SendMessageForm extends BaseComponent {
 
 	initChildren(): TChildren {
 		const inputSendMessage = new InputSendMessage({ name: "message" });
+		const buttonSubmitSendMessageForm = new ButtonSubmitSendMessageForm(null);
+
 		inputSendMessage.build();
+		buttonSubmitSendMessageForm.build();
 
 		return {
 			popupAddFile: htmlFromStr("<div>popupAddFile</div>"),
 			inputSendMessage: inputSendMessage.ref,
-			buttonSubmitSendMessageForm: htmlFromStr(
-				"<div>buttonSubmitSendMessageForm</div>"
-			),
+			buttonSubmitSendMessageForm: buttonSubmitSendMessageForm.ref,
 		};
 	}
 
