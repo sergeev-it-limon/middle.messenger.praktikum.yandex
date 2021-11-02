@@ -1,12 +1,11 @@
-import { buildEventBus } from "../../utils/buildEventBus";
+import { EventBus } from "../../utils/buildEventBus";
 
-export const buildLifeCycleEventBus = <TProps>() => {
-	type TEvents = {
-		componentWillInit: null;
-		render: null;
-		initServices: null;
-		update: TProps;
-	};
-
-	return buildEventBus<TEvents>();
+type TEvents<TProps> = {
+	initServices: null;
+	componentWillInit: null;
+	render: null;
+	bindServices: null;
+	update: TProps;
 };
+
+export class LifeCycleEventBus<TProps> extends EventBus<TEvents<TProps>> {}

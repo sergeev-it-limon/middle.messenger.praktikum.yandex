@@ -7,22 +7,18 @@ export type TActions = { [key: string]: TAction };
 
 /** Сервис, отвечающий за привязку экшнов к тэгам компонента */
 export class ActionsService {
-	/** Ссылка на элемент, в котором надо делать привязку экшнов */
-	private readonly ref: HTMLElement;
-
 	/** Экшны, которые надо привязывать */
 	private readonly actions: TActions;
 
-	constructor(ref: HTMLElement, actions: TActions) {
-		this.ref = ref;
+	constructor(actions: TActions) {
 		this.actions = actions;
 	}
 
 	/** Привязываем экшны к тэгам. К одному тэгу можно привязать экшны только одного типа.
 	 * Пример атрибута: data-actions="click:onClick,logger".
 	 * */
-	public bindActions(): void {
-		const elemsByActionsGroups = getElemsByDataset(this.ref, ACTIONS_ATTR);
+	public bindActions(ref: HTMLElement): void {
+		const elemsByActionsGroups = getElemsByDataset(ref, ACTIONS_ATTR);
 		const typesNamesRelations = Object.keys(elemsByActionsGroups);
 
 		for (const typeNames of typesNamesRelations) {

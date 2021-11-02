@@ -1,5 +1,6 @@
 import { ActionsService, TActions } from "./ActionsService";
 import { ChildrenService, TChildren } from "./ChildrenService";
+import { LifeCycleEventBus } from "./LifeCycleEventBus";
 import { TStateBase } from "./StateChangeEventBus";
 import { StateService } from "./stateService";
 
@@ -28,6 +29,8 @@ export abstract class BaseComponent<
 	/** Данные, полученные компонентом */
 	protected props: TProps;
 
+	private eventBus: LifeCycleEventBus<TProps>;
+
 	/**
 	 * Создает компонент, доступ к dom-элементу можно получить через ref,
 	 * доступ к реактивному состоянию через state.
@@ -39,21 +42,54 @@ export abstract class BaseComponent<
 
 	/** Собрать компонент */
 	public build(): void {
+		this.initEventBus();
+		this.eventBus.emit("initServices", null);
+	}
+
+	private initEventBus(): void {
+		this.eventBus = new LifeCycleEventBus<TProps>();
+
+		this.eventBus.subscribe("initServices", this.initServices.bind(this));
+		this.eventBus.subscribe(
+			"componentWillInit",
+			this._componentWillInit.bind(this)
+		);
+		this.eventBus.subscribe("render", this._render.bind(this));
+		this.eventBus.subscribe("bindServices", this.bindServices.bind(this));
+		this.eventBus.subscribe("update", this._firstUpdate.bind(this));
+	}
+
+	private initServices(): void {
 		this.stateService = new StateService(this.initState());
+		this.actionsService = new ActionsService(this.initActions());
+		this.childrenService = new ChildrenService(this.initChildren());
+
+		this.eventBus.emit("componentWillInit", null);
+	}
+
+	private _componentWillInit(): void {
 		if (this.componentWillInit != null) {
 			this.componentWillInit();
 		}
 
+		this.eventBus.emit("render", null);
+	}
+
+	private _render(): void {
 		this.ref = this.render();
+		this.eventBus.emit("bindServices", null);
+	}
 
-		this.actionsService = new ActionsService(this.ref, this.initActions());
-		this.childrenService = new ChildrenService(this.ref, this.initChildren());
-
+	private bindServices() {
 		this.stateService.bindState(this.ref);
-		this.actionsService.bindActions();
-		this.childrenService.bindChildren();
+		this.actionsService.bindActions(this.ref);
+		this.childrenService.bindChildren(this.ref);
 
-		this.update(this.props);
+		this.eventBus.emit("update", this.props);
+	}
+
+	private _firstUpdate(props: TProps): void {
+		this.update(props);
 	}
 
 	/** Метод, обновляющий состояние компонента, основываясь на новых пропсах */

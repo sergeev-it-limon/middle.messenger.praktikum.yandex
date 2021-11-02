@@ -6,28 +6,24 @@ export type TChildren = { [key: string]: HTMLElement };
 
 /** Сервис, отвечающий за рендеринг дочерних компонентов */
 export class ChildrenService {
-	/** Ссылка на элемент, в котором надо заменять тэги на элементы дочерних компонентов */
-	private readonly ref: HTMLElement;
-
 	/** Элементы дочерних компонентов */
 	private readonly children: TChildren;
 
 	/** Элементы в компоненте, которые надо заменить на элементы дочерних компонентов */
 	private childrenPlacesSet: TElemsByDataset;
 
-	constructor(ref: HTMLElement, children: TChildren) {
-		this.ref = ref;
+	constructor(children: TChildren) {
 		this.children = children;
 	}
 
 	/** Добавить дочерние элементы */
-	public bindChildren(): void {
-		this.initChildrenPlacesSet();
+	public bindChildren(ref: HTMLElement): void {
+		this.initChildrenPlacesSet(ref);
 		this.insertChildren();
 	}
 
-	private initChildrenPlacesSet() {
-		this.childrenPlacesSet = getElemsByDataset(this.ref, CHILD_PLACE_ATTR);
+	private initChildrenPlacesSet(ref: HTMLElement) {
+		this.childrenPlacesSet = getElemsByDataset(ref, CHILD_PLACE_ATTR);
 	}
 
 	private insertChildren() {
