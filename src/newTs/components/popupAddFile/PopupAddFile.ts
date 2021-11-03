@@ -1,4 +1,4 @@
-import { BaseComponent, TActions } from "../baseComponent";
+import { TActions } from "../baseComponent";
 import { htmlFromStr } from "../../utils/htmlFrom";
 import { template } from "./popupAddFile.tmpl.js";
 // import { ButtonChatPopup } from "../buttonChatPopup";
@@ -18,14 +18,19 @@ export class PopupAddFile extends Popup {
 	private isOpen = false;
 	private trigger: PopupAddFileTrigger;
 
+	private handleTriggerClick(): void {
+		this.isOpen = !this.isOpen;
+		this.changeOpen(this.isOpen);
+		this.trigger.update({ isActive: this.isOpen });
+	}
+
 	initPopupContent(): HTMLElement {
 		return htmlFromStr("<div>PopupContent</div>");
 	}
 
 	initTrigger(): HTMLElement {
-		this.trigger = new PopupAddFileTrigger(() => {
-			this.changeOpen(this.isOpen);
-			this.isOpen = !this.isOpen;
+		this.trigger = new PopupAddFileTrigger(this.handleTriggerClick.bind(this), {
+			isActive: this.isOpen,
 		});
 		this.trigger.build();
 		return this.trigger.ref;
@@ -33,7 +38,7 @@ export class PopupAddFile extends Popup {
 
 	initPopupMeta(): TPopupMeta {
 		return {
-			isOpenDefault: true,
+			isOpenDefault: false,
 			popupClassName: style.root,
 			position: "top",
 			width: "192px",
