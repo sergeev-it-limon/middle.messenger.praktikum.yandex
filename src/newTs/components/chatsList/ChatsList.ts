@@ -1,6 +1,6 @@
 import { BaseComponent, TChildren } from "../baseComponent";
 import { htmlFromStr } from "../../utils/htmlFrom";
-import { template } from "./chatsList.tmpl";
+import { template } from "./chatsList.tmpl.js";
 import "./chatsList.css";
 import style from "./chatsList.css.json";
 import { getChatsData } from "../../mocks/getChatsData";
@@ -10,9 +10,11 @@ import { ChatsListItem } from "../chatsListItem";
 export class ChatsList extends BaseComponent {
 	private chatsData: TChatItem[];
 
-	render(): HTMLElement {
+	componentWillInit(): void {
 		this.chatsData = getChatsData();
+	}
 
+	render(): HTMLElement {
 		return htmlFromStr(
 			template({
 				style,
