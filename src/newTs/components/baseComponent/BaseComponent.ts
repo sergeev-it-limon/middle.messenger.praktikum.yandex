@@ -43,28 +43,20 @@ export abstract class BaseComponent<
 	/** Собрать компонент */
 	public build(): void {
 		this.initEventBus();
-		this.eventBus.emit("initServices", null);
+		this.eventBus.emit("componentWillInit", null);
 	}
 
 	private initEventBus(): void {
 		this.eventBus = new LifeCycleEventBus<TProps>();
 
-		this.eventBus.subscribe("initServices", this.initServices.bind(this));
 		this.eventBus.subscribe(
 			"componentWillInit",
 			this._componentWillInit.bind(this)
 		);
+		this.eventBus.subscribe("initServices", this.initServices.bind(this));
 		this.eventBus.subscribe("render", this._render.bind(this));
 		this.eventBus.subscribe("bindServices", this.bindServices.bind(this));
 		this.eventBus.subscribe("update", this._firstUpdate.bind(this));
-	}
-
-	private initServices(): void {
-		this.stateService = new StateService(this.initState());
-		this.actionsService = new ActionsService(this.initActions());
-		this.childrenService = new ChildrenService(this.initChildren());
-
-		this.eventBus.emit("componentWillInit", null);
 	}
 
 	private _componentWillInit(): void {
@@ -72,8 +64,17 @@ export abstract class BaseComponent<
 			this.componentWillInit();
 		}
 
+		this.eventBus.emit("initServices", null);
+	}
+	
+	private initServices(): void {
+		this.stateService = new StateService(this.initState());
+		this.actionsService = new ActionsService(this.initActions());
+		this.childrenService = new ChildrenService(this.initChildren());
+
 		this.eventBus.emit("render", null);
 	}
+
 
 	private _render(): void {
 		this.ref = this.render();
