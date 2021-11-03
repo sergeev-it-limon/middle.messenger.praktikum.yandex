@@ -1,0 +1,22 @@
+div(class=style.wrapper)
+    section(class=style.root+' '+popupClassName data-state='style:innerStyle')
+        div(data-state='class:innerClassName')
+            div(data-component='content')
+    div(data-component='trigger')
+
+//- mixin popupView(style, popupClassName, openClassName, styleAtr)
+//-     section(class=style.root+' '+popupClassName style=styleAtr)
+//-         div(class=style.inner+' '+openClassName sytle=width data-parent-for='content' data-state='class:className')
+
+//- mixin popupOpenable(style, popupClassName, isOpen, styleAtr)
+//-     case isOpen
+//-         when true
+//-             +popupView(style, popupClassName, style.inner_open, styleAtr)
+//-         when false
+//-             +popupView(style, popupClassName, '', styleAtr)
+
+//- case position
+//-     when 'top'
+//-         +popupOpenable(style, popupClassName, isOpen, 'bottom: calc(100% + 22px); width: '+width+';')
+//-     when 'bottom'
+//-         +popupOpenable(style, popupClassName, isOpen, 'top: calc(100% + 22px); right: 0; '+width+';')

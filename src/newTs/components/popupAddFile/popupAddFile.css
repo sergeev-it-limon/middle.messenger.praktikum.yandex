@@ -1,0 +1,14 @@
+@import "../../common/variables.css";
+.root {
+  .list {
+    width: 196px;
+  }
+
+  .listItem:nth-child(even) {
+    margin-top: 16px;
+  }
+
+  .icon {
+    margin-right: 16px;
+  }
+}
