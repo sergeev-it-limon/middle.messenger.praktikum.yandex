@@ -1,57 +1,59 @@
-export const buildEventBus = <TEvents>() => {
-	type TEventName = keyof TEvents;
-	type TSubscriber<T extends TEventName> = (payload: TEvents[T]) => void;
-	type TSubscribers = { [key in TEventName]?: TSubscriber<key>[] };
+type TEventName<TEvents> = keyof TEvents;
 
-	class EventBus {
-		private subscribers: TSubscribers = {};
-	
-		subscribe<T extends TEventName>(
-			eventName: T,
-			callback: TSubscriber<T>
-		): void {
-			const subsCur = this.subscribers[eventName] as TSubscriber<T>[];
-			const isExist = subsCur?.some((sub) => sub === callback) ?? false;
-	
-			if (isExist) {
-				console.error(`callback ${callback.name} already subscribed`);
-				return;
-			}
-	
-			if (subsCur == null) {
-				this.subscribers[eventName] = [callback];
-			} else {
-				subsCur.push(callback);
-			}
+type TSubscriber<TEvents, T extends TEventName<TEvents>> = (
+	payload: TEvents[T]
+) => void;
+
+type TSubscribers<TEvents> = {
+	[key in TEventName<TEvents>]?: TSubscriber<TEvents, key>[];
+};
+
+export class EventBus<TEvents> {
+	private subscribers: TSubscribers<TEvents> = {};
+
+	subscribe<T extends TEventName<TEvents>>(
+		eventName: T,
+		callback: TSubscriber<TEvents, T>
+	): void {
+		const subsCur = this.subscribers[eventName] as TSubscriber<TEvents, T>[];
+		const isExist = subsCur?.some((sub) => sub === callback) ?? false;
+
+		if (isExist) {
+			console.error(`callback ${callback.name} already subscribed`);
+			return;
 		}
-	
-		unsubscribe<T extends TEventName>(
-			eventName: T,
-			callback: TSubscriber<T>
-		): void {
-			const subsCur = this.subscribers[eventName] as TSubscriber<T>[];
-			const isNotExist = subsCur.every((sub) => sub !== callback);
-	
-			if (isNotExist) {
-				console.error(`callback ${callback.name} is not subscribed`);
-				return;
-			}
-	
-			const subsNew = subsCur.filter(
-				(sub) => sub !== callback
-			) as TSubscribers[T];
-	
-			this.subscribers[eventName] = subsNew;
-		}
-	
-		emit<T extends TEventName>(eventName: T, payload: TEvents[T]): void {
-			const subsCur = this.subscribers[eventName] as TSubscriber<T>[];
-	
-			for (const sub of subsCur) {
-				sub(payload);
-			}
+
+		if (subsCur == null) {
+			this.subscribers[eventName] = [callback];
+		} else {
+			subsCur.push(callback);
 		}
 	}
 
-	return new EventBus();
+	unsubscribe<T extends TEventName<TEvents>>(
+		eventName: T,
+		callback: TSubscriber<TEvents, T>
+	): void {
+		const subsCur = this.subscribers[eventName] as TSubscriber<TEvents, T>[];
+		const isNotExist = subsCur.every((sub) => sub !== callback);
+
+		if (isNotExist) {
+			console.error(`callback ${callback.name} is not subscribed`);
+			return;
+		}
+
+		const subsNew = subsCur.filter(
+			(sub) => sub !== callback
+		) as TSubscribers<TEvents>[T];
+
+		this.subscribers[eventName] = subsNew;
+	}
+
+	emit<T extends TEventName<TEvents>>(eventName: T, payload: TEvents[T]): void {
+		const subsCur = this.subscribers[eventName] as TSubscriber<TEvents, T>[];
+
+		for (const sub of subsCur) {
+			sub(payload);
+		}
+	}
 }

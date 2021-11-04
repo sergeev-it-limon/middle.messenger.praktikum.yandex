@@ -5,7 +5,7 @@ import "./divider.css";
 import style from "./divider.css.json";
 
 export class Divider extends BaseComponent {
-	render() {
+	render(): HTMLElement {
 		return htmlFromStr(template({ style }));
 	}
 }

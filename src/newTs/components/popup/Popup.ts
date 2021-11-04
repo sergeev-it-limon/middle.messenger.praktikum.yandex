@@ -17,7 +17,7 @@ export type TPopupMeta = {
 };
 
 export abstract class Popup extends BaseComponent<TPopupState> {
-	protected changeOpen(isOpen: boolean) {
+	protected changeOpen(isOpen: boolean): void {
 		this.state.innerClassName = this.getInnerClassName(isOpen);
 	}
 
@@ -36,7 +36,7 @@ export abstract class Popup extends BaseComponent<TPopupState> {
 		}
 	}
 
-	render() {
+	render(): HTMLElement {
 		const { popupClassName } = this.initPopupMeta();
 		return htmlFromStr(template({ style, popupClassName }));
 	}

@@ -9,7 +9,7 @@ import { ButtonSubmitSendMessageForm } from "../buttonSubmitSendMessageForm";
 import { PopupAddFile } from "../popupAddFile";
 
 export class SendMessageForm extends BaseComponent {
-	handleSubmit(e: SubmitEvent) {
+	handleSubmit(e: SubmitEvent): void {
 		e.preventDefault();
 		const form = e.currentTarget as HTMLFormElement;
 		const formData = getFormEntries(form);

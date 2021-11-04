@@ -19,12 +19,12 @@ export class MessageImage extends BaseComponent<
 	TMessageImageState,
 	TMessageImageProps
 > {
-	getTimeStr() {
+	getTimeStr(): string {
 		const date = new Date(this.props.time);
 		return formatTime(date.getHours(), date.getMinutes());
 	}
 
-	render() {
+	render(): HTMLElement {
 		return htmlFromStr(template({ style }));
 	}
 

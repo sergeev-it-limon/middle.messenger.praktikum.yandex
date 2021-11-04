@@ -11,8 +11,9 @@ export interface BaseComponent {
 
 /** асбтрактый класс, реализующий основную логику работы компонентов */
 export abstract class BaseComponent<
-	TState extends TStateBase = TStateBase,
-	TProps = null
+	TState extends TStateBase = null,
+	TProps = null,
+	TBuildContext = null
 > {
 	private stateService: StateService<TState>;
 	private actionsService: ActionsService;
@@ -29,6 +30,9 @@ export abstract class BaseComponent<
 	/** Данные, полученные компонентом */
 	protected props: TProps;
 
+	/** Данные, с которыми последний раз запускался билд компонента */
+	protected buildContext: TBuildContext;
+
 	private eventBus: LifeCycleEventBus<TProps>;
 
 	/**
@@ -41,7 +45,8 @@ export abstract class BaseComponent<
 	}
 
 	/** Собрать компонент */
-	public build(): void {
+	public build(ctx: TBuildContext): void {
+		this.buildContext = ctx;
 		this.initEventBus();
 		this.eventBus.emit("componentWillInit", null);
 	}
@@ -56,7 +61,7 @@ export abstract class BaseComponent<
 		this.eventBus.subscribe("initServices", this.initServices.bind(this));
 		this.eventBus.subscribe("render", this._render.bind(this));
 		this.eventBus.subscribe("bindServices", this.bindServices.bind(this));
-		this.eventBus.subscribe("update", this._firstUpdate.bind(this));
+		this.eventBus.subscribe("update", this._update.bind(this));
 	}
 
 	private _componentWillInit(): void {
@@ -66,7 +71,7 @@ export abstract class BaseComponent<
 
 		this.eventBus.emit("initServices", null);
 	}
-	
+
 	private initServices(): void {
 		this.stateService = new StateService(this.initState());
 		this.actionsService = new ActionsService(this.initActions());
@@ -74,7 +79,6 @@ export abstract class BaseComponent<
 
 		this.eventBus.emit("render", null);
 	}
-
 
 	private _render(): void {
 		this.ref = this.render();
@@ -89,7 +93,7 @@ export abstract class BaseComponent<
 		this.eventBus.emit("update", this.props);
 	}
 
-	private _firstUpdate(props: TProps): void {
+	private _update(props: TProps): void {
 		this.update(props);
 	}
 

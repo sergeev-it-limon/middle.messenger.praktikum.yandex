@@ -1,41 +1,54 @@
-import { BaseComponent, TChildren } from "../baseComponent";
+import { BaseComponent } from "../baseComponent";
 import { htmlFromStr } from "../../utils/htmlFrom";
-import { template } from "./buttonChatPopup.tmpl";
+import { template } from "./buttonChatPopup.tmpl.js";
 import "./buttonChatPopup.css";
 import style from "./buttonChatPopup.css.json";
 
-export class ButtonChatPopup extends BaseComponent {
-	render() {
+type TButtonChatPopupState = {
+	className: string;
+	type: string;
+	imgSrc: string;
+	imgAlt: string;
+	imgClassName: string;
+	text: string;
+	textClassName: string;
+};
+
+type TButtonChatPopupProps = {
+	type: string;
+	imgSrc: string;
+	imgAlt: string;
+	imgClassName: string;
+	text: string;
+};
+
+export class ButtonChatPopup extends BaseComponent<
+	TButtonChatPopupState,
+	TButtonChatPopupProps
+> {
+	render(): HTMLElement {
+		return htmlFromStr(template());
+	}
+
+	initState(): TButtonChatPopupState {
 		return {
-			current: htmlFromStr(template({ style, type: this.props.type })),
-			children: {
-				img: {
-					Component: ComponentDefault,
-					props: {
-						tag: "img",
-						attributes: {
-							src: this.props.imgSrc,
-							alt: this.props.imgAlt,
-							class: this.props.imgClassName,
-						},
-					},
-				},
-				text: {
-					Component: ComponentDefault,
-					props: {
-						tag: "span",
-						innerText: this.props.text,
-						attributes: { class: style.text },
-					},
-				},
-			},
+			className: style.root,
+			imgAlt: this.props.imgAlt,
+			imgClassName: this.props.imgClassName,
+			imgSrc: this.props.imgSrc,
+			text: this.props.text,
+			textClassName: style.text,
+			type: this.props.type,
 		};
 	}
 
-	initChildren(): TChildren {
-		return {
-			img: htmlFromStr("<div>img</div>"),
-			text: htmlFromStr("<div>text</div>"),
-		};
+	propsToState(): void {
+		this.state.className = style.root;
+		this.state.imgAlt = this.props.imgAlt;
+		this.state.imgClassName = this.props.imgClassName;
+		this.state.imgSrc = this.props.imgSrc;
+		this.state.text = this.props.text;
+		this.state.textClassName = style.text;
+		this.state.type = this.props.type;
 	}
 }

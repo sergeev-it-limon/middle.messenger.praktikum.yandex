@@ -24,11 +24,11 @@ type TMesMeta = {
 export class ChatSelected extends BaseComponent {
 	messagesData: TMessagesByDay[];
 
-	getMeta() {
+	getMeta(): TMesMeta[] {
 		return this.messagesData.reduce<TMesMeta[]>((meta, mesByDay) => {
 			meta.push(this.getDateMeta(mesByDay.timeDay));
 
-			for (let mes of mesByDay.messages) {
+			for (const mes of mesByDay.messages) {
 				meta.push(this.getMessageMeta(mes));
 			}
 
@@ -78,7 +78,7 @@ export class ChatSelected extends BaseComponent {
 			src: mes.content.src ?? "",
 			time: mes.content.time,
 		});
-		imgMes.build();
+		imgMes.build(null);
 		return imgMes.ref;
 	}
 
@@ -88,7 +88,7 @@ export class ChatSelected extends BaseComponent {
 			time: mes.content.time,
 			type: mes.isMy ? "my" : "default",
 		});
-		textMes.build();
+		textMes.build(null);
 		return textMes.ref;
 	}
 
@@ -96,10 +96,10 @@ export class ChatSelected extends BaseComponent {
 		this.messagesData = getSelectedChatData();
 	}
 
-	getMessages() {
+	getMessages(): TChildren {
 		const mesDataShallow = this.mesDataToShallowArr(this.messagesData);
 
-		const mesChildren = mesDataShallow.reduce((children, mes) => {
+		const mesChildren = mesDataShallow.reduce<TChildren>((children, mes) => {
 			switch (mes.type) {
 				case "message":
 					children[`message_${mes.id}`] = this.getTextMesChild(mes);
@@ -115,7 +115,7 @@ export class ChatSelected extends BaseComponent {
 		return mesChildren;
 	}
 
-	componentWillInit() {
+	componentWillInit(): void {
 		this.initSelectedChatData();
 	}
 
@@ -130,11 +130,11 @@ export class ChatSelected extends BaseComponent {
 
 		const dividerFooter = new Divider(null);
 		const dividerHeader = new Divider(null);
-		dividerFooter.build();
-		dividerHeader.build();
+		dividerFooter.build(null);
+		dividerHeader.build(null);
 
 		const sendMessageForm = new SendMessageForm(null);
-		sendMessageForm.build();
+		sendMessageForm.build(null);
 
 		return {
 			dividerHeader: dividerHeader.ref,

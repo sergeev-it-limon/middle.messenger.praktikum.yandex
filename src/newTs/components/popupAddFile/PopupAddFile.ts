@@ -1,16 +1,13 @@
 import { TActions } from "../baseComponent";
-import { htmlFromStr } from "../../utils/htmlFrom";
-import { template } from "./popupAddFile.tmpl.js";
+// import { htmlFromStr } from "../../utils/htmlFrom";
 // import { ButtonChatPopup } from "../buttonChatPopup";
 // import { List } from "../list";
 // import { PopupWrapper } from "../popupWrapper";
-import imageSrc from "./imageIcon.png";
-import fileSrc from "./fileIcon.png";
 import "./popupAddFile.css";
 import style from "./popupAddFile.css.json";
-import { Popup } from "../popup";
-import { TPopupMeta } from "../popup/Popup";
+import { Popup, TPopupMeta } from "../popup";
 import { PopupAddFileTrigger } from "../popupAddFileTrigger";
+import { PopupAddFileContent } from "../popupAddFileContent/PopupAddFileContent";
 // import { Popup } from "../popup";
 // import { ButtonAddFile } from "../buttonAddFile";
 
@@ -25,14 +22,17 @@ export class PopupAddFile extends Popup {
 	}
 
 	initPopupContent(): HTMLElement {
-		return htmlFromStr("<div>PopupContent</div>");
+		const content = new PopupAddFileContent(null);
+		content.build(null);
+
+		return content.ref;
 	}
 
 	initTrigger(): HTMLElement {
 		this.trigger = new PopupAddFileTrigger(this.handleTriggerClick.bind(this), {
 			isActive: this.isOpen,
 		});
-		this.trigger.build();
+		this.trigger.build(null);
 		return this.trigger.ref;
 	}
 
