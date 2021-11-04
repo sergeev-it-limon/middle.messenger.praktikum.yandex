@@ -8,7 +8,7 @@ var pug_match_html=/["&<>]/;export function template(locals) {var pug_html = "",
     var locals_for_with = (locals || {});
     
     (function (style) {
-      pug_html = pug_html + "\u003Cform" + (pug_attr("class", pug_classes([style.root], [true]), false, false)+" data-actions=\"submit:handleSubmit\"") + "\u003E\u003Cdiv data-component=\"popupAddFile\"\u003E\u003C\u002Fdiv\u003E\u003Cdiv" + (pug_attr("class", pug_classes([style.inputSendMessage], [true]), false, false)+" data-component=\"inputSendMessage\"") + "\u003E\u003C\u002Fdiv\u003E\u003Cdiv" + (pug_attr("class", pug_classes([style.buttonSubmitSendMessageForm], [true]), false, false)+" data-component=\"buttonSubmitSendMessageForm\"") + "\u003E\u003C\u002Fdiv\u003E\u003C\u002Fform\u003E";
+      pug_html = pug_html + "\u003Cform" + (pug_attr("class", pug_classes([style.root], [true]), false, false)+" data-actions=\"submit:handleSubmit\"") + "\u003E\u003Cdiv data-component=\"popupAddFile\"\u003E\u003C\u002Fdiv\u003E\u003Cdiv" + (pug_attr("class", pug_classes([style.inputSendMessage], [true]), false, false)) + "\u003E\u003Cdiv data-component=\"inputSendMessage\"\u003E\u003C\u002Fdiv\u003E\u003C\u002Fdiv\u003E\u003Cdiv" + (pug_attr("class", pug_classes([style.buttonSubmitSendMessageForm], [true]), false, false)) + "\u003E\u003Cdiv data-component=\"buttonSubmitSendMessageForm\"\u003E\u003C\u002Fdiv\u003E\u003C\u002Fdiv\u003E\u003C\u002Fform\u003E";
     }.call(this, "style" in locals_for_with ?
         locals_for_with.style :
         typeof style !== 'undefined' ? style : undefined));

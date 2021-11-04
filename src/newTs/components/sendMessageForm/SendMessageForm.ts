@@ -27,9 +27,9 @@ export class SendMessageForm extends BaseComponent {
 		const buttonSubmitSendMessageForm = new ButtonSubmitSendMessageForm(null);
 		const popupAddFile = new PopupAddFile(null);
 
-		inputSendMessage.build();
-		buttonSubmitSendMessageForm.build();
-		popupAddFile.build();
+		inputSendMessage.build(null);
+		buttonSubmitSendMessageForm.build(null);
+		popupAddFile.build(null);
 
 		return {
 			popupAddFile: popupAddFile.ref,
