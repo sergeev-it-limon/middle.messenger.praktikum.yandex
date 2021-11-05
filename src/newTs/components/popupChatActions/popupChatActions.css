@@ -1,0 +1,5 @@
+@import "../../common/zIndexes.css";
+
+.root {
+	z-index: var(--modal-add-rm-z-index);
+}

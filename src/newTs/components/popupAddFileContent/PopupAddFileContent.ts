@@ -1,13 +1,19 @@
-import { BaseComponent } from "../baseComponent";
+import { BaseComponent, TChildren } from "../baseComponent";
 import { ButtonChatPopup } from "../buttonChatPopup";
 import { List } from "../list";
 import "./popupAddFileContent.css";
 import style from "./popupAddFileContent.css.json";
 import imageIcon from "./imageIcon.png";
 import fileIcon from "./fileIcon.png";
+import { template } from "./popupAddFileContent.tmpl.js";
+import { htmlFromStr } from "../../utils/htmlFrom";
 
 export class PopupAddFileContent extends BaseComponent {
 	render(): HTMLElement {
+		return htmlFromStr(template());
+	}
+
+	initChildren(): TChildren {
 		const list = new List({
 			ulClassName: style.list,
 			liClassName: style.listItem,
@@ -33,6 +39,8 @@ export class PopupAddFileContent extends BaseComponent {
 		buttonFile.build(null);
 		list.build({ items: [buttonImg.ref, buttonFile.ref] });
 
-		return list.ref;
+		return {
+			content: list.ref,
+		};
 	}
 }

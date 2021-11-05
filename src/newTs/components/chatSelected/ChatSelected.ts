@@ -10,6 +10,8 @@ import { MessageImage } from "../messageImage";
 import { Message } from "../message";
 import { Divider } from "../divider";
 import { SendMessageForm } from "../sendMessageForm";
+import { ImageAvatar } from "../imageAvatar";
+import { PopupChatActions } from "../popupChatActions";
 // import { MessageImage } from "../messageImage";
 // import { Message } from "../message/Message";
 // import { Divider } from "../divider";
@@ -136,12 +138,22 @@ export class ChatSelected extends BaseComponent {
 		const sendMessageForm = new SendMessageForm(null);
 		sendMessageForm.build(null);
 
+		const imageAvatar = new ImageAvatar({
+			alt: "avatar",
+			sizeMod: "sm",
+			src: "https://images.unsplash.com/photo-1616213320857-b5c3669e472e?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=334&q=80",
+		});
+		imageAvatar.build(null);
+
+		const popupChatActions = new PopupChatActions(null);
+		popupChatActions.build(null);
+
 		return {
 			dividerHeader: dividerHeader.ref,
 			dividerFooter: dividerFooter.ref,
 			sendMessageForm: sendMessageForm.ref,
-			imageAvatar: htmlFromStr("<div>imageAvatar</div>"),
-			popupChatActions: htmlFromStr("<div>popupChatActions</div>"),
+			imageAvatar: imageAvatar.ref,
+			popupChatActions: popupChatActions.ref,
 			...messages,
 		};
 	}

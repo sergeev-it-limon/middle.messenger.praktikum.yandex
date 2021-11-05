@@ -1,10 +1,8 @@
-@import "../../common/variables.css";
-
 .list {
 	width: 196px;
 }
 
-.listItem:nth-child(even) {
+.listItem + .listItem {
 	margin-top: 16px;
 }
 
