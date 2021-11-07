@@ -13,9 +13,13 @@ export abstract class ChatPageTmpl extends BaseComponent {
 		return {
 			sidebar: this.initSidebar(),
 			mainContent: this.initMainContent(),
+			addUserModal: this.initAddUserModal(),
+			removeUserModal: this.initRemoveUserModal(),
 		};
 	}
 
 	abstract initSidebar(): HTMLElement;
 	abstract initMainContent(): HTMLElement;
+	abstract initAddUserModal(): HTMLElement;
+	abstract initRemoveUserModal(): HTMLElement;
 }

@@ -8,7 +8,7 @@ var pug_match_html=/["&<>]/;export function template(locals) {var pug_html = "",
     var locals_for_with = (locals || {});
     
     (function (style) {
-      pug_html = pug_html + "\u003Csection" + (pug_attr("class", pug_classes([style.root], [true]), false, false)) + "\u003E\u003Cdiv data-component=\"sidebar\"\u003E\u003C\u002Fdiv\u003E\u003Cmain" + (pug_attr("class", pug_classes([style.mainContent], [true]), false, false)+" data-component=\"mainContent\"") + "\u003E\u003C\u002Fmain\u003E\u003C\u002Fsection\u003E";
+      pug_html = pug_html + "\u003Csection" + (pug_attr("class", pug_classes([style.root], [true]), false, false)) + "\u003E\u003Cdiv data-component=\"sidebar\"\u003E\u003C\u002Fdiv\u003E\u003Cmain" + (pug_attr("class", pug_classes([style.mainContent], [true]), false, false)) + "\u003E\u003Cdiv data-component=\"mainContent\"\u003E\u003C\u002Fdiv\u003E\u003C\u002Fmain\u003E\u003Cdiv data-component=\"addUserModal\"\u003E\u003C\u002Fdiv\u003E\u003Cdiv data-component=\"removeUserModal\"\u003E\u003C\u002Fdiv\u003E\u003C\u002Fsection\u003E";
     }.call(this, "style" in locals_for_with ?
         locals_for_with.style :
         typeof style !== 'undefined' ? style : undefined));

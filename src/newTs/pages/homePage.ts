@@ -5,12 +5,21 @@ import { ChatPageTmpl } from "../templates/chatPageTmpl";
 export class HomePage extends ChatPageTmpl {
 	initSidebar(): HTMLElement {
 		const sidebar = new Sidebar(null);
-		sidebar.build();
+		sidebar.build(null);
 		return sidebar.ref;
 	}
+
 	initMainContent(): HTMLElement {
 		const chatStub = new ChatStub(null);
-		chatStub.build();
+		chatStub.build(null);
 		return chatStub.ref;
+	}
+
+	initAddUserModal(): HTMLElement {
+		return document.createElement("div");
+	}
+	
+	initRemoveUserModal(): HTMLElement {
+		return document.createElement("div");
 	}
 }
