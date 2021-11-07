@@ -1,5 +1,6 @@
 import { htmlFromStr } from "../../utils/htmlFrom";
 import { BaseComponent, TChildren } from "../baseComponent";
+import { InputString } from "../inputString";
 import "./modalAddRemoveUser.css";
 import style from "./modalAddRemoveUser.css.json";
 import { template } from "./modalAddRemoveUser.tmpl.js";
@@ -51,8 +52,17 @@ export class ModalAddRemoveUser extends BaseComponent<
 	}
 
 	initChildren(): TChildren {
+		const inputString = new InputString({
+			defaultValue: "",
+			inputName: "login",
+			inputType: "input",
+			labelText: "Логин",
+		});
+    
+		inputString.build(null);
+
 		return {
-			inputStringWithoutId: htmlFromStr("<input />"),
+			inputString: inputString.ref,
 			buttonMain: htmlFromStr("<button>submit</button>"),
 		};
 	}
