@@ -1,5 +1,6 @@
 import { htmlFromStr } from "../../utils/htmlFrom";
 import { BaseComponent, TChildren } from "../baseComponent";
+import { ButtonMain } from "../buttonMain";
 import { InputString } from "../inputString";
 import "./modalAddRemoveUser.css";
 import style from "./modalAddRemoveUser.css.json";
@@ -23,6 +24,18 @@ export class ModalAddRemoveUser extends BaseComponent<
 	TModalAddRemoveUserState,
 	TModalAddRemoveUserProps
 > {
+	private getButtonText() {
+		let buttonText = "Тип не определен";
+
+		if (this.props.typeModal === "add") {
+			buttonText = "Добавить";
+		} else if (this.props.typeModal === "remove") {
+			buttonText = "Удалить";
+		}
+
+		return buttonText;
+	}
+
 	protected render(): HTMLElement {
 		return htmlFromStr(template());
 	}
@@ -58,12 +71,15 @@ export class ModalAddRemoveUser extends BaseComponent<
 			inputType: "input",
 			labelText: "Логин",
 		});
-    
+
+		const buttonMain = new ButtonMain({ text: this.getButtonText() });
+
 		inputString.build(null);
+		buttonMain.build(null);
 
 		return {
 			inputString: inputString.ref,
-			buttonMain: htmlFromStr("<button>submit</button>"),
+			buttonMain: buttonMain.ref,
 		};
 	}
 }
