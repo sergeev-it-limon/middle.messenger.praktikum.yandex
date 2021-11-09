@@ -35,8 +35,16 @@ export class PopupAddFileContent extends BaseComponent {
 			type: "button",
 		});
 
-		buttonImg.build({ handleClick: () => {} });
-		buttonFile.build({ handleClick: () => {} });
+		buttonImg.build({
+			handleClick: () => {
+				console.log("Добавить картинку");
+			},
+		});
+		buttonFile.build({
+			handleClick: () => {
+				console.log("Добавить файл");
+			},
+		});
 		list.build({ items: [buttonImg.ref, buttonFile.ref] });
 
 		return {

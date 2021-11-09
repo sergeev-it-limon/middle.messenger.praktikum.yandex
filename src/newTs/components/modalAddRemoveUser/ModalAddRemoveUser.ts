@@ -26,7 +26,7 @@ export class ModalAddRemoveUser extends BaseComponent<
 	TModalAddRemoveUserState,
 	TModalAddRemoveUserProps
 > {
-	private handleClose() {
+	private handleClose(): void {
 		this.state.outerWrapperClassName = `${style.outerWrapper} ${style.outerWrapper_close}`;
 	}
 
@@ -115,6 +115,7 @@ export class ModalAddRemoveUser extends BaseComponent<
 	initActions(): TActions {
 		return {
 			handleClose: this.handleClose.bind(this),
+			handleSubmit: this.handleSubmit.bind(this),
 		};
 	}
 }

@@ -8,7 +8,7 @@ export class PopupChatActions extends Popup {
 	private isOpen = false;
 	private trigger: PopupChatActionsTrigger;
 
-	handleIsOpenChange() {
+	handleIsOpenChange(): void {
 		this.isOpen = !this.isOpen;
 		this.trigger.update({ isActive: this.isOpen });
 		this.changeOpen(this.isOpen);
