@@ -1,4 +1,4 @@
-import { BaseComponent } from "../baseComponent";
+import { BaseComponent, TActions } from "../baseComponent";
 import { htmlFromStr } from "../../utils/htmlFrom";
 import { template } from "./buttonChatPopup.tmpl.js";
 import "./buttonChatPopup.css";
@@ -22,9 +22,14 @@ type TButtonChatPopupProps = {
 	text: string;
 };
 
+type TButtonChatPopupBuildCtx = {
+	handleClick: (e: Event) => void;
+};
+
 export class ButtonChatPopup extends BaseComponent<
 	TButtonChatPopupState,
-	TButtonChatPopupProps
+	TButtonChatPopupProps,
+	TButtonChatPopupBuildCtx
 > {
 	render(): HTMLElement {
 		return htmlFromStr(template());
@@ -50,5 +55,11 @@ export class ButtonChatPopup extends BaseComponent<
 		this.state.text = this.props.text;
 		this.state.textClassName = style.text;
 		this.state.type = this.props.type;
+	}
+
+	initActions(): TActions {
+		return {
+			handleClick: this.buildContext.handleClick,
+		};
 	}
 }

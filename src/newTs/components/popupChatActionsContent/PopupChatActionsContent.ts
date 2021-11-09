@@ -8,8 +8,19 @@ import { template } from "./popupChatActionsContent.tmpl.js";
 import addUserIcon from "./addUser.png";
 import removeChatIcon from "./removeChat.png";
 import removeUserIcon from "./removeUser.png";
+import { eventBus } from "../../controllers/EventBus";
 
 export class PopupChatActionsContent extends BaseComponent {
+	handleOpenAddUserModal(): void {
+		eventBus.emit("openAddUser", null);
+	}
+	handleOpenRemoveUserModal(): void {
+		eventBus.emit("openRemoveUser", null);
+	}
+	handleOpenRemoveChatModal(): void {
+		eventBus.emit("openRemoveChat", null);
+	}
+
 	protected render(): HTMLElement {
 		return htmlFromStr(template());
 	}
@@ -44,9 +55,15 @@ export class PopupChatActionsContent extends BaseComponent {
 			type: "button",
 		});
 
-		buttonAddUser.build(null);
-		buttonRemoveUser.build(null);
-		buttonRemoveChat.build(null);
+		buttonAddUser.build({
+			handleClick: this.handleOpenAddUserModal.bind(this),
+		});
+		buttonRemoveUser.build({
+			handleClick: this.handleOpenRemoveUserModal.bind(this),
+		});
+		buttonRemoveChat.build({
+			handleClick: this.handleOpenRemoveChatModal.bind(this),
+		});
 
 		list.build({
 			items: [buttonAddUser.ref, buttonRemoveUser.ref, buttonRemoveChat.ref],

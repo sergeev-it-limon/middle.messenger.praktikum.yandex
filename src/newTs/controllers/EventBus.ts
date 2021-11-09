@@ -1,7 +1,9 @@
 import { EventBus } from "../utils/buildEventBus";
 
 type TEvents = {
-	chatChanged: { chatIdNew: number };
+	openAddUser: null;
+	openRemoveUser: null;
+	openRemoveChat: null;
 };
 
 export const eventBus = new EventBus<TEvents>();

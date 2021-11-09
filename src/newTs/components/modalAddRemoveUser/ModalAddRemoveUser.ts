@@ -1,5 +1,7 @@
+import { eventBus } from "../../controllers/EventBus";
+import { getFormEntries } from "../../utils/getFormEntries";
 import { htmlFromStr } from "../../utils/htmlFrom";
-import { BaseComponent, TChildren } from "../baseComponent";
+import { BaseComponent, TActions, TChildren } from "../baseComponent";
 import { ButtonMain } from "../buttonMain";
 import { InputString } from "../inputString";
 import "./modalAddRemoveUser.css";
@@ -24,7 +26,34 @@ export class ModalAddRemoveUser extends BaseComponent<
 	TModalAddRemoveUserState,
 	TModalAddRemoveUserProps
 > {
-	private getButtonText() {
+	private handleClose() {
+		this.state.outerWrapperClassName = `${style.outerWrapper} ${style.outerWrapper_close}`;
+	}
+
+	private handleOpen(): void {
+		this.state.outerWrapperClassName = `${style.outerWrapper} ${style.outerWrapper_open}`;
+	}
+
+	private handleSubmit(e: SubmitEvent): void {
+		e.preventDefault();
+		const form = e.currentTarget as HTMLFormElement;
+		const formData = getFormEntries(form);
+
+		const typeHint =
+			this.props.typeModal === "remove" ? "удаления" : "добавления";
+		console.log(`Сабмит формы ${typeHint} пользователя`);
+		console.log(formData);
+	}
+
+	componentWillInit(): void {
+		if (this.props.typeModal == "add") {
+			eventBus.subscribe("openAddUser", this.handleOpen.bind(this));
+		} else {
+			eventBus.subscribe("openRemoveUser", this.handleOpen.bind(this));
+		}
+	}
+
+	private getButtonText(): string {
 		let buttonText = "Тип не определен";
 
 		if (this.props.typeModal === "add") {
@@ -46,7 +75,7 @@ export class ModalAddRemoveUser extends BaseComponent<
 			headerClassName: style.header,
 			headerText: "",
 			inputClassName: style.input,
-			outerWrapperClassName: `${style.outerWrapper} ${style.outerWrapper_open}`,
+			outerWrapperClassName: `${style.outerWrapper} ${style.outerWrapper_close}`,
 			rootClassName: style.root,
 			submitClassName: style.submit,
 		};
@@ -80,6 +109,12 @@ export class ModalAddRemoveUser extends BaseComponent<
 		return {
 			inputString: inputString.ref,
 			buttonMain: buttonMain.ref,
+		};
+	}
+
+	initActions(): TActions {
+		return {
+			handleClose: this.handleClose.bind(this),
 		};
 	}
 }
