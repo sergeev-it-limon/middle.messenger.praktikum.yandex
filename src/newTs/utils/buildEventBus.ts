@@ -50,7 +50,7 @@ export class EventBus<TEvents> {
 	}
 
 	emit<T extends TEventName<TEvents>>(eventName: T, payload: TEvents[T]): void {
-		const subsCur = this.subscribers[eventName] as TSubscriber<TEvents, T>[];
+		const subsCur = this.subscribers[eventName] ?? [];
 
 		for (const sub of subsCur) {
 			sub(payload);

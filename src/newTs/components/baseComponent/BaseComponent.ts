@@ -4,6 +4,8 @@ import { LifeCycleEventBus } from "./LifeCycleEventBus";
 import { TStateBase } from "./StateChangeEventBus";
 import { StateService } from "./stateService";
 
+type TStateComponent = TStateBase | null;
+
 export interface BaseComponent {
 	/** Коллбэк, вызывающийся перед тем, как начется инициализация компонента */
 	componentWillInit?(): void;
@@ -11,11 +13,11 @@ export interface BaseComponent {
 
 /** асбтрактый класс, реализующий основную логику работы компонентов */
 export abstract class BaseComponent<
-	TState extends TStateBase = null,
+	TState extends TStateComponent = null,
 	TProps = null,
 	TBuildContext = null
 > {
-	private stateService: StateService<TState>;
+	private stateService: StateService;
 	private actionsService: ActionsService;
 	private childrenService: ChildrenService;
 
@@ -73,7 +75,7 @@ export abstract class BaseComponent<
 	}
 
 	private initServices(): void {
-		this.stateService = new StateService(this.initState());
+		this.stateService = new StateService(this.initState() ?? {});
 		this.actionsService = new ActionsService(this.initActions());
 		this.childrenService = new ChildrenService(this.initChildren());
 

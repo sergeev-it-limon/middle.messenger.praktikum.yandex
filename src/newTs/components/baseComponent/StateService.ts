@@ -5,14 +5,14 @@ const STATE_ATTR = "[data-state]";
 
 /** Сервис, реализующий логику работы со стейтом компонента и логику его обновления на связанных тэгах.
  * Объект стейта является реактивным, изменение свойств в нем будет вызывать ререндер связанных компонентов */
-export class StateService<TState extends TStateBase> {
+export class StateService {
 	/** Реактивное состояние компонента, где каждое свойство может быть привязано к определенным тэгам */
-	public state: TState;
-	private readonly stateChangeEventBus: StateChangeEventBus<TState>;
+	public state: TStateBase;
+	private readonly stateChangeEventBus: StateChangeEventBus;
 
-	constructor(defaultState: TState) {
+	constructor(defaultState: TStateBase) {
 		this.state = defaultState;
-		this.stateChangeEventBus = new StateChangeEventBus<TState>();
+		this.stateChangeEventBus = new StateChangeEventBus();
 	}
 
 	/** Связать стейт с соответствующими тэгами в переданном элементе */
@@ -81,10 +81,7 @@ export class StateService<TState extends TStateBase> {
 			Object.defineProperty(this.state, stateKey, {
 				set: (valueNew: typeof valueOld) => {
 					if (valueNew !== valueOld) {
-						this.stateChangeEventBus.emit(
-							stateKey as keyof TState,
-							valueNew as TState[keyof TState]
-						);
+						this.stateChangeEventBus.emit(stateKey, valueNew);
 					}
 
 					valueOld = this.getStrNumValue(stateKey, valueNew);
