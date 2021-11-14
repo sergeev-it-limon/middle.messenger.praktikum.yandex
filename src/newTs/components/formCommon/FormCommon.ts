@@ -1,5 +1,5 @@
 import { htmlFromStr } from "../../utils/htmlFrom";
-import { BaseComponent, TChildren } from "../baseComponent";
+import { BaseComponent, TActions, TChildren } from "../baseComponent";
 import "./formCommon.css";
 import style from "./formCommon.css.json";
 import { template } from "./formCommon.tmpl.js";
@@ -17,6 +17,7 @@ type TFormCommonProps = {
 type TFormCommonBuildCtx = {
 	top: Node;
 	bottom: HTMLElement;
+	handleSubmit: (e: SubmitEvent) => void;
 };
 
 export class FormCommon extends BaseComponent<
@@ -47,5 +48,11 @@ export class FormCommon extends BaseComponent<
 		this.state.rootClassName = `${style.root} ${
 			this.props.formClassName ?? ""
 		}`;
+	}
+
+	initActions(): TActions {
+		return {
+			handleSubmit: this.buildContext.handleSubmit,
+		};
 	}
 }

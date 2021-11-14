@@ -7,8 +7,22 @@ import "./formAuth.css";
 import style from "./formAuth.css.json";
 import { template } from "./formAuth.tmpl.js";
 import { htmlFromStr } from "../../utils/htmlFrom";
+import { getFormEntries } from "../../utils/getFormEntries";
 
 export class FormAuth extends BaseComponent {
+	private handleSubmit(e: SubmitEvent): void {
+		e.preventDefault();
+		const form = e.currentTarget as HTMLFormElement;
+		const formData = getFormEntries(form);
+
+		console.log(`Сабмит формы авторизации пользователя`);
+		console.log(formData);
+
+		setTimeout(() => {
+			location.assign("/home");
+		}, 3000);
+	}
+
 	render(): HTMLElement {
 		return htmlFromStr(template());
 	}
@@ -49,6 +63,7 @@ export class FormAuth extends BaseComponent {
 		formCommon.build({
 			top,
 			bottom: buttonAuth.ref,
+			handleSubmit: this.handleSubmit.bind(this),
 		});
 
 		return { content: formCommon.ref };
