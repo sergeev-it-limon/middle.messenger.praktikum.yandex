@@ -1,0 +1,1 @@
+export { CmnPageTmpl } from "./CmnPageTmpl";

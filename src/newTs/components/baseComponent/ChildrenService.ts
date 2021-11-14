@@ -2,7 +2,7 @@ import { getElemsByDataset, TElemsByDataset } from "./getElemsByDataset";
 
 const CHILD_PLACE_ATTR = "[data-component]";
 
-export type TChildren = { [key: string]: HTMLElement };
+export type TChildren = { [key: string]: Node };
 
 /** Сервис, отвечающий за рендеринг дочерних компонентов */
 export class ChildrenService {
@@ -34,7 +34,7 @@ export class ChildrenService {
 		}
 	}
 
-	private replaceWithChild(places: HTMLElement[], child: HTMLElement) {
+	private replaceWithChild(places: Node[], child: Node) {
 		for (const place of places) {
 			place.parentNode?.replaceChild(child, place);
 		}
