@@ -1,7 +1,5 @@
 import { htmlFromStr } from "../../utils/htmlFrom";
 import { BaseComponent, TChildren } from "../baseComponent";
-import { ButtonTransparent } from "../buttonTransparent";
-import { ButtonTransparentRed } from "../buttonTransparentRed";
 import { FormCommon } from "../formCommon/FormCommon";
 import { LabeledTextLine } from "../labeledTextLine";
 import { PageHeader } from "../pageHeader";
@@ -11,13 +9,23 @@ import "./profileContent.css";
 import style from "./profileContent.css.json";
 import { template } from "./profileContent.tmpl.js";
 
-export class ProfileContent extends BaseComponent {
+type TProfileContentState = {
+	rootClassName: string;
+};
+
+export class ProfileContent extends BaseComponent<TProfileContentState> {
 	render(): HTMLElement {
 		return htmlFromStr(template());
 	}
 
+	initState(): TProfileContentState {
+		return {
+			rootClassName: style.root
+		}
+	}
+
 	initChildren(): TChildren {
-		const content = new FormCommon({ formClassName: style.root });
+		const content = new FormCommon({ formClassName: style.form });
 
 		const profileAvatar = new ProfileAvatar(null);
 		const pageHeader = new PageHeader({ text: "Иван" });

@@ -1,4 +1,8 @@
 .root {
+	flex-grow: 1;
+}
+
+.form {
 	width: 510px;
 	height: 650px;
 	box-shadow: none;
