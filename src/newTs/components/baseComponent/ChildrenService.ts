@@ -36,7 +36,17 @@ export class ChildrenService {
 
 	private replaceWithChild(places: Node[], child: Node) {
 		for (const place of places) {
-			place.parentNode?.replaceChild(child, place);
+			if (place instanceof Node && child instanceof Node) {
+				place.parentNode?.replaceChild(child, place);
+			} else {
+				console.error(
+					"error occured in ChildrenService, place or child is not instance of Node"
+				);
+				console.log("place:");
+				console.log(place);
+				console.log("child:");
+				console.log(child);
+			}
 		}
 	}
 }
