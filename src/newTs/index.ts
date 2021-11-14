@@ -1,6 +1,7 @@
 import "./common/commonStyles.css";
 import { AuthPage } from "./pages/authPage";
 import { HomePage } from "./pages/homePage";
+import { ProfilePage } from "./pages/profilePage";
 import { SelectedChatPage } from "./pages/selectedChatPage";
 import { htmlFromStr } from "./utils/htmlFrom";
 
@@ -25,6 +26,10 @@ if (pathname === "/home") {
 	const authPage = new AuthPage(null);
 	authPage.build(null);
 	componentNode = authPage.ref;
+} else if (pathname === "/profile") {
+	const profilePage = new ProfilePage(null);
+	profilePage.build(null);
+	componentNode = profilePage.ref;
 } else {
 	componentNode = htmlFromStr("<div>Not Found</div>");
 }
