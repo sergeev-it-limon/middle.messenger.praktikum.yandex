@@ -1,0 +1,14 @@
+@import "../../common/variables.css";
+
+.root {
+	font-family: Inter;
+	font-style: normal;
+	font-weight: 500;
+	font-size: var(--font-size-md);
+	text-align: center;
+	line-height: 37px;
+	background-color: transparent;
+	color: var(--alarm-color);
+	border: none;
+	cursor: pointer;
+}

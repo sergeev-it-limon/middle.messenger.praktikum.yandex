@@ -16,7 +16,7 @@ type TFormCommonProps = {
 
 type TFormCommonBuildCtx = {
 	top: Node;
-	bottom: HTMLElement;
+	bottom: Node;
 	handleSubmit: (e: SubmitEvent) => void;
 };
 

@@ -1,9 +1,12 @@
 import { htmlFromStr } from "../../utils/htmlFrom";
 import { BaseComponent, TChildren } from "../baseComponent";
+import { ButtonTransparent } from "../buttonTransparent";
+import { ButtonTransparentRed } from "../buttonTransparentRed";
 import { FormCommon } from "../formCommon/FormCommon";
 import { LabeledTextLine } from "../labeledTextLine";
 import { PageHeader } from "../pageHeader";
 import { ProfileAvatar } from "../profileAvatar";
+import { ProfileMenu } from "../profileMenu";
 import "./profileContent.css";
 import style from "./profileContent.css.json";
 import { template } from "./profileContent.tmpl.js";
@@ -62,9 +65,13 @@ export class ProfileContent extends BaseComponent {
 		top.appendChild(nickText.ref);
 		top.appendChild(phoneText.ref);
 
+		const bottom = new ProfileMenu(null);
+
+		bottom.build(null);
+
 		content.build({
 			top,
-			bottom: htmlFromStr("<div>bottom</div>"),
+			bottom: bottom.ref,
 			handleSubmit: () => {},
 		});
 
