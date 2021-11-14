@@ -1,0 +1,16 @@
+@import "../../common/variables.css";
+
+.root {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	padding: 10px 0px;
+	font-size: var(--font-size-md);
+	line-height: var(--font-size-md);
+	border-bottom: 1px solid var(--divider-color);
+}
+
+.text {
+	margin: 0;
+	color: var(--pale_text-color);
+}
