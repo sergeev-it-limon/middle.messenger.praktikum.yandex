@@ -18,6 +18,10 @@ export class ChildrenService {
 
 	/** Добавить дочерние элементы */
 	public bindChildren(ref: HTMLElement): void {
+		if (!(ref instanceof HTMLElement)) {
+			console.error("ref is not instance of HTMLElement");
+			return;
+		}
 		this.initChildrenPlacesSet(ref);
 		this.insertChildren();
 	}
