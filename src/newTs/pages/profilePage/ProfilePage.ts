@@ -1,4 +1,5 @@
 import { BaseComponent, TChildren } from "../../components/baseComponent";
+import { LeftNavPanel } from "../../components/leftNavPanel";
 import { CmnPageTmpl } from "../../templates/cmnPageTmpl";
 import { htmlFromStr } from "../../utils/htmlFrom";
 import { template } from "./profilePage.tmpl.js";
@@ -11,12 +12,18 @@ export class ProfilePage extends BaseComponent {
 	initChildren(): TChildren {
 		const cmnPageTmpl = new CmnPageTmpl(null);
 
-		cmnPageTmpl.build({
-			content: htmlFromStr('<div>ProfilePage</div>')
-		});
+		const leftNavPanel = new LeftNavPanel({ linkTo: "/home" });
+		const main = htmlFromStr("<div>profileCOntent</div>");
 
-		return {
-			content: cmnPageTmpl.ref
-		}
+		leftNavPanel.build(null);
+
+		const content = document.createDocumentFragment();
+
+		content.appendChild(leftNavPanel.ref);
+		content.appendChild(main);
+
+		cmnPageTmpl.build({ content });
+
+		return { content: cmnPageTmpl.ref };
 	}
 }
