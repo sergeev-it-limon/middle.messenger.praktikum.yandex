@@ -21,6 +21,9 @@ export abstract class BaseComponent<
 	private actionsService: ActionsService;
 	private childrenService: ChildrenService;
 
+	/** Ссылка на предыдущий элемент, надо для ребилда, чтобы сделать replaceWith */
+	private prevRef: HTMLElement;
+
 	/** Ссылка на элемент компонента */
 	public ref: HTMLElement;
 
@@ -61,9 +64,11 @@ export abstract class BaseComponent<
 			this._componentWillInit.bind(this)
 		);
 		this.eventBus.subscribe("initServices", this.initServices.bind(this));
+		this.eventBus.subscribe("saveRef", this.saveRef.bind(this));
 		this.eventBus.subscribe("render", this._render.bind(this));
 		this.eventBus.subscribe("bindServices", this.bindServices.bind(this));
 		this.eventBus.subscribe("update", this._update.bind(this));
+		this.eventBus.subscribe("remount", this.remount.bind(this));
 	}
 
 	private _componentWillInit(): void {
@@ -78,6 +83,14 @@ export abstract class BaseComponent<
 		this.stateService = new StateService(this.initState() ?? {});
 		this.actionsService = new ActionsService(this.initActions());
 		this.childrenService = new ChildrenService(this.initChildren());
+
+		this.eventBus.emit("saveRef", null);
+	}
+
+	private saveRef(): void {
+		if (this.ref != null) {
+			this.prevRef = this.ref;
+		}
 
 		this.eventBus.emit("render", null);
 	}
@@ -97,6 +110,12 @@ export abstract class BaseComponent<
 
 	private _update(props: TProps): void {
 		this.update(props);
+		this.eventBus.emit("remount", null);
+	}
+
+	private remount(): void {
+		if (this.prevRef == null) return;
+		this.prevRef.replaceWith(this.ref);
 	}
 
 	/** Метод, обновляющий состояние компонента, основываясь на новых пропсах */
