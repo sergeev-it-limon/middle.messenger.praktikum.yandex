@@ -26,35 +26,27 @@ export abstract class BaseComponent<
 	public get isVisible(): boolean {
 		return this._isVisible;
 	}
+
 	private set isVisible(value: boolean) {
-		const style = this.ref.getAttribute("style") ?? "";
-		const styleEntries = style
-			?.split(";")
-			.filter((value) => value != "")
-			.map((style) => style.split(": "));
-		const display = value ? "block" : "none";
-
-		if (styleEntries == null) {
-			this.ref.setAttribute("style", `${style} display: ${display};`);
-			this._isVisible = value;
-			return;
-		}
-
+		let styleEntries = this.getStyleEntries();
 		const displayIndex = styleEntries.findIndex(([key]) => key === "display");
 
 		if (displayIndex === -1) {
-			styleEntries.push(["display", display]);
+			if (!value) {
+				styleEntries.push(["display", "none"]);
+			}
 		} else {
-			styleEntries[displayIndex][1] = display;
+			if (value && styleEntries[displayIndex][1] === "none") {
+				styleEntries.splice(displayIndex, 1);
+			} else {
+				styleEntries[displayIndex][1] = "none";
+			}
 		}
 
-		const styleNew = styleEntries
-			.map(([key, value]) => `${key}: ${value}`)
-			.join("; ")
-			.concat(";");
-
+		const styleNew = this.styleEntriesToStr(styleEntries);
 		this.ref.setAttribute("style", styleNew);
-		this._isVisible = value;
+
+		this._isVisible = false;
 	}
 
 	/** Ссылка на предыдущий элемент, надо для ребилда, чтобы сделать replaceWith */
@@ -93,6 +85,21 @@ export abstract class BaseComponent<
 	/** Скрыть элемент (добавить в аттрибут syle значение display: none;) */
 	public hide(): void {
 		this.isVisible = false;
+	}
+
+	private getStyleEntries(): string[][] {
+		const style = this.ref.getAttribute("style") ?? "";
+		return style
+			.split(";")
+			.filter((value) => value != "")
+			.map((style) => style.split(": "));
+	}
+
+	private styleEntriesToStr(entries: string[][]): string {
+		return entries
+			.map(([key, value]) => `${key}: ${value}`)
+			.join("; ")
+			.concat(";");
 	}
 
 	/** Собрать компонент */
