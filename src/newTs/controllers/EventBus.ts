@@ -4,6 +4,8 @@ type TEvents = {
 	openAddUser: null;
 	openRemoveUser: null;
 	openRemoveChat: null;
+	editProfileStart: null;
+	editProfileEnd: null;
 };
 
 export const eventBus = new EventBus<TEvents>();

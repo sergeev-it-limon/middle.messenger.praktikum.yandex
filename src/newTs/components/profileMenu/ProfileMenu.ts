@@ -1,3 +1,4 @@
+import { eventBus } from "../../controllers/EventBus";
 import { htmlFromStr } from "../../utils/htmlFrom";
 import { BaseComponent, TChildren } from "../baseComponent";
 import { ButtonTransparent } from "../buttonTransparent";
@@ -7,6 +8,10 @@ import "./profileMenu.css";
 import { template } from "./profileMenu.tmpl.js";
 
 export class ProfileMenu extends BaseComponent {
+	private handleEdit() {
+		eventBus.emit("editProfileStart", null);
+	}
+
 	render(): HTMLElement {
 		return htmlFromStr(template());
 	}
@@ -32,7 +37,7 @@ export class ProfileMenu extends BaseComponent {
 			type: "button",
 		});
 
-		editButton.build(null);
+		editButton.build({ handleClick: this.handleEdit });
 		passButton.build(null);
 		exitButton.build(null);
 

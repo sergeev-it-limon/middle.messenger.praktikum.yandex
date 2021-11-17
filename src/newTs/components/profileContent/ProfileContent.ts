@@ -1,3 +1,4 @@
+import { eventBus } from "../../controllers/EventBus";
 import { htmlFromStr } from "../../utils/htmlFrom";
 import { BaseComponent, TChildren } from "../baseComponent";
 import { FormCommon } from "../formCommon/FormCommon";
@@ -13,15 +14,23 @@ type TProfileContentState = {
 	rootClassName: string;
 };
 
-export class ProfileContent extends BaseComponent<TProfileContentState> {
+type TProfileContentBuildCtx = {
+	bottom: Node;
+};
+
+export class ProfileContent extends BaseComponent<
+	TProfileContentState,
+	null,
+	TProfileContentBuildCtx
+> {
 	render(): HTMLElement {
 		return htmlFromStr(template());
 	}
 
 	initState(): TProfileContentState {
 		return {
-			rootClassName: style.root
-		}
+			rootClassName: style.root,
+		};
 	}
 
 	initChildren(): TChildren {
@@ -73,14 +82,13 @@ export class ProfileContent extends BaseComponent<TProfileContentState> {
 		top.appendChild(nickText.ref);
 		top.appendChild(phoneText.ref);
 
-		const bottom = new ProfileMenu(null);
-
-		bottom.build(null);
-
 		content.build({
 			top,
-			bottom: bottom.ref,
-			handleSubmit: () => {},
+			bottom: this.buildContext.bottom,
+			handleSubmit: (e) => {
+				e.preventDefault();
+				eventBus.emit("editProfileEnd", null);
+			},
 		});
 
 		return { content: content.ref };
