@@ -33,17 +33,17 @@ export class FormAuth extends BaseComponent {
 		const header = new PageHeader({ text: "Вход" });
 
 		const loginInput = new InputString({
-			defaultValue: "",
+			value: "",
 			inputName: "auth-login",
 			inputType: "text",
-			labelText: "Логин",
+			label: "Логин",
 		});
 
 		const passwordInput = new InputString({
-			defaultValue: "",
+			value: "",
 			inputName: "auth-password",
 			inputType: "password",
-			labelText: "Пароль",
+			label: "Пароль",
 		});
 
 		const buttonAuth = new ButtonMain({

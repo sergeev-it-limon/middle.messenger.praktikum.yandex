@@ -1,7 +1,9 @@
 import { eventBus } from "../../controllers/EventBus";
+import { getFormEntries } from "../../utils/getFormEntries";
 import { htmlFromStr } from "../../utils/htmlFrom";
 import { BaseComponent, TChildren } from "../baseComponent";
 import { FormCommon } from "../formCommon/FormCommon";
+import { InputString } from "../inputString";
 import { LabeledTextLine } from "../labeledTextLine";
 import { PageHeader } from "../pageHeader";
 import { ProfileAvatar } from "../profileAvatar";
@@ -23,6 +25,99 @@ export class ProfileContent extends BaseComponent<
 	null,
 	TProfileContentBuildCtx
 > {
+	private getProfileInfo(): DocumentFragment {
+		const fields = [
+			new LabeledTextLine({
+				label: "Почта",
+				value: "pochta@yandex.ru",
+			}),
+			new LabeledTextLine({
+				label: "Логин",
+				value: "ivanivanov",
+			}),
+			new LabeledTextLine({
+				label: "Имя",
+				value: "Иван",
+			}),
+			new LabeledTextLine({
+				label: "Фамилия",
+				value: "Иванов",
+			}),
+			new LabeledTextLine({
+				label: "Имя в чате",
+				value: "Иван",
+			}),
+			new LabeledTextLine({
+				label: "Телефон",
+				value: "+7 (909) 967 30 30",
+			}),
+		];
+
+		const fg = document.createDocumentFragment();
+
+		for (const field of fields) {
+			field.build(null);
+			eventBus.subscribe("editProfileStart", () => field.hide());
+			eventBus.subscribe("editProfileEnd", () => field.show());
+			fg.appendChild(field.ref);
+		}
+
+		return fg;
+	}
+
+	private getProfileInputs(): DocumentFragment {
+		const fields = [
+			new InputString({
+				label: "Почта",
+				value: "pochta@yandex.ru",
+				inputType: "text",
+				inputName: "email",
+			}),
+			new InputString({
+				label: "Логин",
+				value: "ivanivanov",
+				inputType: "text",
+				inputName: "login",
+			}),
+			new InputString({
+				label: "Имя",
+				value: "Иван",
+				inputType: "text",
+				inputName: "first_name",
+			}),
+			new InputString({
+				label: "Фамилия",
+				value: "Иванов",
+				inputType: "text",
+				inputName: "second_name",
+			}),
+			new InputString({
+				label: "Имя в чате",
+				value: "Иван",
+				inputType: "text",
+				inputName: "nick",
+			}),
+			new InputString({
+				label: "Телефон",
+				value: "+7 (909) 967 30 30",
+				inputType: "text",
+				inputName: "phone",
+			}),
+		];
+
+		const fg = document.createDocumentFragment();
+
+		for (const field of fields) {
+			field.build(null);
+			field.hide();
+			eventBus.subscribe("editProfileStart", () => field.show());
+			eventBus.subscribe("editProfileEnd", () => field.hide());
+			fg.appendChild(field.ref);
+		}
+
+		return fg;
+	}
+
 	render(): HTMLElement {
 		return htmlFromStr(template());
 	}
@@ -38,55 +133,27 @@ export class ProfileContent extends BaseComponent<
 
 		const profileAvatar = new ProfileAvatar(null);
 		const pageHeader = new PageHeader({ text: "Иван" });
-		const emailText = new LabeledTextLine({
-			labelText: "Почта",
-			mainText: "pochta@yandex.ru",
-		});
-		const loginText = new LabeledTextLine({
-			labelText: "Логин",
-			mainText: "ivanivanov",
-		});
-		const nameText = new LabeledTextLine({
-			labelText: "Имя",
-			mainText: "Иван",
-		});
-		const surNameText = new LabeledTextLine({
-			labelText: "Фамилия",
-			mainText: "Иванов",
-		});
-		const nickText = new LabeledTextLine({
-			labelText: "Имя в чате",
-			mainText: "Иван",
-		});
-		const phoneText = new LabeledTextLine({
-			labelText: "Телефон",
-			mainText: "+7 (909) 967 30 30",
-		});
 
 		profileAvatar.build(null);
 		pageHeader.build(null);
-		emailText.build(null);
-		loginText.build(null);
-		nameText.build(null);
-		surNameText.build(null);
-		nickText.build(null);
-		phoneText.build(null);
 
 		const top = document.createDocumentFragment();
 		top.appendChild(profileAvatar.ref);
 		top.appendChild(pageHeader.ref);
-		top.appendChild(emailText.ref);
-		top.appendChild(loginText.ref);
-		top.appendChild(nameText.ref);
-		top.appendChild(surNameText.ref);
-		top.appendChild(nickText.ref);
-		top.appendChild(phoneText.ref);
+		top.appendChild(this.getProfileInfo());
+		top.appendChild(this.getProfileInputs());
 
 		content.build({
 			top,
 			bottom: this.buildContext.bottom,
 			handleSubmit: (e) => {
 				e.preventDefault();
+				const form = e.currentTarget as HTMLFormElement;
+				const formData = getFormEntries(form);
+
+				console.log("Сабмит формы редактирования профиля");
+				console.log(formData);
+
 				eventBus.emit("editProfileEnd", null);
 			},
 		});

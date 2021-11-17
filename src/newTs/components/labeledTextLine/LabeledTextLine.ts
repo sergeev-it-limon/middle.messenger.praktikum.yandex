@@ -12,8 +12,8 @@ type TLabeledTextLineState = {
 };
 
 type TLabeledTextLineProps = {
-	labelText: string;
-	mainText: string;
+	label: string;
+	value: string;
 };
 
 export class LabeledTextLine extends BaseComponent<
@@ -28,13 +28,13 @@ export class LabeledTextLine extends BaseComponent<
 		return {
 			rootClassName: style.root,
 			textClassName: style.text,
-			labelText: this.props.labelText,
-			mainText: this.props.mainText,
+			labelText: this.props.label,
+			mainText: this.props.value,
 		};
 	}
 
 	propsToState(): void {
-		this.state.labelText = this.props.labelText;
-		this.state.mainText = this.props.mainText;
+		this.state.labelText = this.props.label;
+		this.state.mainText = this.props.value;
 	}
 }

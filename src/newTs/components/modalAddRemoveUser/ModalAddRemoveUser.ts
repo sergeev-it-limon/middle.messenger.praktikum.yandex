@@ -95,10 +95,10 @@ export class ModalAddRemoveUser extends BaseComponent<
 
 	initChildren(): TChildren {
 		const inputString = new InputString({
-			defaultValue: "",
+			value: "",
 			inputName: "login",
 			inputType: "input",
-			labelText: "Логин",
+			label: "Логин",
 		});
 
 		const buttonMain = new ButtonMain({ text: this.getButtonText() });

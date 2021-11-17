@@ -7,18 +7,18 @@ import { template } from "./inputString.tmpl.js";
 type TInputStringState = {
 	inputStringClassName: string;
 	labelClassName: string;
-	labelText: string;
+	label: string;
 	inputClassName: string;
 	inputName: string;
 	inputType: string;
-	defaultValue: string;
+	value: string;
 };
 
 type TInputStringProps = {
-	labelText: string;
+	label: string;
 	inputName: string;
 	inputType: string;
-	defaultValue: string;
+	value: string;
 };
 
 export class InputString extends BaseComponent<
@@ -31,20 +31,20 @@ export class InputString extends BaseComponent<
 
 	initState(): TInputStringState {
 		return {
-			defaultValue: this.props.defaultValue,
+			value: this.props.value,
 			inputClassName: style.input,
 			inputName: this.props.inputName,
 			inputStringClassName: style.inputString,
 			inputType: this.props.inputType,
 			labelClassName: style.label,
-			labelText: this.props.labelText,
+			label: this.props.label,
 		};
 	}
 
 	propsToState(): void {
-		this.state.defaultValue = this.props.defaultValue;
+		this.state.value = this.props.value;
 		this.state.inputName = this.props.inputName;
 		this.state.inputType = this.props.inputType;
-		this.state.labelText = this.props.labelText;
+		this.state.label = this.props.label;
 	}
 }
