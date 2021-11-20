@@ -8,6 +8,7 @@ import style from "./formAuth.css.json";
 import { template } from "./formAuth.tmpl.js";
 import { htmlFromStr } from "../../utils/htmlFrom";
 import { getFormEntries } from "../../utils/getFormEntries";
+import { ButtonTransparent } from "../buttonTransparent";
 
 export class FormAuth extends BaseComponent {
 	private handleSubmit(e: SubmitEvent): void {
@@ -50,6 +51,11 @@ export class FormAuth extends BaseComponent {
 			text: "Авторизоваться",
 		});
 
+		const buttonSignup = new ButtonTransparent({
+			text: "Нет аккаунта?",
+			type: "button",
+		});
+
 		header.build(null);
 		loginInput.build(null);
 		passwordInput.build(null);
@@ -60,9 +66,17 @@ export class FormAuth extends BaseComponent {
 		top.appendChild(loginInput.ref);
 		top.appendChild(passwordInput.ref);
 
+		buttonSignup.build({
+			handleClick: () => location.assign("/signup"),
+		});
+
+		const bottom = document.createDocumentFragment();
+		bottom.appendChild(buttonAuth.ref);
+		bottom.appendChild(buttonSignup.ref);
+
 		formCommon.build({
 			top,
-			bottom: buttonAuth.ref,
+			bottom,
 			handleSubmit: this.handleSubmit.bind(this),
 		});
 

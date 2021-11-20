@@ -3,6 +3,7 @@ import { AuthPage } from "./pages/authPage";
 import { HomePage } from "./pages/homePage";
 import { ProfilePage } from "./pages/profilePage";
 import { SelectedChatPage } from "./pages/selectedChatPage";
+import { SignupPage } from "./pages/signupPage";
 import { htmlFromStr } from "./utils/htmlFrom";
 
 const root = document.getElementById("root");
@@ -30,6 +31,10 @@ if (pathname === "/home") {
 	const profilePage = new ProfilePage(null);
 	profilePage.build(null);
 	componentNode = profilePage.ref;
+} else if (pathname === "/signup") {
+	const signupPage = new SignupPage(null);
+	signupPage.build(null);
+	componentNode = signupPage.ref;
 } else {
 	componentNode = htmlFromStr("<div>Not Found</div>");
 }
