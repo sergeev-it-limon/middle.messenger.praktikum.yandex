@@ -8,6 +8,8 @@ type TEvents = {
 	editProfileEnd: null;
 	editPasswordStart: null;
 	editPasswordEnd: null;
+	openEditAvatar: null;
+	closeEditAvatar: null;
 };
 
 export const eventBus = new EventBus<TEvents>();

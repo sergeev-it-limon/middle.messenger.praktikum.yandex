@@ -8,6 +8,7 @@ import { InputString } from "../inputString";
 import { LabeledTextLine } from "../labeledTextLine";
 import { PageHeader } from "../pageHeader";
 import { ProfileAvatar } from "../profileAvatar";
+import { ProfileEditImgModal } from "../profileEditImgModal";
 import { ProfileMenu } from "../profileMenu";
 import "./profileContent.css";
 import style from "./profileContent.css.json";
@@ -245,6 +246,8 @@ export class ProfileContent extends BaseComponent<TProfileContentState, null> {
 		const info = this.getProfileInfoForm();
 		const editForm = this.getEditProfileForm();
 		const passForm = this.getEditPasswordForm();
+		const profileEditImgModal = new ProfileEditImgModal(null);
+		profileEditImgModal.build(null);
 
 		editForm.hide();
 		passForm.hide();
@@ -271,6 +274,7 @@ export class ProfileContent extends BaseComponent<TProfileContentState, null> {
 		content.appendChild(info.ref);
 		content.appendChild(editForm.ref);
 		content.appendChild(passForm.ref);
+		content.appendChild(profileEditImgModal.ref);
 
 		return { content };
 	}

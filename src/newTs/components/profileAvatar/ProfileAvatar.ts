@@ -1,5 +1,6 @@
+import { eventBus } from "../../controllers/EventBus";
 import { htmlFromStr } from "../../utils/htmlFrom";
-import { BaseComponent, TChildren } from "../baseComponent";
+import { BaseComponent, TActions, TChildren } from "../baseComponent";
 import { ImageAvatar } from "../imageAvatar";
 import "./profileAvatar.css";
 import style from "./profileAvatar.css.json";
@@ -33,6 +34,12 @@ export class ProfileAvatar extends BaseComponent<TProfileAvatarState> {
 
 		return {
 			imageAvatar: imageAvatar.ref,
+		};
+	}
+
+	initActions(): TActions {
+		return {
+			handleClick: () => eventBus.emit("openEditAvatar", null),
 		};
 	}
 }
