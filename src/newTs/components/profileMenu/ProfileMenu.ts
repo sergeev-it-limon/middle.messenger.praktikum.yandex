@@ -8,8 +8,16 @@ import "./profileMenu.css";
 import { template } from "./profileMenu.tmpl.js";
 
 export class ProfileMenu extends BaseComponent {
-	private handleEdit() {
+	private handleEdit(): void {
 		eventBus.emit("editProfileStart", null);
+	}
+
+	private handleChangePass(): void {
+		eventBus.emit("editPasswordStart", null);
+	}
+
+	private handleExit(): void {
+		location.assign("/");
 	}
 
 	render(): HTMLElement {
@@ -38,8 +46,8 @@ export class ProfileMenu extends BaseComponent {
 		});
 
 		editButton.build({ handleClick: this.handleEdit });
-		passButton.build(null);
-		exitButton.build(null);
+		passButton.build({ handleClick: this.handleChangePass });
+		exitButton.build({ handleClick: this.handleExit });
 
 		content.build({ items: [editButton.ref, passButton.ref, exitButton.ref] });
 

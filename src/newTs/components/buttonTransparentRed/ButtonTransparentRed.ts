@@ -1,5 +1,5 @@
 import { htmlFromStr } from "../../utils/htmlFrom";
-import { BaseComponent } from "../baseComponent";
+import { BaseComponent, TActions } from "../baseComponent";
 import { template } from "./buttonTransparentRed.tmpl.js";
 import "./buttonTransparentRed.css";
 import style from "./buttonTransparentRed.css.json";
@@ -16,9 +16,14 @@ type TButtonTransparentRedProps = {
 	type: "button" | "submit";
 };
 
+type TButtonTransparentRedBuildCtx = {
+	handleClick: (e: Event) => void;
+} | null;
+
 export class ButtonTransparentRed extends BaseComponent<
 	TButtonTransparentRedState,
-	TButtonTransparentRedProps
+	TButtonTransparentRedProps,
+	TButtonTransparentRedBuildCtx
 > {
 	render(): HTMLElement {
 		return htmlFromStr(template());
@@ -40,5 +45,11 @@ export class ButtonTransparentRed extends BaseComponent<
 
 		const addClassName = this.props.className ?? "";
 		this.state.rootClassName = `${style.root} ${addClassName}`;
+	}
+
+	initActions(): TActions {
+		return {
+			handleClick: this.buildContext?.handleClick ?? (() => {}),
+		};
 	}
 }
