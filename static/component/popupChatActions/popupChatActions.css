@@ -1,0 +1,13 @@
+.popupChatActions {
+    &__list {
+        width: 196px;
+    }
+
+    &__listItem + &__listItem {
+        margin-top: 16px;
+    }
+
+    &__icon {
+        margin-right: 16px;
+    }
+}

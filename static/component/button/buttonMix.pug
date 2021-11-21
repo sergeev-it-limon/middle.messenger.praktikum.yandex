@@ -1,0 +1,7 @@
+link(rel='stylesheet', href='../../component/button/button.css')
+
+mixin button(btnId, caption, btnHref, onClickHandler)
+    a(id= btnId, href= btnHref, class='button' + (typeof attributes.class === 'undefined' ? "" : ' '+attributes.class), onclick=onClickHandler)= caption
+
+mixin buttonTransparent(btnId, caption, btnHref)
+    +button(btnId, caption, btnHref)(class='buttonTransparent')

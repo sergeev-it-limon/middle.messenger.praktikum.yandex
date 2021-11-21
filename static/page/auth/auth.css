@@ -1,0 +1,5 @@
+@import '../../common/variables.css';
+
+.authForm {
+    height: 450px;
+}

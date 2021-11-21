@@ -1,0 +1,39 @@
+{
+  "name": "middle.messenger.praktikum.yandex",
+  "version": "1.0.0",
+  "description": "Учебный проект веб-мессенджера",
+  "scripts": {
+    "dev:frontend": "parcel watch ./static/page/**/*.pug --out-dir dist",
+    "dev:backend": "nodemon --watch ./server --exec node ./server/index.js",
+    "prebuild": "shx rm -rf dist",
+    "build": "parcel build static/page/**/*.pug --out-dir dist && shx mv dist/**/*.html dist/ && shx mv dist/auth.html dist/index.html",
+    "predev": "shx rm -rf dist",
+    "start": "concurrently \"nodemon --watch ./server --exec node ./server/index.js\" \"parcel watch ./static/page/**/*.pug --out-dir dist\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sergeev-it-limon/middle.messenger.praktikum.yandex.git"
+  },
+  "keywords": [],
+  "author": "Sergeev Sergey",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/sergeev-it-limon/middle.messenger.praktikum.yandex/issues"
+  },
+  "homepage": "https://github.com/sergeev-it-limon/middle.messenger.praktikum.yandex#readme",
+  "devDependencies": {
+    "autoprefixer": "~9.8.6",
+    "concurrently": "~6.0.0",
+    "express": "~4.17.1",
+    "nodemon": "~2.0.7",
+    "parcel-bundler": "~1.12.5",
+    "postcss": "~8.2.8",
+    "postcss-import": "~12.0.1",
+    "postcss-nested": "~4.2.3",
+    "pug": "~3.0.2",
+    "shx": "~0.3.3"
+  },
+  "dependencies": {
+    "utils": "^0.3.1"
+  }
+}
