@@ -5,6 +5,13 @@ export function getElemsByDataset(
 	ref: HTMLElement,
 	datasetAttr: string
 ): TElemsByDataset {
+	if (ref == null) {
+		console.error("ref is not defined");
+		console.log("datasetAttr");
+		console.log(datasetAttr);
+		return {};
+	}
+
 	const datasetKey = getDatasetKey(datasetAttr);
 
 	const elemsWithAttr = Array.from(ref.querySelectorAll(datasetAttr));
