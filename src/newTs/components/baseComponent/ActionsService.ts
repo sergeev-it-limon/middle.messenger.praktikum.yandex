@@ -1,4 +1,4 @@
-import { getElemsByDataset } from "./getElemsByDataset";
+import { getElemsByDataset, TElemsByDataset } from "./getElemsByDataset";
 
 const ACTIONS_ATTR = "[data-actions]";
 
@@ -14,20 +14,27 @@ export class ActionsService {
 		this.actions = actions;
 	}
 
-	/** Привязываем экшны к тэгам. К одному тэгу можно привязать экшны только одного типа.
-	 * Пример атрибута: data-actions="click:onClick,logger".
+	/** Привязываем экшны к тэгам. К одному тэгу можно привязать несколько экшнов к нескольким ивентам.
+	 * Пример атрибута: data-actions="click:onClick,logger;onChange:handleChange".
 	 * */
 	public bindActions(ref: HTMLElement): void {
 		const elemsByActionsGroups = getElemsByDataset(ref, ACTIONS_ATTR);
 		const typesNamesRelations = Object.keys(elemsByActionsGroups);
 
 		for (const typeNames of typesNamesRelations) {
+			const eventWithHandlersArr = typeNames.split(";");
 			const elems = elemsByActionsGroups[typeNames];
-			const [actionType, actionNamesStr] = typeNames.split(":");
-			const actionNames = actionNamesStr.split(",");
 
-			this.addEventListenersForElemsByType(actionType, elems, actionNames);
+			for (const eventWithHandlers of eventWithHandlersArr) {
+				this.bindToEvent(eventWithHandlers, elems);
+			}
 		}
+	}
+
+	bindToEvent(eventWithHandlers: string, elems: HTMLElement[]) {
+		const [eventName, handlerNamesStr] = eventWithHandlers.split(":");
+		const handlerNames = handlerNamesStr.split(",");
+		this.addEventListenersForElemsByType(eventName, elems, handlerNames);
 	}
 
 	private addEventListenersForElemsByType(
