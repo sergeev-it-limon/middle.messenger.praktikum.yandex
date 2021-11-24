@@ -61,7 +61,7 @@ export abstract class BaseComponent<
 	}
 
 	/** Данные, полученные компонентом */
-	protected props: TProps;
+	public props: TProps;
 
 	/** Данные, с которыми последний раз запускался билд компонента */
 	protected buildContext: TBuildContext;
