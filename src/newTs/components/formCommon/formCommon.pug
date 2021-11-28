@@ -1,4 +1,7 @@
-form(data-state='class:rootClassName' data-actions='submit:handleSubmit')
+form(
+  data-state='class:rootClassName'
+  data-actions='submit:handleSubmit;input:handleInput;focusin:handleFocusIn;focusout:handleFocusOut'
+)
     div(data-state='class:topClassName')
       div(data-component='formTop')
     nav(data-state='class:bottomClassName')

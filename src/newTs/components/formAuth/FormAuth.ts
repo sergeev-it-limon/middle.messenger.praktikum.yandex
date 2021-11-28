@@ -9,6 +9,7 @@ import { template } from "./formAuth.tmpl.js";
 import { htmlFromStr } from "../../utils/htmlFrom";
 import { getFormEntries } from "../../utils/getFormEntries";
 import { ButtonTransparent } from "../buttonTransparent";
+import { buildValidator, rules } from "../../utils/validator";
 
 export class FormAuth extends BaseComponent {
 	private handleSubmit(e: SubmitEvent): void {
@@ -29,20 +30,28 @@ export class FormAuth extends BaseComponent {
 	}
 
 	initChildren(): TChildren {
+		const { handlers, subscribe } = buildValidator({
+			submit: this.handleSubmit,
+			rules: {
+				login: [rules.letters(), rules.required()],
+				password: [rules.required()],
+			},
+		});
+
 		const formCommon = new FormCommon({ formClassName: style.form });
 
 		const header = new PageHeader({ text: "Вход" });
 
 		const loginInput = new InputString({
 			value: "",
-			inputName: "auth-login",
+			inputName: "login",
 			inputType: "text",
 			label: "Логин",
 		});
 
 		const passwordInput = new InputString({
 			value: "",
-			inputName: "auth-password",
+			inputName: "password",
 			inputType: "password",
 			label: "Пароль",
 		});
@@ -61,6 +70,21 @@ export class FormAuth extends BaseComponent {
 		passwordInput.build(null);
 		buttonAuth.build(null);
 
+		subscribe(({ name, errors }) => {
+			if (name === "login") {
+				loginInput.update({
+					...loginInput.props,
+					errorMessage: errors.join(", "),
+				});
+			}
+			if (name === "password") {
+				passwordInput.update({
+					...passwordInput.props,
+					errorMessage: errors.join(", "),
+				});
+			}
+		});
+
 		const top = document.createDocumentFragment();
 		top.appendChild(header.ref);
 		top.appendChild(loginInput.ref);
@@ -77,7 +101,10 @@ export class FormAuth extends BaseComponent {
 		formCommon.build({
 			top,
 			bottom,
-			handleSubmit: this.handleSubmit.bind(this),
+			handleSubmit: handlers.submit,
+			handleFocusIn: handlers.focusIn,
+			handleFocusOut: handlers.focusOut,
+			handleInput: handlers.input,
 		});
 
 		return { content: formCommon.ref };

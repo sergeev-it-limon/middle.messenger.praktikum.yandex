@@ -25,11 +25,17 @@
 	margin-bottom: 8px;
 }
 
-.inputString_color_alarm {
+.error {
 	.input {
 		color: var(--alarm-color) !important;
 		border-bottom-color: var(--alarm-color) !important;
 	}
+}
+
+.errorMessage {
+	font-size: var(--font-size-xxs);
+	color: var(--alarm-color);
+	margin: 4px 0 0;
 }
 
 .inputString_in_row {

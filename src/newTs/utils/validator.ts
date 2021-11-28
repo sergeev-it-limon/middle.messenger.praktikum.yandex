@@ -1,19 +1,87 @@
 import { EventBus } from "./buildEventBus";
 import { getFormEntries } from "./getFormEntries";
 
-type TRuleConfig = { message: string };
-type TRuleInner = { rule: (value: string) => boolean; message: string };
+type TRuleConfig = { message?: string };
+type TRuleFn = (value: string) => boolean;
+type TRuleInner = { rule: TRuleFn; message: string };
 
-export const rules = {
-	letters: (config?: TRuleConfig): TRuleInner => {
-		const { message = "Латиница или кириллица" } = config ?? {};
-		return { rule: (value) => /^[a-zA-Zа-яА-Я]*$/.test(value), message };
+type TMinConfig = (TRuleConfig & { count: number }) | number;
+type TRules = { [key in string]: (config?: unknown) => TRuleInner };
+
+export const rules: TRules = {
+	/** Латиница */
+	latin: (config?: TRuleConfig): TRuleInner => {
+		const { message = "Только латиница" } = config ?? {};
+		return { rule: (value) => /^[A-Za-z]*$/.test(value), message };
 	},
+	/** Кириллица */
+	cyrillic: (config?: TRuleConfig): TRuleInner => {
+		const { message = "Только кириллица" } = config ?? {};
+		return { rule: (value) => /^[А-Яа-я]*$/.test(value), message };
+	},
+	/** Числа */
+	numbers: (config?: TRuleConfig): TRuleInner => {
+		const { message = "Только числа" } = config ?? {};
+		return { rule: (value) => /^\d*$/.test(value), message };
+	},
+	/** Обязательное поле */
 	required: (config?: TRuleConfig): TRuleInner => {
 		const { message = "Обязательно" } = config ?? {};
 		return { rule: (value) => /^.+$/.test(value), message };
 	},
+	/** Минимальное кол-во символов */
+	min: minOrMax(true),
+	/** Максимальное кол-во символов */
+	max: minOrMax(false),
+	/** Начинается с заглавной буквы */
+	capitalFirst: (config: TRuleConfig) => {
+		const { message = "Должно начинаться с заглавной буквы" } = config ?? {};
+		return { rule: (value) => /^[A-ZА-Я]/.test(value), message };
+	},
+	/** Регулярное выражение */
+	regExp: (config: TRuleConfig & { exp: RegExp }) => {
+		const { message = "", exp } = config ?? {};
+		return { rule: (value) => exp.test(value), message };
+	},
+	/** Принимает массив правил, если любое из них проходит, значит значение удовлетворяет правилу */
+	or: (config: TRuleConfig & { rules: TRuleInner[] }): TRuleInner => {
+		const { message = "", rules } = config;
+		return {
+			rule: (value) => {
+				return rules.some(({ rule }) => rule(value));
+			},
+			message: message,
+		};
+	},
 };
+
+type TCombinatorFn = (value: string) => { isValid: boolean; message: string }[];
+type TCombinator = (rules: TRuleFn[]) => TCombinatorFn;
+type TCombinators = { [key in string]: TCombinator };
+
+export const combinators: TCombinators = {
+	/**/
+};
+
+function minOrMax(isMin: boolean) {
+	return (config: TMinConfig): TRuleInner => {
+		let message: string;
+		let count: number;
+
+		if (typeof config === "number") {
+			count = config;
+			message = `Должно быть больше ${count} символов`;
+		} else {
+			count = config.count;
+			message = config.message ?? "";
+		}
+
+		return {
+			rule: (value) => (isMin ? value.length < count : value.length > count),
+			message: message,
+		};
+	};
+}
 
 type TRuleList = typeof rules;
 type TRule = ReturnType<TRuleList[keyof TRuleList]>;
