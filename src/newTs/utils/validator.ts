@@ -93,6 +93,22 @@ export const appRules = {
 		rules.min({ message: "Минимум 8 символов", count: 8 }),
 		rules.max({ message: "Максимум 40 символов", count: 40 }),
 	],
+	phone: [
+		rules.required(),
+		rules.min({ message: "Минимум 10 символов", count: 10 }),
+		rules.max({ message: "Максимум 15 символов", count: 15 }),
+		rules.regExp({
+			message: "Только цифры (допустим + в начале)",
+			exp: /^(\+|\d*)\d*$/,
+		}),
+	],
+	email: [
+		rules.required(),
+		rules.regExp({
+			message: "Невалидная почта",
+			exp: /(\w|-)+@(\w|-)+\.\w+/,
+		}),
+	],
 };
 
 function minOrMax(isMin: boolean) {

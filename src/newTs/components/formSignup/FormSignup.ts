@@ -31,25 +31,11 @@ export class FormSignup extends BaseComponent {
 		const { subscribe, handlers } = buildValidator({
 			submit: this.handleSubmit.bind(this),
 			rules: {
-				email: [
-					rules.required(),
-					rules.regExp({
-						message: "Невалидная почта",
-						exp: /(\w|-)+@(\w|-)+\.\w+/,
-					}),
-				],
+				email: appRules.email,
 				login: appRules.login,
 				first_name: appRules.name,
 				second_name: appRules.name,
-				phone: [
-					rules.required(),
-					rules.min({ message: "Минимум 10 символов", count: 10 }),
-					rules.max({ message: "Максимум 15 символов", count: 15 }),
-					rules.regExp({
-						message: "Только цифры (допустим + в начале)",
-						exp: /^(\+|\d*)\d*$/,
-					}),
-				],
+				phone: appRules.phone,
 				password: appRules.password,
 				confirm_password: appRules.password,
 			},

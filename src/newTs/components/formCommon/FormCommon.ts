@@ -17,10 +17,10 @@ type TFormCommonProps = {
 type TFormCommonBuildCtx = {
 	top: Node;
 	bottom: Node;
-	handleSubmit: (e: SubmitEvent) => void;
-	handleFocusIn: (e: FocusEvent) => void;
-	handleFocusOut: (e: FocusEvent) => void;
-	handleInput: (e: InputEvent) => void;
+	handleSubmit?: (e: SubmitEvent) => void;
+	handleFocusIn?: (e: FocusEvent) => void;
+	handleFocusOut?: (e: FocusEvent) => void;
+	handleInput?: (e: InputEvent) => void;
 };
 
 export class FormCommon extends BaseComponent<
@@ -55,10 +55,10 @@ export class FormCommon extends BaseComponent<
 
 	initActions(): TActions {
 		return {
-			handleSubmit: this.buildContext.handleSubmit,
-			handleInput: this.buildContext.handleInput,
-			handleFocusIn: this.buildContext.handleFocusIn,
-			handleFocusOut: this.buildContext.handleFocusOut,
+			handleSubmit: this.buildContext.handleSubmit ?? (() => {}),
+			handleInput: this.buildContext.handleInput ?? (() => {}),
+			handleFocusIn: this.buildContext.handleFocusIn ?? (() => {}),
+			handleFocusOut: this.buildContext.handleFocusOut ?? (() => {}),
 		};
 	}
 }
