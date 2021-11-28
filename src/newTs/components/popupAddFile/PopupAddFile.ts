@@ -1,5 +1,3 @@
-import "./popupAddFile.css";
-import style from "./popupAddFile.css.json";
 import { Popup, TPopupMeta } from "../popup";
 import { PopupAddFileTrigger } from "../popupAddFileTrigger";
 import { PopupAddFileContent } from "../popupAddFileContent/PopupAddFileContent";
@@ -32,7 +30,7 @@ export class PopupAddFile extends Popup {
 	initPopupMeta(): TPopupMeta {
 		return {
 			isOpenDefault: false,
-			popupClassName: style.root,
+			popupClassName: "",
 			position: "top",
 			width: "192px",
 		};

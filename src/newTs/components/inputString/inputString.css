@@ -3,7 +3,7 @@
 .inputString {
 	display: flex;
 	flex-direction: column;
-	font-family: Inter;
+	font-family: Inter, sans-serif;
 	font-style: normal;
 	font-weight: 500;
 	margin-bottom: 20px;
@@ -42,11 +42,11 @@
 	display: flex;
 	flex-direction: row;
 	justify-content: space-between;
-	padding: 10px 0px;
+	padding: 10px 0;
 	font-size: var(--font-size-md);
 	line-height: var(--font-size-md);
 	border-bottom: 1px solid var(--divider-color);
-	margin-bottom: 0px;
+	margin-bottom: 0;
 
 	.label {
 		color: var(--main-text-color);

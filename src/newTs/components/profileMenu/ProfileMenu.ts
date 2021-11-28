@@ -4,7 +4,6 @@ import { BaseComponent, TChildren } from "../baseComponent";
 import { ButtonTransparent } from "../buttonTransparent";
 import { ButtonTransparentRed } from "../buttonTransparentRed";
 import { List } from "../list";
-import "./profileMenu.css";
 import { template } from "./profileMenu.tmpl.js";
 
 export class ProfileMenu extends BaseComponent {

@@ -1,30 +1,30 @@
-@import '../../common/variables.css';
+@import "../../common/variables.css";
 
 .root {
-    background-color: transparent;
-    border: none;
-    cursor: pointer;
-    padding: 4px 12px;
+	background-color: transparent;
+	border: none;
+	cursor: pointer;
+	padding: 4px 12px;
 
-    svg circle {
-        transition-duration: 0.2s;
-    }
+	svg circle {
+		transition-duration: 0.2s;
+	}
 
-    &:hover svg circle {
-        fill: var(--main-hover-color);
-    }
+	&_active {
+		svg circle {
+			fill: var(--main-color);
+		}
 
-    &:active svg circle {
-        fill: var(--main-color);
-    }
+		&:hover svg circle {
+			fill: var(--main-color);
+		}
+	}
 
-    &_active {
-        svg circle {
-            fill: var(--main-color);
-        }
+	&:hover svg circle {
+		fill: var(--main-hover-color);
+	}
 
-        &:hover svg circle {
-            fill: var(--main-color);
-        }
-    }
+	&:active svg circle {
+		fill: var(--main-color);
+	}
 }

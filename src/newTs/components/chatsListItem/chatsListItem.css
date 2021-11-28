@@ -1,22 +1,22 @@
 @import "../../common/variables.css";
 
 .root {
-  width: 100%;
+	width: 100%;
 }
 
 .link {
-  display: block;
-  padding: 10px;
-  color: inherit;
-  text-decoration: inherit;
-  transition-duration: 0.2s;
+	display: block;
+	padding: 10px;
+	color: inherit;
+	text-decoration: inherit;
+	transition-duration: 0.2s;
 
-  &_active {
-    background-color: var(--main-hover-color);
-    cursor: default;
-  }
+	&_active {
+		background-color: var(--main-hover-color);
+		cursor: default;
+	}
 
-  &:hover {
-    background-color: var(--main-hover-color);
-  }
+	&:hover {
+		background-color: var(--main-hover-color);
+	}
 }
