@@ -6,9 +6,8 @@ type TRuleFn = (value: string) => boolean;
 type TRuleInner = { rule: TRuleFn; message: string };
 
 type TMinConfig = (TRuleConfig & { count: number }) | number;
-type TRules = { [key in string]: (config?: unknown) => TRuleInner };
 
-export const rules: TRules = {
+export const rules = {
 	/** Латиница */
 	latin: (config?: TRuleConfig): TRuleInner => {
 		const { message = "Только латиница" } = config ?? {};
@@ -34,12 +33,12 @@ export const rules: TRules = {
 	/** Максимальное кол-во символов */
 	max: minOrMax(false),
 	/** Начинается с заглавной буквы */
-	capitalFirst: (config: TRuleConfig) => {
+	capitalFirst: (config: TRuleConfig): TRuleInner => {
 		const { message = "Должно начинаться с заглавной буквы" } = config ?? {};
 		return { rule: (value) => /^[A-ZА-Я]/.test(value), message };
 	},
 	/** Регулярное выражение */
-	regExp: (config: TRuleConfig & { exp: RegExp }) => {
+	regExp: (config: TRuleConfig & { exp: RegExp }): TRuleInner => {
 		const { message = "", exp } = config ?? {};
 		return { rule: (value) => exp.test(value), message };
 	},
