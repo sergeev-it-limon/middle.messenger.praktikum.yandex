@@ -33,7 +33,13 @@ export class FormAuth extends BaseComponent {
 		const { handlers, subscribe } = buildValidator({
 			submit: this.handleSubmit,
 			rules: {
-				login: [rules.letters(), rules.required()],
+				login: [
+					rules.or({
+						message: "Латинница или кириллица без пробелов",
+						rules: [rules.latin(), rules.cyrillic()],
+					}),
+					rules.required(),
+				],
 				password: [rules.required()],
 			},
 		});
