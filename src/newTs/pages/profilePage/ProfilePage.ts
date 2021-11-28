@@ -1,9 +1,6 @@
 import { BaseComponent, TChildren } from "../../components/baseComponent";
-import { ButtonMain } from "../../components/buttonMain";
 import { LeftNavPanel } from "../../components/leftNavPanel";
 import { ProfileContent } from "../../components/profileContent";
-import { ProfileMenu } from "../../components/profileMenu";
-import { eventBus } from "../../controllers/EventBus";
 import { CmnPageTmpl } from "../../templates/cmnPageTmpl";
 import { htmlFromStr } from "../../utils/htmlFrom";
 import { template } from "./profilePage.tmpl.js";

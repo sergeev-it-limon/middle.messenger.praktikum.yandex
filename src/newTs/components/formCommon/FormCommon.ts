@@ -54,11 +54,21 @@ export class FormCommon extends BaseComponent<
 	}
 
 	initActions(): TActions {
-		return {
-			handleSubmit: this.buildContext.handleSubmit ?? (() => {}),
-			handleInput: this.buildContext.handleInput ?? (() => {}),
-			handleFocusIn: this.buildContext.handleFocusIn ?? (() => {}),
-			handleFocusOut: this.buildContext.handleFocusOut ?? (() => {}),
-		};
+		const actions: TActions = {};
+
+		if (this.buildContext.handleSubmit != null) {
+			actions.handleSubmit = this.buildContext.handleSubmit;
+		}
+		if (this.buildContext.handleInput != null) {
+			actions.handleInput = this.buildContext.handleInput;
+		}
+		if (this.buildContext.handleFocusIn != null) {
+			actions.handleFocusIn = this.buildContext.handleFocusIn;
+		}
+		if (this.buildContext.handleFocusOut != null) {
+			actions.handleFocusOut = this.buildContext.handleFocusOut;
+		}
+
+		return actions;
 	}
 }

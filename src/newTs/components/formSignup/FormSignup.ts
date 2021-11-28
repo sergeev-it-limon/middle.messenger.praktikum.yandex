@@ -7,7 +7,7 @@ import { template } from "./formSignup.tmpl.js";
 import { htmlFromStr } from "../../utils/htmlFrom";
 import { getFormEntries } from "../../utils/getFormEntries";
 import { ButtonTransparent } from "../buttonTransparent";
-import { appRules, buildValidator, rules } from "../../utils/validator";
+import { appRules, buildValidator } from "../../utils/validator";
 
 export class FormSignup extends BaseComponent {
 	private handleSubmit(e: SubmitEvent): void {

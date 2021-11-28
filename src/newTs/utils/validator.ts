@@ -82,7 +82,7 @@ export const appRules = {
 		rules.required(),
 		rules.regExp({
 			message: "Латиница или кириллица (допустим дефис)",
-			exp: /^[a-zA-Zа-яА-Я\-]*$/,
+			exp: /^[a-zA-Zа-яА-Я-]*$/,
 		}),
 		rules.capitalFirst(),
 	],
@@ -156,7 +156,7 @@ class ValidatorEventBus<T extends TInputRules> extends EventBus<{
 
 export const buildValidator = <T extends TInputRules>(
 	config: TBuildConfig<T>
-) => {
+): TValidator<T> => {
 	const { rules, submit } = config;
 
 	const validatorEventBus = new ValidatorEventBus<T>();

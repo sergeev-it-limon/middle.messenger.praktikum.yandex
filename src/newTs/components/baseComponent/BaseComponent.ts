@@ -28,7 +28,7 @@ export abstract class BaseComponent<
 	}
 
 	private set isVisible(value: boolean) {
-		let styleEntries = this.getStyleEntries();
+		const styleEntries = this.getStyleEntries();
 		const displayIndex = styleEntries.findIndex(([key]) => key === "display");
 
 		if (displayIndex === -1) {

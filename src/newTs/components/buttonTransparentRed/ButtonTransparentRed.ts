@@ -48,8 +48,12 @@ export class ButtonTransparentRed extends BaseComponent<
 	}
 
 	initActions(): TActions {
-		return {
-			handleClick: this.buildContext?.handleClick ?? (() => {}),
-		};
+		const actions: TActions = {};
+
+		if (this.buildContext?.handleClick != null) {
+			actions.handleClick = this.buildContext.handleClick;
+		}
+
+		return actions;
 	}
 }

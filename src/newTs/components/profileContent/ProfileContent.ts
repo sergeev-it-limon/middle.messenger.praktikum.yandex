@@ -193,7 +193,6 @@ export class ProfileContent extends BaseComponent<TProfileContentState, null> {
 		content.build({
 			top,
 			bottom: profileMenu.ref,
-			handleSubmit: () => {},
 		});
 
 		return content;

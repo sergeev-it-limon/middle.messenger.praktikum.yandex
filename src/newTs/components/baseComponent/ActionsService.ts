@@ -1,4 +1,4 @@
-import { getElemsByDataset, TElemsByDataset } from "./getElemsByDataset";
+import { getElemsByDataset } from "./getElemsByDataset";
 
 const ACTIONS_ATTR = "[data-actions]";
 
@@ -31,7 +31,7 @@ export class ActionsService {
 		}
 	}
 
-	bindToEvent(eventWithHandlers: string, elems: HTMLElement[]) {
+	bindToEvent(eventWithHandlers: string, elems: HTMLElement[]): void {
 		const [eventName, handlerNamesStr] = eventWithHandlers.split(":");
 		const handlerNames = handlerNamesStr.split(",");
 		this.addEventListenersForElemsByType(eventName, elems, handlerNames);
