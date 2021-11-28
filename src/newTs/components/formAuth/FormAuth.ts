@@ -9,7 +9,7 @@ import { template } from "./formAuth.tmpl.js";
 import { htmlFromStr } from "../../utils/htmlFrom";
 import { getFormEntries } from "../../utils/getFormEntries";
 import { ButtonTransparent } from "../buttonTransparent";
-import { buildValidator, rules } from "../../utils/validator";
+import { appRules, buildValidator, rules } from "../../utils/validator";
 
 export class FormAuth extends BaseComponent {
 	private handleSubmit(e: SubmitEvent): void {
@@ -33,13 +33,7 @@ export class FormAuth extends BaseComponent {
 		const { handlers, subscribe } = buildValidator({
 			submit: this.handleSubmit,
 			rules: {
-				login: [
-					rules.or({
-						message: "Латинница или кириллица без пробелов",
-						rules: [rules.latin(), rules.cyrillic()],
-					}),
-					rules.required(),
-				],
+				login: appRules.login,
 				password: [rules.required()],
 			},
 		});
