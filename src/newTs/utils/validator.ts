@@ -5,7 +5,7 @@ type TRuleConfig = { message?: string };
 type TRuleFn = (value: string) => boolean;
 type TRuleInner = { rule: TRuleFn; message: string };
 
-type TMinConfig = (TRuleConfig & { count: number }) | number;
+type TMinConfig = TRuleConfig & { count: number };
 
 export const rules = {
 	/** Латиница */
@@ -28,12 +28,22 @@ export const rules = {
 		const { message = "Обязательно" } = config ?? {};
 		return { rule: (value) => /^.+$/.test(value), message };
 	},
+	/** Может содержать дефис */
+	hyphen: (config?: TRuleConfig): TRuleInner => {
+		const { message = "" } = config ?? {};
+		return { rule: (value) => /-/.test(value), message };
+	},
+	/** Может содержать нижнее подчеркивание */
+	underscore: (config?: TRuleConfig): TRuleInner => {
+		const { message = "" } = config ?? {};
+		return { rule: (value) => /_/.test(value), message };
+	},
 	/** Минимальное кол-во символов */
 	min: minOrMax(true),
 	/** Максимальное кол-во символов */
 	max: minOrMax(false),
 	/** Начинается с заглавной буквы */
-	capitalFirst: (config: TRuleConfig): TRuleInner => {
+	capitalFirst: (config?: TRuleConfig): TRuleInner => {
 		const { message = "Должно начинаться с заглавной буквы" } = config ?? {};
 		return { rule: (value) => /^[A-ZА-Я]/.test(value), message };
 	},
@@ -54,30 +64,44 @@ export const rules = {
 	},
 };
 
-type TCombinatorFn = (value: string) => { isValid: boolean; message: string }[];
-type TCombinator = (rules: TRuleFn[]) => TCombinatorFn;
-type TCombinators = { [key in string]: TCombinator };
-
-export const combinators: TCombinators = {
-	/**/
+export const appRules = {
+	login: [
+		rules.required(),
+		rules.regExp({
+			message: "Латиница или цифры (допустимо нижнее подчеркивание или дефис)",
+			exp: /^[a-zA-Z0-9\-_]*$/,
+		}),
+		rules.regExp({
+			message: "Не может состоять только из цифр",
+			exp: /\d\D|\D\d|\D|^$/,
+		}),
+		rules.min({ message: "Минимум 3 символа", count: 3 }),
+		rules.max({ message: "Максимум 20 символов", count: 20 }),
+	],
+	name: [
+		rules.required(),
+		rules.regExp({
+			message: "Латиница или кириллица (допустим дефис)",
+			exp: /^[a-zA-Zа-яА-Я\-]*$/,
+		}),
+		rules.capitalFirst(),
+	],
+	password: [
+		rules.required(),
+		rules.regExp({ message: "Хотя бы 1 заглавная буква", exp: /[A-ZА-Я]/ }),
+		rules.regExp({ message: "Хотя бы 1 цифра", exp: /\d/ }),
+		rules.min({ message: "Минимум 8 символов", count: 8 }),
+		rules.max({ message: "Максимум 40 символов", count: 40 }),
+	],
 };
 
 function minOrMax(isMin: boolean) {
 	return (config: TMinConfig): TRuleInner => {
-		let message: string;
-		let count: number;
-
-		if (typeof config === "number") {
-			count = config;
-			message = `Должно быть больше ${count} символов`;
-		} else {
-			count = config.count;
-			message = config.message ?? "";
-		}
+		const { message = "", count } = config;
 
 		return {
-			rule: (value) => (isMin ? value.length < count : value.length > count),
-			message: message,
+			rule: (value) => (isMin ? value.length >= count : value.length <= count),
+			message,
 		};
 	};
 }
