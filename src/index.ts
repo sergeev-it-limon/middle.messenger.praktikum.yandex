@@ -1,10 +1,10 @@
 import "./common/commonStyles.css";
 import { AuthPage } from "./pages/authPage";
+import { Error404Page } from "./pages/error404Page";
 import { HomePage } from "./pages/homePage";
 import { ProfilePage } from "./pages/profilePage";
 import { SelectedChatPage } from "./pages/selectedChatPage";
 import { SignupPage } from "./pages/signupPage";
-import { htmlFromStr } from "./utils/htmlFrom";
 
 const root = document.getElementById("root");
 
@@ -36,7 +36,9 @@ if (pathname === "/home") {
 	signupPage.build(null);
 	componentNode = signupPage.ref;
 } else {
-	componentNode = htmlFromStr("<div>Not Found</div>");
+	const error404Page = new Error404Page(null);
+	error404Page.build(null);
+	componentNode = error404Page.ref;
 }
 
 root.appendChild(componentNode);
