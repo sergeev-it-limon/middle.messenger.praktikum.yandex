@@ -1,6 +1,7 @@
 import "./common/commonStyles.css";
 import { AuthPage } from "./pages/authPage";
 import { Error404Page } from "./pages/error404Page";
+import { Error500Page } from "./pages/error500Page";
 import { HomePage } from "./pages/homePage";
 import { ProfilePage } from "./pages/profilePage";
 import { SelectedChatPage } from "./pages/selectedChatPage";
@@ -35,6 +36,10 @@ if (pathname === "/home") {
 	const signupPage = new SignupPage(null);
 	signupPage.build(null);
 	componentNode = signupPage.ref;
+} else if (pathname === "/500") {
+	const error500Page = new Error500Page(null);
+	error500Page.build(null);
+	componentNode = error500Page.ref;
 } else {
 	const error404Page = new Error404Page(null);
 	error404Page.build(null);
