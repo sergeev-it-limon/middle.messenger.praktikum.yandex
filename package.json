@@ -5,15 +5,15 @@
 	"scripts": {
 		"dev:frontend": "parcel watch ./static/pages/*.html --out-dir dist --public-url dist",
 		"dev:backend": "nodemon --watch ./server --exec node ./server/index.js",
-		"dev:pug-builder": "node src/newTs/libs/pugBuilder/buildWatch.js src/newTs",
+		"dev:pug-builder": "node src/libs/pugBuilder/buildWatch.js src",
 		"prebuild": "shx rm -rf dist",
 		"build": "parcel build static/page/**/*.pug --out-dir dist && shx mv dist/**/*.html dist/ && shx mv dist/auth.html dist/index.html",
 		"predev": "shx rm -rf dist",
 		"start": "concurrently \"npm run dev:frontend\" \"npm run dev:pug-builder\" \"npm run dev:backend\"",
-		"lint": "esw src/newTs --ext .ts --watch --clear",
-		"fix": "eslint src/newTs --ext .ts --fix",
-		"style-lint": "stylelint src/newTs/**/*.css",
-		"style-fix": "stylelint src/newTs/**/*.css --fix"
+		"lint": "esw src --ext .ts --watch --clear",
+		"fix": "eslint src --ext .ts --fix",
+		"style-lint": "stylelint src/**/*.css",
+		"style-fix": "stylelint src/**/*.css --fix"
 	},
 	"repository": {
 		"type": "git",

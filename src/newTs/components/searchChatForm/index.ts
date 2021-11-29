@@ -1,1 +1,0 @@
-export { SearchChatForm } from "./SearchChatForm";

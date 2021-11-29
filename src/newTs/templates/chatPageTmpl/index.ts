@@ -1,1 +1,0 @@
-export { ChatPageTmpl } from "./ChatPageTmpl";

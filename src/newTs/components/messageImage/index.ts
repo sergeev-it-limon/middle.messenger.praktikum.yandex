@@ -1,1 +1,0 @@
-export { MessageImage } from "./MessageImage";

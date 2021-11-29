@@ -1,1 +1,0 @@
-export { ButtonAddFile } from "./ButtonAddFile";
