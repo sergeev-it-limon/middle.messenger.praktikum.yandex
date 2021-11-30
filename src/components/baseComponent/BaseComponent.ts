@@ -2,7 +2,7 @@ import { ActionsService, TActions } from "./ActionsService";
 import { ChildrenService, TChildren } from "./ChildrenService";
 import { LifeCycleEventBus } from "./LifeCycleEventBus";
 import { TStateBase } from "./StateChangeEventBus";
-import { StateService } from "./stateService";
+import { StateService } from "./StateService";
 
 type TStateComponent = TStateBase | null;
 
