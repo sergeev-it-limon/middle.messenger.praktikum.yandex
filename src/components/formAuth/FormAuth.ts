@@ -34,7 +34,7 @@ export class FormAuth extends BaseComponent {
 			submit: this.handleSubmit,
 			rules: {
 				login: appRules.login,
-				password: [rules.required()],
+				password: appRules.password,
 			},
 		});
 
