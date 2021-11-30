@@ -7,7 +7,7 @@
 		"dev:backend": "nodemon --watch ./server --exec node ./server/index.js",
 		"dev:pug-builder": "node src/libs/pugBuilder/buildWatch.js src",
 		"prebuild": "shx rm -rf dist",
-		"build": "parcel build static/page/**/*.pug --out-dir dist && shx mv dist/**/*.html dist/ && shx mv dist/auth.html dist/index.html",
+		"build": "parcel build static/index.html",
 		"predev": "shx rm -rf dist",
 		"start": "concurrently \"npm run dev:frontend\" \"npm run dev:pug-builder\" \"npm run dev:backend\"",
 		"lint": "esw src --ext .ts --watch --clear",
