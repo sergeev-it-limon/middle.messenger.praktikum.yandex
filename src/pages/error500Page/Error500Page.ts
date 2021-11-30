@@ -1,7 +1,6 @@
 import { BaseComponent, TChildren } from "../../components/baseComponent";
 import { ErrorPageTmpl } from "../../templates/errorPageTmpl";
 import { htmlFromStr } from "../../utils/htmlFrom";
-import "./error500Page.css";
 import { template } from "./error500Page.tmpl.js";
 
 export class Error500Page extends BaseComponent {

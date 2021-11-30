@@ -9,7 +9,7 @@ import { template } from "./formAuth.tmpl.js";
 import { htmlFromStr } from "../../utils/htmlFrom";
 import { getFormEntries } from "../../utils/getFormEntries";
 import { ButtonTransparent } from "../buttonTransparent";
-import { appRules, buildValidator, rules } from "../../utils/validator";
+import { appRules, buildValidator } from "../../utils/validator";
 
 export class FormAuth extends BaseComponent {
 	private handleSubmit(e: SubmitEvent): void {
