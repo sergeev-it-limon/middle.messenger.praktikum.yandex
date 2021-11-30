@@ -1,10 +1,10 @@
 ## Проектная работа 1-го спринта для курса "Мидл фронтенд-разработчик"
 
 Pull request:
-https://github.com/sergeev-it-limon/middle.messenger.praktikum.yandex/pull/5
+https://github.com/sergeev-it-limon/middle.messenger.praktikum.yandex/pull/6
 
 Публикация:
-https://optimistic-darwin-a6d8df.netlify.app/
+https://61a65a8be77bf60007eabb3d--upbeat-pare-d83e5d.netlify.app/
 
 
 Макеты:
