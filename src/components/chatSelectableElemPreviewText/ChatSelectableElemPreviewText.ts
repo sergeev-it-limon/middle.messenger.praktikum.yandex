@@ -1,5 +1,6 @@
 import { htmlFromStr } from "../../utils/htmlFrom";
 import { BaseComponent } from "../baseComponent";
+import { template } from "./chatSelectableElemPreviewText.tmpl.js";
 import "./chatSelectableElemPreviewText.css";
 import style from "./chatSelectableElemPreviewText.css.json";
 
@@ -17,7 +18,7 @@ export class ChatSelectableElemPreviewText extends BaseComponent<
 	TChatSelectableElemPreviewTextProps
 > {
 	render(): HTMLElement {
-		return htmlFromStr("<p data-state='class:className,text' />");
+		return htmlFromStr(template());
 	}
 
 	initState(): TChatSelectableElemPreviewTextState {

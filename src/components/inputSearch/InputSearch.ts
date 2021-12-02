@@ -17,7 +17,7 @@ export class InputSearch extends BaseComponent<
 	TInputSearchProps
 > {
 	render(): HTMLElement {
-		return htmlFromStr(template());
+		return htmlFromStr(template({ style }));
 	}
 
 	initState(): TInputSearchState {

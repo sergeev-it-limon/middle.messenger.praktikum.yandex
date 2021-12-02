@@ -1,1 +1,7 @@
-export function template(locals) {var pug_html = "", pug_mixins = {}, pug_interp;pug_html = pug_html + "\u003Cbutton data-state=\"class:className,type:type\" data-actions=\"click:handleClick\"\u003E\u003Cimg data-state=\"src:imgSrc,alt:imgAlt,class:imgClassName\"\u002F\u003E\u003Cspan data-state=\"text,class:textClassName\"\u003E\u003C\u002Fspan\u003E\u003C\u002Fbutton\u003E";;return pug_html;}
+import pug from "pug-runtime";
+
+export const template = pug`
+button(data-state='class:className,type:type' data-actions='click:handleClick')
+  img(data-state='src:imgSrc,alt:imgAlt,class:imgClassName')
+  span(data-state='text,class:textClassName')
+`;

@@ -4,9 +4,7 @@ import { template } from "./chatsListItem.tmpl.js";
 import "./chatsListItem.css";
 import style from "./chatsListItem.css.json";
 import { TChatItem } from "../chatsList/types";
-import { eventBus } from "../../controllers/EventBus";
 import { TChildren } from "../baseComponent/ChildrenService";
-import { TActions } from "../baseComponent/ActionsService";
 import { ChatSelectableElem } from "../chatSelectableElem";
 
 type TChatItemState = {
@@ -27,13 +25,6 @@ export class ChatsListItem extends BaseComponent<
 		timeLastMsg: "",
 		unreadedMsgCnt: 0,
 	});
-	private handleChatChange(): void {
-		eventBus.emit("chatChanged", { chatIdNew: this.getId(this.state.href) });
-	}
-
-	private getId(link: string): number {
-		return Number(link.split("/")[2]);
-	}
 
 	render(): HTMLElement {
 		return htmlFromStr(template({ style }));
@@ -47,16 +38,10 @@ export class ChatsListItem extends BaseComponent<
 	}
 
 	initChildren(): TChildren {
-		this.chatSelectableElem.build();
+		this.chatSelectableElem.build(null);
 
 		return {
 			chatSelectableElem: this.chatSelectableElem.ref,
-		};
-	}
-
-	initActions(): TActions {
-		return {
-			handleChatChange: this.handleChatChange,
 		};
 	}
 

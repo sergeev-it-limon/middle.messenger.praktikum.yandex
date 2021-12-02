@@ -1,6 +1,6 @@
 import { BaseComponent, TChildren } from "../baseComponent";
 import { htmlFromStr } from "../../utils/htmlFrom";
-import { template } from "./textLineClamp.tmpl";
+import { template } from "./textLineClamp.tmpl.js";
 import "./textLineClamp.css";
 import style from "./textLineClamp.css.json";
 

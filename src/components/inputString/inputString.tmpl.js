@@ -1,1 +1,8 @@
-export function template(locals) {var pug_html = "", pug_mixins = {}, pug_interp;pug_html = pug_html + "\u003Csection data-state=\"class:inputStringClassName\"\u003E\u003Clabel data-state=\"class:labelClassName,label\"\u003E\u003C\u002Flabel\u003E\u003Cinput data-state=\"class:inputClassName,name:inputName,type:inputType,value:value\"\u002F\u003E\u003Cp data-state=\"class:errorMessageClassName,errorMessage\"\u003E\u003C\u002Fp\u003E\u003C\u002Fsection\u003E";;return pug_html;}
+import pug from "pug-runtime";
+
+export const template = pug`
+section(data-state='class:inputStringClassName')
+    label(data-state='class:labelClassName,label')
+    input(data-state='class:inputClassName,name:inputName,type:inputType,value:value')
+    p(data-state='class:errorMessageClassName,errorMessage')
+`;

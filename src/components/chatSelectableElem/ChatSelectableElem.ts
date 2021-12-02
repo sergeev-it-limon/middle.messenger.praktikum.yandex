@@ -60,9 +60,9 @@ export class ChatSelectableElem extends BaseComponent<
 	}
 
 	initChildren(): TChildren {
-		this.imageAvatar.build();
-		this.name.build();
-		this.previewText.build();
+		this.imageAvatar.build(null);
+		this.name.build(null);
+		this.previewText.build(null);
 
 		this.nameLineClamp = new TextLineClamp({
 			content: this.name.ref,
@@ -74,8 +74,8 @@ export class ChatSelectableElem extends BaseComponent<
 			countStr: 2,
 		});
 
-		this.nameLineClamp.build();
-		this.previewTextLineClamp.build();
+		this.nameLineClamp.build(null);
+		this.previewTextLineClamp.build(null);
 
 		return {
 			imageAvatar: this.imageAvatar.ref,

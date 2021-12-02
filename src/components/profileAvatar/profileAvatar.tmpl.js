@@ -1,1 +1,8 @@
-export function template(locals) {var pug_html = "", pug_mixins = {}, pug_interp;pug_html = pug_html + "\u003Cbutton data-state=\"class:rootClassName\" data-actions=\"click:handleClick\" type=\"button\"\u003E\u003Cdiv data-component=\"imageAvatar\"\u003E\u003C\u002Fdiv\u003E\u003Cdiv data-state=\"class:popupClassName\"\u003E\u003Cdiv\u003EПоменять аватар\u003C\u002Fdiv\u003E\u003C\u002Fdiv\u003E\u003C\u002Fbutton\u003E";;return pug_html;}
+import pug from "pug-runtime";
+
+export const template = pug`
+button(data-state='class:rootClassName' data-actions='click:handleClick' type='button')
+    div(data-component='imageAvatar')
+    div(data-state='class:popupClassName')
+        div Поменять аватар
+`;

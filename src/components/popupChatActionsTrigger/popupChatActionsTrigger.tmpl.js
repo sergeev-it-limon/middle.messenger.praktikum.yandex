@@ -1,1 +1,9 @@
-export function template(locals) {var pug_html = "", pug_mixins = {}, pug_interp;pug_html = pug_html + "\u003Cbutton type=\"button\" data-state=\"class:className\" data-actions=\"click:handleClick\"\u003E\u003Csvg width=\"3\" height=\"16\" viewBox=\"0 0 3 16\" fill=\"none\" xmlns=\"http:\u002F\u002Fwww.w3.org\u002F2000\u002Fsvg\"\u003E\u003Ccircle cx=\"1.5\" cy=\"2\" r=\"1.5\" fill=\"#1E1E1E\"\u003E\u003C\u002Fcircle\u003E\u003Ccircle cx=\"1.5\" cy=\"8\" r=\"1.5\" fill=\"#1E1E1E\"\u003E\u003C\u002Fcircle\u003E\u003Ccircle cx=\"1.5\" cy=\"14\" r=\"1.5\" fill=\"#1E1E1E\"\u003E\u003C\u002Fcircle\u003E\u003C\u002Fsvg\u003E\u003C\u002Fbutton\u003E";;return pug_html;}
+import pug from "pug-runtime";
+
+export const template = pug`
+button(type='button' data-state='class:className' data-actions='click:handleClick')
+    svg(width="3" height="16" viewBox="0 0 3 16" fill="none" xmlns="http://www.w3.org/2000/svg")
+        circle(cx="1.5" cy="2" r="1.5" fill="#1E1E1E")
+        circle(cx="1.5" cy="8" r="1.5" fill="#1E1E1E")
+        circle(cx="1.5" cy="14" r="1.5" fill="#1E1E1E")
+`;

@@ -1,1 +1,6 @@
-export function template(locals) {var pug_html = "", pug_mixins = {}, pug_interp;pug_html = pug_html + "\u003Cform data-actions=\"submit:handleSubmit\"\u003E\u003Cdiv data-component=\"inputSearch\"\u003E\u003C\u002Fdiv\u003E\u003C\u002Fform\u003E";;return pug_html;}
+import pug from "pug-runtime";
+
+export const template = pug`
+form(data-actions='submit:handleSubmit')
+  div(data-component='inputSearch')
+`;

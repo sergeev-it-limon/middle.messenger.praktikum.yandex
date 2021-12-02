@@ -1,1 +1,6 @@
-export function template(locals) {var pug_html = "", pug_mixins = {}, pug_interp;pug_html = pug_html + "\u003Csection data-state=\"class:rootClassName\"\u003E\u003Cdiv data-component=\"content\"\u003E\u003C\u002Fdiv\u003E\u003C\u002Fsection\u003E";;return pug_html;}
+import pug from "pug-runtime";
+
+export const template = pug`
+section(data-state='class:rootClassName')
+  div(data-component='content')
+`;

@@ -1,1 +1,10 @@
-export function template(locals) {var pug_html = "", pug_mixins = {}, pug_interp;pug_html = pug_html + "\u003Cnav data-state=\"class:rootClassName\"\u003E\u003Ca data-state=\"class:backLinkClassName,href:linkTo\"\u003E\u003Csvg width=\"28\" height=\"28\" viewBox=\"0 0 28 28\" fill=\"none\" xmlns=\"http:\u002F\u002Fwww.w3.org\u002F2000\u002Fsvg\"\u003E\u003Ccircle cx=\"14\" cy=\"14\" r=\"14\" transform=\"rotate(-180 14 14)\" fill=\"#3369F3\"\u003E\u003C\u002Fcircle\u003E\u003Crect x=\"20\" y=\"14.8\" width=\"11\" height=\"1.6\" transform=\"rotate(-180 20 14.8)\" fill=\"white\"\u003E\u003C\u002Frect\u003E\u003Cpath d=\"M13 19L9 14L13 9\" stroke=\"white\" stroke-width=\"1.6\"\u003E\u003C\u002Fpath\u003E\u003C\u002Fsvg\u003E\u003C\u002Fa\u003E\u003C\u002Fnav\u003E";;return pug_html;}
+import pug from "pug-runtime";
+
+export const template = pug`
+nav(data-state='class:rootClassName')
+    a(data-state='class:backLinkClassName,href:linkTo')
+        svg(width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg")
+            circle(cx="14" cy="14" r="14" transform="rotate(-180 14 14)" fill="#3369F3")
+            rect(x="20" y="14.8" width="11" height="1.6" transform="rotate(-180 20 14.8)" fill="white")
+            path(d="M13 19L9 14L13 9" stroke="white" stroke-width="1.6")
+`;

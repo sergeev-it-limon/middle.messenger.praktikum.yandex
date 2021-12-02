@@ -1,5 +1,5 @@
 import { BaseComponent } from "../baseComponent";
-import { template } from "./inputSendMessage.tmpl";
+import { template } from "./inputSendMessage.tmpl.js";
 import { htmlFromStr } from "../../utils/htmlFrom";
 import "./inputSendMessage.css";
 import style from "./inputSendMessage.css.json";

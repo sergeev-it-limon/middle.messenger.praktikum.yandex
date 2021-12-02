@@ -1,5 +1,6 @@
 import { htmlFromStr } from "../../utils/htmlFrom";
 import { BaseComponent } from "../baseComponent";
+import { template } from "./chatSelectableElemName.tmpl.js";
 import "./chatSelectableElemName.css";
 import style from "./chatSelectableElemName.css.json";
 
@@ -17,8 +18,7 @@ export class ChatSelectableElemName extends BaseComponent<
 	TChatSelectableElemNameProps
 > {
 	render(): HTMLElement {
-		const html = '<h2 data-state="class:class,text" ></h2>';
-		return htmlFromStr(html);
+		return htmlFromStr(template());
 	}
 
 	initState(): TChatSelectableElemNameState {
