@@ -1,8 +1,7 @@
 import { BaseComponent } from "../baseComponent";
 import { htmlFromStr } from "../../utils/htmlFrom";
 import { template } from "./message.tmpl.js";
-import "./message.css";
-import style from "./message.css.json";
+import style from "./message.css";
 import { formatTime } from "../../utils/formatTime";
 
 type TMessageState = {

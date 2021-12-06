@@ -1,8 +1,7 @@
 import { htmlFromStr } from "../../utils/htmlFrom";
 import { BaseComponent, TActions } from "../baseComponent";
 import { template } from "./buttonTransparent.tmpl.js";
-import "./buttonTransparent.css";
-import style from "./buttonTransparent.css.json";
+import style from "./buttonTransparent.css";
 
 type TButtonTransparentState = {
 	rootClassName: string;

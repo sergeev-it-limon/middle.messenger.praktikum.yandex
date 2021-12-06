@@ -1,7 +1,6 @@
 import { htmlFromStr } from "../../utils/htmlFrom";
 import { BaseComponent, TActions, TChildren } from "../baseComponent";
-import "./formCommon.css";
-import style from "./formCommon.css.json";
+import style from "./formCommon.css";
 import { template } from "./formCommon.tmpl.js";
 
 type TFormCommonState = {

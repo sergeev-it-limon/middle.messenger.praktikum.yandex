@@ -1,7 +1,6 @@
 import { htmlFromStr } from "../../utils/htmlFrom";
 import { BaseComponent, TActions } from "../baseComponent";
-import "./popupChatActionsTrigger.css";
-import style from "./popupChatActionsTrigger.css.json";
+import style from "./popupChatActionsTrigger.css";
 import { template } from "./popupChatActionsTrigger.tmpl.js";
 
 type TPopupChatActionsTriggerState = {

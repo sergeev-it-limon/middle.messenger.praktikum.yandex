@@ -1,8 +1,7 @@
 import { BaseComponent, TChildren } from "../baseComponent";
 import { htmlFromStr } from "../../utils/htmlFrom";
 import { template } from "./sidebar.tmpl.js";
-import "./sidebar.css";
-import style from "./sidebar.css.json";
+import style from "./sidebar.css";
 import { ProfileLink } from "../profileLink";
 import { SearchChatForm } from "../searchChatForm";
 import { ChatsList } from "../chatsList";

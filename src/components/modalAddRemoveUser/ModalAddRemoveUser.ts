@@ -4,8 +4,7 @@ import { htmlFromStr } from "../../utils/htmlFrom";
 import { BaseComponent, TActions, TChildren } from "../baseComponent";
 import { ButtonMain } from "../buttonMain";
 import { InputString } from "../inputString";
-import "./modalAddRemoveUser.css";
-import style from "./modalAddRemoveUser.css.json";
+import style from "./modalAddRemoveUser.css";
 import { template } from "./modalAddRemoveUser.tmpl.js";
 
 type TModalAddRemoveUserState = {

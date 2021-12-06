@@ -1,8 +1,7 @@
 import { htmlFromStr } from "../../utils/htmlFrom";
 import { BaseComponent } from "../baseComponent";
 import { template } from "./chatSelectableElemName.tmpl.js";
-import "./chatSelectableElemName.css";
-import style from "./chatSelectableElemName.css.json";
+import style from "./chatSelectableElemName.css";
 
 type TChatSelectableElemNameState = {
 	class: string;

@@ -11,8 +11,7 @@ import { PageHeader } from "../pageHeader";
 import { ProfileAvatar } from "../profileAvatar";
 import { ProfileEditImgModal } from "../profileEditImgModal";
 import { ProfileMenu } from "../profileMenu";
-import "./profileContent.css";
-import style from "./profileContent.css.json";
+import style from "./profileContent.css";
 import { template } from "./profileContent.tmpl.js";
 
 type TProfileContentState = {

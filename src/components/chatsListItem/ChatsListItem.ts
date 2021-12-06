@@ -1,8 +1,7 @@
 import { BaseComponent } from "../baseComponent";
 import { htmlFromStr } from "../../utils/htmlFrom";
 import { template } from "./chatsListItem.tmpl.js";
-import "./chatsListItem.css";
-import style from "./chatsListItem.css.json";
+import style from "./chatsListItem.css";
 import { TChatItem } from "../chatsList/types";
 import { TChildren } from "../baseComponent/ChildrenService";
 import { ChatSelectableElem } from "../chatSelectableElem";

@@ -1,8 +1,7 @@
 import { BaseComponent, TChildren } from "../baseComponent";
 import { htmlFromStr } from "../../utils/htmlFrom";
 import { template } from "./chatsList.tmpl.js";
-import "./chatsList.css";
-import style from "./chatsList.css.json";
+import style from "./chatsList.css";
 import { getChatsData } from "../../mocks/getChatsData";
 import { TChatItem } from "./types";
 import { ChatsListItem } from "../chatsListItem";

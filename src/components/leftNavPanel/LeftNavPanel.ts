@@ -1,7 +1,6 @@
 import { htmlFromStr } from "../../utils/htmlFrom";
 import { BaseComponent } from "../baseComponent";
-import "./leftNavPanel.css";
-import style from "./leftNavPanel.css.json";
+import style from "./leftNavPanel.css";
 import { template } from "./leftNavPanel.tmpl.js";
 
 type TLeftNavPanelState = {

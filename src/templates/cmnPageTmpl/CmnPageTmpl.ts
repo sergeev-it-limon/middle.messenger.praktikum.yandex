@@ -1,8 +1,7 @@
 import { BaseComponent, TChildren } from "../../components/baseComponent";
 import { htmlFromStr } from "../../utils/htmlFrom";
 import { template } from "./cmnPageTmpl.tmpl.js";
-import "./cmnPageTmpl.css";
-import style from "./cmnPageTmpl.css.json";
+import style from "./cmnPageTmpl.css";
 
 type TCmnPageTmplState = {
 	rootClassName: string;

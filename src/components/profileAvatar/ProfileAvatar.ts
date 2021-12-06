@@ -2,8 +2,7 @@ import { eventBus } from "../../controllers/EventBus";
 import { htmlFromStr } from "../../utils/htmlFrom";
 import { BaseComponent, TActions, TChildren } from "../baseComponent";
 import { ImageAvatar } from "../imageAvatar";
-import "./profileAvatar.css";
-import style from "./profileAvatar.css.json";
+import style from "./profileAvatar.css";
 import { template } from "./profileAvatar.tmpl.js";
 
 type TProfileAvatarState = {

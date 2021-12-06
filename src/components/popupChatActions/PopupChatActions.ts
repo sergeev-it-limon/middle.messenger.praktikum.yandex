@@ -1,8 +1,7 @@
 import { Popup, TPopupMeta } from "../popup";
 import { PopupChatActionsContent } from "../popupChatActionsContent/PopupChatActionsContent";
 import { PopupChatActionsTrigger } from "../popupChatActionsTrigger";
-import "./popupChatActions.css";
-import style from "./popupChatActions.css.json";
+import style from "./popupChatActions.css";
 
 export class PopupChatActions extends Popup {
 	private isOpen = false;

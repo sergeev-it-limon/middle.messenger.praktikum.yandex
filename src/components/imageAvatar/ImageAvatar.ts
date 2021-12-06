@@ -1,8 +1,7 @@
 import { BaseComponent } from "../baseComponent";
 import { htmlFromStr } from "../../utils/htmlFrom";
 import { template } from "./imageAvatar.tmpl.js";
-import "./imageAvatar.css";
-import style from "./imageAvatar.css.json";
+import style from "./imageAvatar.css";
 
 export type TSizeMod = "sm" | "md" | "lg";
 

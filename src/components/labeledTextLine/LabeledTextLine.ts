@@ -1,8 +1,7 @@
 import { htmlFromStr } from "../../utils/htmlFrom";
 import { BaseComponent } from "../baseComponent";
 import { template } from "./labeledTextLine.tmpl.js";
-import "./labeledTextLine.css";
-import style from "./labeledTextLine.css.json";
+import style from "./labeledTextLine.css";
 
 type TLabeledTextLineState = {
 	rootClassName: string;

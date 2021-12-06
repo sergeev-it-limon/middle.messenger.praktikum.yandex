@@ -1,8 +1,7 @@
 import { BaseComponent, TActions } from "../baseComponent";
 import { htmlFromStr } from "../../utils/htmlFrom";
 import { template } from "./buttonChatPopup.tmpl.js";
-import "./buttonChatPopup.css";
-import style from "./buttonChatPopup.css.json";
+import style from "./buttonChatPopup.css";
 
 type TButtonChatPopupState = {
 	className: string;

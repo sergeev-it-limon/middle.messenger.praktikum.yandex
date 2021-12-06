@@ -1,8 +1,7 @@
 import { BaseComponent, TChildren } from "../baseComponent";
 import { htmlFromStr } from "../../utils/htmlFrom";
 import { template } from "./popup.tmpl.js";
-import "./popup.css";
-import style from "./popup.css.json";
+import style from "./popup.css";
 
 type TPopupState = {
 	innerClassName: string;

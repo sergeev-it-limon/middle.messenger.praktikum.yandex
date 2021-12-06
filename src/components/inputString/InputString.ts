@@ -1,7 +1,6 @@
 import { htmlFromStr } from "../../utils/htmlFrom";
 import { BaseComponent } from "../baseComponent";
-import "./inputString.css";
-import style from "./inputString.css.json";
+import style from "./inputString.css";
 import { template } from "./inputString.tmpl.js";
 
 type TInputStringState = {

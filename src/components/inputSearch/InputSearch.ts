@@ -1,8 +1,7 @@
 import { BaseComponent } from "../baseComponent";
 import { htmlFromStr } from "../../utils/htmlFrom";
 import { template } from "./inputSearch.tmpl.js";
-import "./inputSearch.css";
-import style from "./inputSearch.css.json";
+import style from "./inputSearch.css";
 
 type TInputSearchState = {
 	className: string;

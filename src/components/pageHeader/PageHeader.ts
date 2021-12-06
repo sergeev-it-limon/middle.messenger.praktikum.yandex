@@ -1,7 +1,6 @@
 import { BaseComponent } from "../baseComponent";
 import { htmlFromStr } from "../../utils/htmlFrom";
-import "./pageHeader.css";
-import style from "./pageHeader.css.json";
+import style from "./pageHeader.css";
 import { template } from "./pageHeader.tmpl.js";
 
 type TPageHeaderState = {

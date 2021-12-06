@@ -1,8 +1,7 @@
 import { BaseComponent, TChildren } from "../baseComponent";
 import { ButtonChatPopup } from "../buttonChatPopup";
 import { List } from "../list";
-import "./popupAddFileContent.css";
-import style from "./popupAddFileContent.css.json";
+import style from "./popupAddFileContent.css";
 import imageIcon from "./imageIcon.png";
 import fileIcon from "./fileIcon.png";
 import { template } from "./popupAddFileContent.tmpl.js";

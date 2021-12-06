@@ -3,8 +3,7 @@ import { htmlFromStr } from "../../utils/htmlFrom";
 import { BaseComponent, TActions, TChildren } from "../baseComponent";
 import { ButtonMain } from "../buttonMain";
 import { ButtonTransparent } from "../buttonTransparent";
-import "./profileEditImgModal.css";
-import style from "./profileEditImgModal.css.json";
+import style from "./profileEditImgModal.css";
 import { template } from "./profileEditImgModal.tmpl.js";
 
 type TProfileEditImgModalState = {

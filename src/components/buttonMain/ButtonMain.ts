@@ -1,8 +1,7 @@
 import { htmlFromStr } from "../../utils/htmlFrom";
 import { BaseComponent } from "../baseComponent";
 import { template } from "./buttonMain.tmpl.js";
-import "./buttonMain.css";
-import style from "./buttonMain.css.json";
+import style from "./buttonMain.css";
 
 type TButtonMainState = {
 	rootClassName: string;

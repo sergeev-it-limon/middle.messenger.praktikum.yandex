@@ -1,8 +1,7 @@
 import { BaseComponent, TChildren } from "../../components/baseComponent";
 import { htmlFromStr } from "../../utils/htmlFrom";
 import { template } from "./chatPageTmpl.tmpl.js";
-import "./chatPageTmpl.css";
-import style from "./chatPageTmpl.css.json";
+import style from "./chatPageTmpl.css";
 
 export abstract class ChatPageTmpl extends BaseComponent {
 	render(): HTMLElement {

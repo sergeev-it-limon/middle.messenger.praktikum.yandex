@@ -1,9 +1,7 @@
-// import { Component } from "../../libs/components";
 import { BaseComponent, TChildren } from "../baseComponent";
 import { htmlFromStr } from "../../utils/htmlFrom";
 import { template } from "./chatSelected.tmpl.js";
-import "./chatSelected.css";
-import style from "./chatSelected.css.json";
+import style from "./chatSelected.css";
 import { getSelectedChatData } from "../../mocks/getSelectedChatData";
 import { TMessage, TMessagesByDay } from "./chatSelectedTypes";
 import { MessageImage } from "../messageImage";
@@ -12,10 +10,6 @@ import { Divider } from "../divider";
 import { SendMessageForm } from "../sendMessageForm";
 import { ImageAvatar } from "../imageAvatar";
 import { PopupChatActions } from "../popupChatActions";
-// import { MessageImage } from "../messageImage";
-// import { Message } from "../message/Message";
-// import { Divider } from "../divider";
-// import { SendMessageForm } from "../sendMessageForm";
 
 type TMesMeta = {
 	id: number;

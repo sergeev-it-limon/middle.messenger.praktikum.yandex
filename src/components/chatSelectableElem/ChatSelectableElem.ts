@@ -1,8 +1,7 @@
 import { BaseComponent, TChildren } from "../baseComponent";
 import { htmlFromStr } from "../../utils/htmlFrom";
 import { template } from "./chatSelectableElem.tmpl.js";
-import "./chatSelectableElem.css";
-import style from "./chatSelectableElem.css.json";
+import style from "./chatSelectableElem.css";
 import { ImageAvatar } from "../imageAvatar";
 import { TextLineClamp } from "../textLineClamp";
 import { ChatSelectableElemName } from "../chatSelectableElemName";

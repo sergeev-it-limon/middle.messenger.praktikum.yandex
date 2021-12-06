@@ -1,9 +1,8 @@
 import { BaseComponent, TChildren } from "../../components/baseComponent";
 import { htmlFromStr } from "../../utils/htmlFrom";
 import { template } from "./errorPageTmpl.tmpl.js";
-import "./errorPageTmpl.css";
 import { ButtonTransparent } from "../../components/buttonTransparent";
-import style from "./errorPageTmpl.css.json";
+import style from "./errorPageTmpl.css";
 
 type TErrorPageTmplBuildCtx = {
 	header: Node;

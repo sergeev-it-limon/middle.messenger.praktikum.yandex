@@ -1,8 +1,7 @@
 import { htmlFromStr } from "../../utils/htmlFrom";
 import { BaseComponent, TActions } from "../baseComponent";
 import { template } from "./popupAddFileTrigger.tmpl.js";
-import "./popupAddFileTrigger.css";
-import style from "./popupAddFileTrigger.css.json";
+import style from "./popupAddFileTrigger.css";
 
 type TPopupAddFileTriggerProps = {
 	isActive: boolean;
