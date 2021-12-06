@@ -26,12 +26,11 @@
 	},
 	"homepage": "https://github.com/sergeev-it-limon/middle.messenger.praktikum.yandex#readme",
 	"devDependencies": {
-		"@babel/core": "^7.16.0",
+		"@babel/core": "~7.16.0",
 		"@typescript-eslint/eslint-plugin": "~4.32.0",
 		"@typescript-eslint/parser": "~4.32.0",
 		"autoprefixer": "~9.8.6",
-		"babel-plugin-transform-pug-js": "^0.4.1",
-		"babel-preset-env": "^1.7.0",
+		"babel-plugin-transform-pug-js": "~0.4.1",
 		"concurrently": "~6.0.0",
 		"eslint": "~7.32.0",
 		"eslint-watch": "~7.0.0",
@@ -50,6 +49,6 @@
 		"typescript": "~4.4.3"
 	},
 	"dependencies": {
-		"pug-runtime": "^3.0.1"
+		"pug-runtime": "~3.0.1"
 	}
 }
