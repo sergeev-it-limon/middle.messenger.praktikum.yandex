@@ -4,7 +4,6 @@ import { ButtonMain } from "../buttonMain";
 import { FormCommon } from "../formCommon/FormCommon";
 import { InputString } from "../inputString";
 import style from "./formAuth.css";
-// import style from "./formAuth.css";
 import { template } from "./formAuth.tmpl.js";
 import { htmlFromStr } from "../../utils/htmlFrom";
 import { getFormEntries } from "../../utils/getFormEntries";
