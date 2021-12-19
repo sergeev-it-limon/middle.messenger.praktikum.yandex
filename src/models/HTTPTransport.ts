@@ -80,7 +80,11 @@ export class HTTPTransport {
 			}
 
 			xhr.onload = function () {
-				resolve(xhr.response);
+				if (xhr.status >= 200 && xhr.status < 300) {
+					resolve(JSON.parse(xhr.response));
+				} else {
+					reject(JSON.parse(xhr.response));
+				}
 			};
 
 			xhr.onabort = reject;
