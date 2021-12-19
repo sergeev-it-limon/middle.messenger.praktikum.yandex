@@ -2,6 +2,7 @@ import { eventBus } from "../../controllers/EventBus";
 import { htmlFromStr } from "../../utils/htmlFrom";
 import { BaseComponent, TActions, TChildren } from "../baseComponent";
 import { ImageAvatar } from "../imageAvatar";
+import { TSizeMod } from "../imageAvatar/ImageAvatar";
 import style from "./profileAvatar.css";
 import { template } from "./profileAvatar.tmpl.js";
 
@@ -25,7 +26,7 @@ export class ProfileAvatar extends BaseComponent<TProfileAvatarState> {
 	initChildren(): TChildren {
 		const imageAvatar = new ImageAvatar({
 			alt: "user avatar",
-			sizeMod: "lg",
+			sizeMod: TSizeMod.lg,
 			src: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=",
 		});
 

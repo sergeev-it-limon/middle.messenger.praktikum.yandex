@@ -6,6 +6,7 @@ import { ImageAvatar } from "../imageAvatar";
 import { TextLineClamp } from "../textLineClamp";
 import { ChatSelectableElemName } from "../chatSelectableElemName";
 import { ChatSelectableElemPreviewText } from "../chatSelectableElemPreviewText";
+import { TSizeMod } from "../imageAvatar/ImageAvatar";
 
 type TChatSelectableElemProps = {
 	src: string;
@@ -30,7 +31,7 @@ export class ChatSelectableElem extends BaseComponent<
 	private readonly imageAvatar = new ImageAvatar({
 		alt: "",
 		src: "",
-		sizeMod: "sm",
+		sizeMod: TSizeMod.sm,
 	});
 
 	private readonly name = new ChatSelectableElemName({
@@ -90,7 +91,7 @@ export class ChatSelectableElem extends BaseComponent<
 		this.state.unreadedMsgCnt = this.props.unreadedMsgCnt;
 
 		this.imageAvatar.update({
-			sizeMod: "sm",
+			sizeMod: TSizeMod.sm,
 			src: this.props.src,
 			alt: this.props.alt,
 		});

@@ -10,6 +10,7 @@ import { Divider } from "../divider";
 import { SendMessageForm } from "../sendMessageForm";
 import { ImageAvatar } from "../imageAvatar";
 import { PopupChatActions } from "../popupChatActions";
+import { TSizeMod } from "../imageAvatar/ImageAvatar";
 
 type TMesMeta = {
 	id: number;
@@ -134,7 +135,7 @@ export class ChatSelected extends BaseComponent {
 
 		const imageAvatar = new ImageAvatar({
 			alt: "avatar",
-			sizeMod: "sm",
+			sizeMod: TSizeMod.sm,
 			src: "https://images.unsplash.com/photo-1616213320857-b5c3669e472e?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=334&q=80",
 		});
 		imageAvatar.build(null);
