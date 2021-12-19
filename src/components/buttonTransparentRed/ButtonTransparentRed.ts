@@ -2,6 +2,7 @@ import { htmlFromStr } from "../../utils/htmlFrom";
 import { BaseComponent, TActions } from "../baseComponent";
 import { template } from "./buttonTransparentRed.tmpl.js";
 import style from "./buttonTransparentRed.css";
+import { getClassName } from "../../utils/getClassName";
 
 type TButtonTransparentRedState = {
 	rootClassName: string;
@@ -29,10 +30,8 @@ export class ButtonTransparentRed extends BaseComponent<
 	}
 
 	initState(): TButtonTransparentRedState {
-		const addClassName = this.props.className ?? "";
-
 		return {
-			rootClassName: `${style.root} ${addClassName}`,
+			rootClassName: getClassName(style.root, this.props.className),
 			text: this.props.text,
 			type: this.props.type,
 		};
@@ -41,9 +40,7 @@ export class ButtonTransparentRed extends BaseComponent<
 	propsToState(): void {
 		this.state.text = this.props.text;
 		this.state.type = this.props.type;
-
-		const addClassName = this.props.className ?? "";
-		this.state.rootClassName = `${style.root} ${addClassName}`;
+		this.state.rootClassName = getClassName(style.root, this.props.className);
 	}
 
 	initActions(): TActions {

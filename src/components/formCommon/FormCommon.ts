@@ -1,3 +1,4 @@
+import { getClassName } from "../../utils/getClassName";
 import { htmlFromStr } from "../../utils/htmlFrom";
 import { BaseComponent, TActions, TChildren } from "../baseComponent";
 import style from "./formCommon.css";
@@ -47,9 +48,10 @@ export class FormCommon extends BaseComponent<
 	}
 
 	propsToState(): void {
-		this.state.rootClassName = `${style.root} ${
-			this.props.formClassName ?? ""
-		}`;
+		this.state.rootClassName = getClassName(
+			style.root,
+			this.props.formClassName
+		);
 	}
 
 	initActions(): TActions {
