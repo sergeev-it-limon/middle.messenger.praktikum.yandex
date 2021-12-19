@@ -75,6 +75,10 @@ export class HTTPTransport {
 				xhr.setRequestHeader(key, headers[key]);
 			});
 
+			if (headers["Content-type"] === undefined) {
+				xhr.setRequestHeader("Content-type", "application/json");
+			}
+
 			xhr.onload = function () {
 				resolve(xhr.response);
 			};
