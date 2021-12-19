@@ -214,42 +214,26 @@ export class ProfileContent extends BaseComponent<TProfileContentState, null> {
 		const inputs = this.getProfileInputs();
 
 		subscribe((error) => {
+			const errorMessage = error.errors.join(", ");
+
 			switch (error.name) {
 				case "email":
-					inputs[0].update({
-						...inputs[0].props,
-						errorMessage: error.errors.join(", "),
-					});
+					inputs[0].update({ ...inputs[0].props, errorMessage });
 					break;
 				case "login":
-					inputs[1].update({
-						...inputs[1].props,
-						errorMessage: error.errors.join(", "),
-					});
+					inputs[1].update({ ...inputs[1].props, errorMessage });
 					break;
 				case "first_name":
-					inputs[2].update({
-						...inputs[2].props,
-						errorMessage: error.errors.join(", "),
-					});
+					inputs[2].update({ ...inputs[2].props, errorMessage });
 					break;
 				case "second_name":
-					inputs[3].update({
-						...inputs[3].props,
-						errorMessage: error.errors.join(", "),
-					});
+					inputs[3].update({ ...inputs[3].props, errorMessage });
 					break;
 				case "nick":
-					inputs[4].update({
-						...inputs[4].props,
-						errorMessage: error.errors.join(", "),
-					});
+					inputs[4].update({ ...inputs[4].props, errorMessage });
 					break;
 				case "phone":
-					inputs[5].update({
-						...inputs[5].props,
-						errorMessage: error.errors.join(", "),
-					});
+					inputs[5].update({ ...inputs[5].props, errorMessage });
 					break;
 			}
 		});
