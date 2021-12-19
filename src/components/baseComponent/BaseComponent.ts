@@ -91,7 +91,7 @@ export abstract class BaseComponent<
 		const style = this.ref.getAttribute("style") ?? "";
 		return style
 			.split(";")
-			.filter((value) => value != "")
+			.filter((value) => value !== "")
 			.map((style) => style.split(": "));
 	}
 
@@ -125,7 +125,7 @@ export abstract class BaseComponent<
 	}
 
 	private _componentWillInit(): void {
-		if (this.componentWillInit != null) {
+		if (typeof this.componentWillInit === "function") {
 			this.componentWillInit();
 		}
 
@@ -141,7 +141,7 @@ export abstract class BaseComponent<
 	}
 
 	private saveRef(): void {
-		if (this.ref != null) {
+		if (this.ref instanceof HTMLElement) {
 			this.prevRef = this.ref;
 		}
 

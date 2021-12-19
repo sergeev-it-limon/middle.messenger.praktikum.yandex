@@ -46,7 +46,7 @@ export class ButtonTransparent extends BaseComponent<
 	initActions(): TActions {
 		const actions: TActions = {};
 
-		if (this.buildContext?.handleClick != null) {
+		if (typeof this.buildContext?.handleClick === "function") {
 			actions.handleClick = this.buildContext.handleClick;
 		}
 

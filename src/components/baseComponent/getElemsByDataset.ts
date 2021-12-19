@@ -16,7 +16,8 @@ export function getElemsByDataset(
 
 	const elemsWithAttr = Array.from(ref.querySelectorAll(datasetAttr));
 
-	if (ref.dataset[datasetKey] != null) {
+	const attrValue = ref.dataset[datasetKey];
+	if (typeof attrValue === "string") {
 		elemsWithAttr.push(ref);
 	}
 
