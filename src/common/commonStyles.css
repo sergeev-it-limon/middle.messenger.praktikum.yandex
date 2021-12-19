@@ -1,0 +1,41 @@
+@import "../common/variables.css";
+
+* {
+	box-sizing: border-box;
+}
+
+body {
+	margin: 0;
+	font-family: Inter, sans-serif;
+	font-style: normal;
+	font-weight: 500;
+	color: var(--main-text-color);
+}
+
+ul {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+
+li {
+	padding: 0;
+	display: block;
+}
+
+a {
+	text-decoration: none;
+	color: var(--main-text-color);
+}
+
+input {
+	color: var(--main-text-color);
+	font-family: Inter, sans-serif;
+	font-size: var(--font-size-sm);
+
+	&::placeholder {
+		font-family: Inter, sans-serif;
+		font-size: var(--font-size-sm);
+		color: var(--pale_text-color);
+	}
+}

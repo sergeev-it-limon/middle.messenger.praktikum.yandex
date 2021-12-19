@@ -1,0 +1,1 @@
+export { ErrorPageTmpl } from "./ErrorPageTmpl";

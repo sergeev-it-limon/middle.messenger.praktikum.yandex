@@ -1,0 +1,15 @@
+{
+	"compilerOptions": {
+		"outDir": "dist",
+		"target": "ESNext",
+		"declaration": false,
+		"module": "commonjs",
+		"strictNullChecks": true,
+		"noImplicitAny": true,
+		"sourceMap": true,
+		"noUnusedLocals": true,
+		"noUnusedParameters": true,
+		"resolveJsonModule": true,
+		"esModuleInterop": true
+	}
+}

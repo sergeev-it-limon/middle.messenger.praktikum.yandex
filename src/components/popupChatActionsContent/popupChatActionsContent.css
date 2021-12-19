@@ -1,0 +1,11 @@
+.list {
+	width: 196px;
+}
+
+.listItem + .listItem {
+	margin-top: 16px;
+}
+
+.icon {
+	margin-right: 16px;
+}

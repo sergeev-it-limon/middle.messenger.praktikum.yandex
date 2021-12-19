@@ -1,0 +1,23 @@
+@import "../../common/variables.css";
+
+.root {
+	width: 100%;
+	background-color: var(--main-color);
+	color: white;
+	font-family: Inter, sans-serif;
+	font-size: var(--font-size-md);
+	line-height: 36px;
+	padding: 0 8px;
+	border: none;
+	border-radius: 8px;
+	cursor: pointer;
+	transition-duration: 0.2s;
+
+	&:hover {
+		box-shadow: 0 0 0 4px var(--main-hover-color);
+	}
+
+	&:active {
+		box-shadow: inset 0 0 8px 0 var(--main-hover-color);
+	}
+}

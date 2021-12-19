@@ -1,0 +1,1 @@
+export { ProfileEditImgModal } from "./ProfileEditImgModal";

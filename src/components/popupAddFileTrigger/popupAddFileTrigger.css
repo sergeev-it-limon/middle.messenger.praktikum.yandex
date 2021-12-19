@@ -1,0 +1,31 @@
+@import "../../common/variables.css";
+
+.icon {
+	path {
+		transition-duration: 0.2s;
+	}
+}
+
+.root {
+	background-color: transparent;
+	border: none;
+	margin: 0;
+	padding: 0;
+	cursor: pointer;
+
+	&_active {
+		.icon path {
+			fill: var(--main-color);
+		}
+
+		&:hover .icon path {
+			fill: var(--main-color);
+		}
+	}
+
+	&:hover {
+		.icon path {
+			fill: var(--main-hover-color);
+		}
+	}
+}

@@ -1,0 +1,5 @@
+@import "../../common/zIndexes.css";
+
+.root {
+	z-index: var(--popup-chat-actions-z-index);
+}

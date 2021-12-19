@@ -1,0 +1,77 @@
+@import "../../common/variables.css";
+
+.inputString {
+	display: flex;
+	flex-direction: column;
+	font-family: Inter, sans-serif;
+	font-style: normal;
+	font-weight: 500;
+	margin-bottom: 20px;
+}
+
+.input {
+	outline: none;
+	font-size: --font-size-md;
+	line-height: 13px;
+	border: none;
+	border-bottom: 1px solid var(--main-color);
+	color: var(--main-text-color);
+}
+
+.label {
+	font-size: var(--font-size-xxs);
+	line-height: 9px;
+	color: var(--pale_text-color);
+	margin-bottom: 8px;
+}
+
+.error {
+	.input {
+		color: var(--alarm-color) !important;
+		border-bottom-color: var(--alarm-color) !important;
+	}
+}
+
+.errorMessage {
+	font-size: var(--font-size-xxs);
+	color: var(--alarm-color);
+	margin: 4px 0 0;
+}
+
+.inputString_in_row {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	padding: 10px 0;
+	font-size: var(--font-size-md);
+	line-height: var(--font-size-md);
+	border-bottom: 1px solid var(--divider-color);
+	margin-bottom: 0;
+
+	.label {
+		color: var(--main-text-color);
+		font-size: var(--font-size-md);
+		line-height: var(--font-size-md);
+		margin: 0;
+	}
+
+	.input {
+		color: var(--pale_text-color);
+		font-size: var(--font-size-md);
+		line-height: var(--font-size-md);
+		border-bottom: none;
+		width: 300px;
+		text-align: right;
+		padding: 0;
+	}
+}
+
+.inputString_color_faded {
+	.label {
+		color: var(--faded-color) !important;
+	}
+
+	.input {
+		color: var(--faded-color) !important;
+	}
+}

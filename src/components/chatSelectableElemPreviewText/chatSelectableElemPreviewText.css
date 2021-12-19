@@ -1,0 +1,9 @@
+@import "../../common/variables.css";
+
+.root {
+	color: var(--pale_text-color);
+	font-size: var(--font-size-sm);
+	line-height: 15px;
+	margin: 0;
+	margin-top: 4px;
+}

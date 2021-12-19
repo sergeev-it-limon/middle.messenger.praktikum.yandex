@@ -1,0 +1,29 @@
+@import "../../common/variables.css";
+
+.root {
+	height: 26px;
+	line-height: 22px;
+	padding: 2px;
+	width: 100%;
+	margin: 0;
+	display: flex;
+	border: none;
+	background-color: transparent;
+	font-family: Inter, sans-serif;
+	font-size: var(--font-size-sm);
+	cursor: pointer;
+	white-space: nowrap;
+	transition-duration: 0.2s;
+
+	&:hover {
+		color: var(--main-hover-color);
+	}
+
+	&:active {
+		color: var(--main-color);
+	}
+}
+
+.text {
+	margin-left: 16px;
+}
