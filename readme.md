@@ -1,7 +1,7 @@
-## Проектная работа 2-го спринта для курса "Мидл фронтенд-разработчик"
+## Проектная работа 3-го спринта для курса "Мидл фронтенд-разработчик"
 
 Pull request:
-https://github.com/sergeev-it-limon/middle.messenger.praktikum.yandex/pull/6
+
 
 Публикация:
 https://deploy--upbeat-pare-d83e5d.netlify.app/
