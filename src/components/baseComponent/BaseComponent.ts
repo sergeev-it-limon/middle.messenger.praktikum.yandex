@@ -4,6 +4,11 @@ import { LifeCycleEventBus } from "./LifeCycleEventBus";
 import { TStateBase } from "./StateChangeEventBus";
 import { StateService } from "./StateService";
 
+export interface IBuildableComponent {
+	build(args: unknown): void;
+	getRef(): HTMLElement;
+}
+
 type TStateComponent = TStateBase | null;
 
 export interface BaseComponent {
@@ -16,7 +21,8 @@ export abstract class BaseComponent<
 	TState extends TStateComponent = null,
 	TProps = null,
 	TBuildContext = null
-> {
+> implements IBuildableComponent
+{
 	private stateService: StateService;
 	private actionsService: ActionsService;
 	private childrenService: ChildrenService;
@@ -85,6 +91,11 @@ export abstract class BaseComponent<
 	/** Скрыть элемент (добавить в аттрибут syle значение display: none;) */
 	public hide(): void {
 		this.isVisible = false;
+	}
+
+	/** Возвращает ссылку на текущий элемнет компонента */
+	public getRef(): HTMLElement {
+		return this.ref;
 	}
 
 	private getStyleEntries(): string[][] {
