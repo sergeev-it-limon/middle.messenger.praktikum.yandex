@@ -20,9 +20,8 @@ export class FormAuth extends BaseComponent {
 		console.log(`Сабмит формы авторизации пользователя`);
 		console.log(formData);
 
-		setTimeout(() => {
-			location.assign("/home");
-		}, 3000);
+		const router = new Router();
+		router.go("/home");
 	}
 
 	render(): HTMLElement {

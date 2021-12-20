@@ -8,6 +8,7 @@ import { htmlFromStr } from "../../utils/htmlFrom";
 import { getFormEntries } from "../../utils/getFormEntries";
 import { ButtonTransparent } from "../buttonTransparent";
 import { appRules, buildValidator } from "../../utils/validator";
+import { Router } from "../../controllers/Router";
 
 export class FormSignup extends BaseComponent {
 	private handleSubmit(e: SubmitEvent): void {
@@ -18,9 +19,8 @@ export class FormSignup extends BaseComponent {
 		console.log(`Сабмит формы регистрации пользователя`);
 		console.log(formData);
 
-		setTimeout(() => {
-			location.assign("/home");
-		}, 3000);
+		const router = new Router();
+		router.go("/home");
 	}
 
 	render(): HTMLElement {
@@ -145,7 +145,12 @@ export class FormSignup extends BaseComponent {
 
 		header.build(null);
 		buttonSignup.build(null);
-		buttonAuth.build({ handleClick: () => location.assign("/") });
+		buttonAuth.build({
+			handleClick: () => {
+				const router = new Router();
+				router.go("/");
+			},
+		});
 
 		const top = document.createDocumentFragment();
 		top.appendChild(header.ref);
