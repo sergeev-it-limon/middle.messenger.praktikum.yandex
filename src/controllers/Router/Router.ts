@@ -14,8 +14,8 @@ export class Router {
 	/** Текущий роут приложения */
 	private currentRoute: Route | null;
 
-	constructor(rootQuery: string) {
-		if (Router.instance) {
+	constructor(rootQuery?: string) {
+		if (Router.instance || typeof rootQuery !== "string") {
 			return Router.instance;
 		}
 

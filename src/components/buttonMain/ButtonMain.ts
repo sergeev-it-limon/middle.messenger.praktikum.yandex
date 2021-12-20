@@ -17,7 +17,6 @@ export class ButtonMain extends BaseComponent<
 	TButtonMainProps
 > {
 	protected render(): HTMLElement {
-		console.log(template());
 		return htmlFromStr(template());
 	}
 
