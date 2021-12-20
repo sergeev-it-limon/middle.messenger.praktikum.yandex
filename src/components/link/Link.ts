@@ -13,7 +13,7 @@ type TLinkProps = {
 };
 
 type TLinkBuildCtx = {
-	content: HTMLElement;
+	content: Node;
 };
 
 export class Link extends BaseComponent<TLinkState, TLinkProps, TLinkBuildCtx> {

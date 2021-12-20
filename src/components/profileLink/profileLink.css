@@ -37,3 +37,11 @@
 		}
 	}
 }
+
+.root__Wrapper {
+	height: 56px;
+	align-self: stretch;
+	display: flex;
+	align-items: center;
+	justify-content: flex-end;
+}

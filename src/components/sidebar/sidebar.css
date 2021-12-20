@@ -13,14 +13,6 @@
 	margin: 0 10px;
 }
 
-.profileLinkWrapper {
-	height: 56px;
-	align-self: stretch;
-	display: flex;
-	align-items: center;
-	justify-content: flex-end;
-}
-
 .chatsList {
 	margin-top: 14px;
 	height: calc(100vh - 102px);
