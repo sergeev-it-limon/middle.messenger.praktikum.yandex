@@ -49,10 +49,10 @@ export class Route {
 		if (this.pathnameCur === null) return;
 
 		const params = this.paramsParser.getParams(this.pathnameCur);
-		const component = this.getComponent(params);
+		this.component = this.getComponent(params);
 
 		const root = this.getRoot();
-		root?.appendChild(component);
+		root?.appendChild(this.component);
 	}
 
 	private getRoot(): Element | null {

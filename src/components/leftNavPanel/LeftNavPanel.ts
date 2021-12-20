@@ -1,12 +1,12 @@
 import { htmlFromStr } from "../../utils/htmlFrom";
-import { BaseComponent } from "../baseComponent";
+import { BaseComponent, TChildren } from "../baseComponent";
+import { LeftNavPanelContent } from "../leftNavPanelContent";
+import { Link } from "../link";
 import style from "./leftNavPanel.css";
 import { template } from "./leftNavPanel.tmpl.js";
 
 type TLeftNavPanelState = {
 	rootClassName: string;
-	backLinkClassName: string;
-	linkTo: string;
 };
 
 type TLeftNavPanelProps = {
@@ -23,13 +23,22 @@ export class LeftNavPanel extends BaseComponent<
 
 	initState(): TLeftNavPanelState {
 		return {
-			backLinkClassName: style.backLink,
 			rootClassName: style.root,
-			linkTo: this.props.linkTo,
 		};
 	}
 
-	propsToState(): void {
-		this.state.linkTo = this.props.linkTo;
+	protected initChildren(): TChildren {
+		const content = new LeftNavPanelContent(null);
+		const link = new Link({
+			className: style.backLink,
+			href: this.props.linkTo,
+		});
+
+		content.build(null);
+		link.build({ content: content.ref });
+
+		return {
+			link: link.ref,
+		};
 	}
 }
