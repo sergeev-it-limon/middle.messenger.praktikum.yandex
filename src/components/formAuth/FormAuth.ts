@@ -9,6 +9,7 @@ import { htmlFromStr } from "../../utils/htmlFrom";
 import { getFormEntries } from "../../utils/getFormEntries";
 import { ButtonTransparent } from "../buttonTransparent";
 import { appRules, buildValidator } from "../../utils/validator";
+import { Router } from "../../controllers/Router";
 
 export class FormAuth extends BaseComponent {
 	private handleSubmit(e: SubmitEvent): void {
@@ -90,7 +91,10 @@ export class FormAuth extends BaseComponent {
 		top.appendChild(passwordInput.ref);
 
 		buttonSignup.build({
-			handleClick: () => location.assign("/signup"),
+			handleClick: () => {
+				const router = new Router();
+				router.go("/signup");
+			},
 		});
 
 		const bottom = document.createDocumentFragment();

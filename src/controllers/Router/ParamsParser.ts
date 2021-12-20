@@ -22,6 +22,6 @@ export class ParamsParser {
 			.replaceAll("/", "\\/")
 			.replaceAll(/:(\w+)/g, "(?<$1>\\w+)")
 			.replaceAll("*", ".*");
-		this.regExp = new RegExp(pattern);
+		this.regExp = new RegExp(`^${pattern}$`);
 	}
 }
