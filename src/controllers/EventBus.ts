@@ -10,6 +10,7 @@ type TEvents = {
 	editPasswordEnd: null;
 	openEditAvatar: null;
 	closeEditAvatar: null;
+	authStateUpdated: null;
 };
 
 export const eventBus = new EventBus<TEvents>();

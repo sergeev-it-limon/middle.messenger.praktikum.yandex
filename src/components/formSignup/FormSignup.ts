@@ -9,18 +9,26 @@ import { getFormEntries } from "../../utils/getFormEntries";
 import { ButtonTransparent } from "../buttonTransparent";
 import { appRules, buildValidator } from "../../utils/validator";
 import { Router } from "../../controllers/Router";
+import { AuthController } from "../../controllers/authController/AuthController";
+import { TAuthSignup } from "../../controllers/authController/types";
 
 export class FormSignup extends BaseComponent {
-	private handleSubmit(e: SubmitEvent): void {
-		e.preventDefault();
-		const form = e.currentTarget as HTMLFormElement;
-		const formData = getFormEntries(form);
+	private async handleSubmit(e: SubmitEvent): Promise<void> {
+		try {
+			e.preventDefault();
+			const form = e.currentTarget as HTMLFormElement;
+			const formData = getFormEntries<TAuthSignup>(form);
 
-		console.log(`Сабмит формы регистрации пользователя`);
-		console.log(formData);
+			const auth = new AuthController();
 
-		const router = new Router();
-		router.go("/messenger");
+			await auth.signup(formData);
+			await auth.get();
+
+			const router = new Router();
+			router.go("/messenger");
+		} catch (e) {
+			console.error(e);
+		}
 	}
 
 	render(): HTMLElement {

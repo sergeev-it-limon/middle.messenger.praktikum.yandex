@@ -1,3 +1,4 @@
+import "regenerator-runtime/runtime";
 import "./common/commonStyles.css";
 import { Router } from "./controllers/Router";
 import { AuthPage } from "./pages/authPage";

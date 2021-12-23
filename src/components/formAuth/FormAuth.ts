@@ -10,18 +10,25 @@ import { getFormEntries } from "../../utils/getFormEntries";
 import { ButtonTransparent } from "../buttonTransparent";
 import { appRules, buildValidator } from "../../utils/validator";
 import { Router } from "../../controllers/Router";
+import { TAuthSignin } from "../../controllers/authController/types";
+import { AuthController } from "../../controllers/authController";
 
 export class FormAuth extends BaseComponent {
-	private handleSubmit(e: SubmitEvent): void {
-		e.preventDefault();
-		const form = e.currentTarget as HTMLFormElement;
-		const formData = getFormEntries(form);
+	private async handleSubmit(e: SubmitEvent): Promise<void> {
+		try {
+			e.preventDefault();
+			const form = e.currentTarget as HTMLFormElement;
+			const formData = getFormEntries<TAuthSignin>(form);
 
-		console.log(`Сабмит формы авторизации пользователя`);
-		console.log(formData);
+			const auth = new AuthController();
+			await auth.signin(formData);
+			await auth.get();
 
-		const router = new Router();
-		router.go("/messenger");
+			const router = new Router();
+			router.go("/messenger");
+		} catch (e) {
+			console.log(e);
+		}
 	}
 
 	render(): HTMLElement {

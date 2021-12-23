@@ -9,13 +9,17 @@ type TOptionsInternal<TData> = {
 	method: METHODS;
 	headers?: { [key: string]: string };
 	data?: TData;
+	withCredentials?: boolean;
 };
 
 type TOptions<TData> = Omit<TOptionsInternal<TData>, "method"> & {
 	timeout?: number;
 };
 
-type TRequest = <TDataRes, TDataReq extends XMLHttpRequestBodyInit>(
+type TRequest = <
+	TDataRes,
+	TDataReq extends XMLHttpRequestBodyInit = XMLHttpRequestBodyInit
+>(
 	url: string,
 	options?: TOptions<TDataReq>
 ) => Promise<TDataRes>;
@@ -58,7 +62,12 @@ export class HTTPTransport {
 		options: TOptionsInternal<TDataReq>,
 		timeout = 5000
 	): Promise<TDataRes> => {
-		const { headers = {}, method, data } = options ?? {};
+		const {
+			headers = {},
+			method,
+			data,
+			withCredentials = false,
+		} = options ?? {};
 
 		return new Promise(function (resolve, reject) {
 			if (!method) {
@@ -67,6 +76,7 @@ export class HTTPTransport {
 			}
 
 			const xhr = new XMLHttpRequest();
+			xhr.withCredentials = withCredentials;
 			const isGet = method === METHODS.GET;
 
 			xhr.open(method, isGet && !!data ? `${url}${queryStringify(data)}` : url);
@@ -81,9 +91,17 @@ export class HTTPTransport {
 
 			xhr.onload = function () {
 				if (xhr.status >= 200 && xhr.status < 300) {
-					resolve(JSON.parse(xhr.response));
+					try {
+						resolve(JSON.parse(xhr.response));
+					} catch {
+						resolve(xhr.response);
+					}
 				} else {
-					reject(JSON.parse(xhr.response));
+					try {
+						reject(JSON.parse(xhr.response));
+					} catch {
+						reject(xhr.response);
+					}
 				}
 			};
 
