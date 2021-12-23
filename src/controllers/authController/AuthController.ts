@@ -43,4 +43,9 @@ export class AuthController {
 		this.state = user;
 		eventBus.emit("authStateUpdated", null);
 	}
+
+	public async logout(): Promise<void> {
+		const http = new HTTPTransport();
+		return http.post(`${BASE_URL}/logout`);
+	}
 }
