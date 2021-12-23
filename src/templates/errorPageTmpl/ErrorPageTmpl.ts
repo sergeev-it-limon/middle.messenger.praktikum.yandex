@@ -23,7 +23,7 @@ export class ErrorPageTmpl extends BaseComponent<
 			text: "Назад к чатам",
 			type: "button",
 		});
-		button.build({ handleClick: () => location.assign("/home") });
+		button.build({ handleClick: () => location.assign("/messenger") });
 
 		return {
 			header: this.buildContext.header,

@@ -22,7 +22,7 @@ export class ChatsListItem extends BaseComponent<null, TChatItemProps> {
 	private link = new Link({ className: style.link, href: this.getHref() });
 
 	private getHref() {
-		return `/selectedChat/${this.props.chatId}`;
+		return `/messenger/${this.props.chatId}`;
 	}
 
 	private getLinkClassName() {

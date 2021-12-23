@@ -20,7 +20,7 @@ export class FormSignup extends BaseComponent {
 		console.log(formData);
 
 		const router = new Router();
-		router.go("/home");
+		router.go("/messenger");
 	}
 
 	render(): HTMLElement {

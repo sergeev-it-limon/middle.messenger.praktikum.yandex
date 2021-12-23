@@ -21,7 +21,7 @@ export class FormAuth extends BaseComponent {
 		console.log(formData);
 
 		const router = new Router();
-		router.go("/home");
+		router.go("/messenger");
 	}
 
 	render(): HTMLElement {
@@ -92,7 +92,7 @@ export class FormAuth extends BaseComponent {
 		buttonSignup.build({
 			handleClick: () => {
 				const router = new Router();
-				router.go("/signup");
+				router.go("/sign-up");
 			},
 		});
 

@@ -11,11 +11,11 @@ import { buildGetComponent } from "./utils/buildgetComponent";
 
 const router = new Router("#root");
 router
-	.use("/home", buildGetComponent(new HomePage(null)))
-	.use("/selectedChat/:chatId", buildGetComponent(new SelectedChatPage(null)))
-	.use("/profile", buildGetComponent(new ProfilePage(null)))
+	.use("/messenger", buildGetComponent(new HomePage(null)))
+	.use("/messenger/:chatId", buildGetComponent(new SelectedChatPage(null)))
+	.use("/settings", buildGetComponent(new ProfilePage(null)))
 	.use("/500", buildGetComponent(new Error500Page(null)))
-	.use("/signup", buildGetComponent(new SignupPage(null)))
+	.use("/sign-up", buildGetComponent(new SignupPage(null)))
 	.use("/", buildGetComponent(new AuthPage(null)))
 	.use("*", buildGetComponent(new Error404Page(null)))
 	.start();

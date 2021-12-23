@@ -22,7 +22,7 @@ export class ProfileLink extends BaseComponent<TProfileLinkState> {
 
 	protected initChildren(): TChildren {
 		const content = new ProfileLinkContent({ className: style.icon });
-		const link = new Link({ className: style.root, href: "/profile" });
+		const link = new Link({ className: style.root, href: "/settings" });
 
 		content.build(null);
 		const fg = document.createDocumentFragment();
