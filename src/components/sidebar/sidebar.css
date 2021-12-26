@@ -15,5 +15,9 @@
 
 .chatsList {
 	margin-top: 14px;
-	height: calc(100vh - 102px);
+	height: calc(100vh - 152px);
+}
+
+.buttonAddChat {
+	margin: 14px 10px 0px;
 }

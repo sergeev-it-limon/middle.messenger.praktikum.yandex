@@ -46,6 +46,6 @@ export class AuthController {
 
 	public async logout(): Promise<void> {
 		const http = new HTTPTransport();
-		return http.post(`${BASE_URL}/logout`);
+		return http.post(`${BASE_URL}/logout`, { withCredentials: true });
 	}
 }

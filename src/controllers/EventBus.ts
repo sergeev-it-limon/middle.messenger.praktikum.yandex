@@ -11,6 +11,8 @@ type TEvents = {
 	openEditAvatar: null;
 	closeEditAvatar: null;
 	authStateUpdated: null;
+	chatsStateUpdated: null;
+	openAddChat: null;
 };
 
 export const eventBus = new EventBus<TEvents>();

@@ -2,13 +2,14 @@ import { BaseComponent } from "../baseComponent";
 import { htmlFromStr } from "../../utils/htmlFrom";
 import { template } from "./chatsListItem.tmpl.js";
 import style from "./chatsListItem.css";
-import { TChatItem } from "../chatsList/types";
 import { TChildren } from "../baseComponent/ChildrenService";
 import { ChatSelectableElem } from "../chatSelectableElem";
 import { Link } from "../link";
 import { getClassName } from "../../utils/getClassName";
+import { TChat } from "../../controllers/chatsController/types";
+import userAvatar from "../../asserts/userAvatar.png";
 
-type TChatItemProps = TChatItem;
+type TChatItemProps = TChat;
 
 export class ChatsListItem extends BaseComponent<null, TChatItemProps> {
 	private chatSelectableElem = new ChatSelectableElem({
@@ -22,7 +23,7 @@ export class ChatsListItem extends BaseComponent<null, TChatItemProps> {
 	private link = new Link({ className: style.link, href: this.getHref() });
 
 	private getHref() {
-		return `/messenger/${this.props.chatId}`;
+		return `/messenger/${this.props.id}`;
 	}
 
 	private getLinkClassName() {
@@ -49,13 +50,18 @@ export class ChatsListItem extends BaseComponent<null, TChatItemProps> {
 	}
 
 	propsToState(): void {
-		const { chatId, ...otherProps } = this.props;
-
 		this.link.update({
 			href: this.getHref(),
 			className: this.getLinkClassName(),
 		});
 
-		this.chatSelectableElem.update(otherProps);
+		this.chatSelectableElem.update({
+			alt: this.props.title,
+			name: this.props.title,
+			previewText: this.props.last_message?.content ?? "",
+			src: this.props.avatar ?? userAvatar,
+			timeLastMsg: this.props.last_message?.time ?? "",
+			unreadedMsgCnt: this.props.unread_count,
+		});
 	}
 }
