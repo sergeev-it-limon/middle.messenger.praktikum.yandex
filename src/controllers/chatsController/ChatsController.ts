@@ -1,18 +1,17 @@
 import { HTTPTransport } from "../../models/HTTPTransport";
 import { eventBus } from "../EventBus";
-import { TAddChatPayload, TChat } from "./types";
+import { TAddChatPayload, TAddUsersPayload, TChat } from "./types";
 
 const BASE_URL = "https://ya-praktikum.tech/api/v2/chats";
 
 type TState = {
 	chatList: TChat[] | null;
-	selectedChatId: number | null;
 };
 
 export class ChatsController {
 	private static instance: ChatsController | null = null;
 	private http = new HTTPTransport();
-	private state: TState = { chatList: null, selectedChatId: null };
+	private state: TState = { chatList: null };
 
 	constructor() {
 		if (ChatsController.instance === null) {
@@ -48,5 +47,12 @@ export class ChatsController {
 			withCredentials: true,
 		});
 		return this.get();
+	}
+
+	public async addUsers(data: TAddUsersPayload): Promise<void> {
+		return this.http.put(`${BASE_URL}/users`, {
+			data: JSON.stringify(data),
+			withCredentials: true,
+		});
 	}
 }

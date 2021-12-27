@@ -20,3 +20,8 @@ export type TChat = {
 export type TAddChatPayload = {
 	title: string;
 };
+
+export type TAddUsersPayload = {
+	users: number[];
+	chatId: number;
+};
