@@ -55,4 +55,11 @@ export class ChatsController {
 			withCredentials: true,
 		});
 	}
+
+	public async deleteUsers(data: TAddUsersPayload): Promise<void> {
+		return this.http.delete(`${BASE_URL}/users`, {
+			data: JSON.stringify(data),
+			withCredentials: true,
+		});
+	}
 }

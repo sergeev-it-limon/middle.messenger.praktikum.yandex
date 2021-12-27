@@ -30,7 +30,8 @@ export class ModalAddRemoveUser extends BaseComponent<
 > {
 	private router = new Router();
 	private usersController = new UsersController();
-	private chatsController = new ChatsController();
+	private;
+	chatsController = new ChatsController();
 
 	private handleClose(): void {
 		this.state.outerWrapperClassName = `${style.outerWrapper} ${style.outerWrapper_close}`;
@@ -40,19 +41,54 @@ export class ModalAddRemoveUser extends BaseComponent<
 		this.state.outerWrapperClassName = `${style.outerWrapper} ${style.outerWrapper_open}`;
 	}
 
-	private handleSubmit(e: SubmitEvent): void {
+	private async handleSubmit(e: SubmitEvent): Promise<void> {
 		e.preventDefault();
 		const form = e.currentTarget as HTMLFormElement;
 		const formData = getFormEntries<{ login: string }>(form);
 
-		if (this.props.typeModal === "remove") {
-			this.handleRemoveUser(formData);
-		} else {
-			this.handleAddUser(formData);
+		const userIds = await this.getUserIdsByLogin(formData.login);
+		if (userIds === undefined) return;
+
+		const { chatId } = this.router.getParams() ?? {};
+
+		if (typeof chatId !== "string") {
+			console.error(`chats id not found ${chatId}`);
+			return;
 		}
+
+		if (this.props.typeModal === "remove") {
+			await this.chatsController.deleteUsers({
+				chatId: Number(chatId),
+				users: userIds,
+			});
+		} else {
+			await this.chatsController.addUsers({
+				chatId: Number(chatId),
+				users: userIds,
+			});
+		}
+
+		this.handleClose();
 	}
 
-	private handleRemoveUser(formData: { login: string }): void {}
+	private async handleRemoveUser(formData: { login: string }): Promise<void> {
+		const userIds = await this.getUserIdsByLogin(formData.login);
+		if (userIds === undefined) return;
+
+		const { chatId } = this.router.getParams() ?? {};
+
+		if (typeof chatId !== "string") {
+			console.error(`chats id not found ${chatId}`);
+			return;
+		}
+
+		await this.chatsController.addUsers({
+			chatId: Number(chatId),
+			users: userIds,
+		});
+
+		this.handleClose();
+	}
 
 	private async handleAddUser(formData: { login: string }): Promise<void> {
 		const userIds = await this.getUserIdsByLogin(formData.login);
