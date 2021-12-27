@@ -15,7 +15,7 @@ export class Sidebar extends BaseComponent {
 	private chatsList = new ChatsList(null);
 
 	private updateChatsList() {
-		this.chatsList.build(this.chatsController.getState());
+		this.chatsList.build(this.chatsController.getChatList());
 	}
 
 	private addChatOpenModal(): void {
@@ -23,10 +23,10 @@ export class Sidebar extends BaseComponent {
 	}
 
 	componentWillInit() {
-		if (this.chatsController.getState() === null) {
+		if (this.chatsController.getChatList() === null) {
 			this.chatsController.get();
 		}
-		eventBus.subscribe("chatsStateUpdated", this.updateChatsList.bind(this));
+		eventBus.subscribe("chatListUpdated", this.updateChatsList.bind(this));
 	}
 
 	render(): HTMLElement {
@@ -41,7 +41,7 @@ export class Sidebar extends BaseComponent {
 
 		profileLink.build(null);
 		searchChatForm.build(null);
-		this.chatsList.build(this.chatsController.getState());
+		this.chatsList.build(this.chatsController.getChatList());
 		buttonAddChat.build({ handleClick: this.addChatOpenModal });
 		modalAddChat.build(null);
 

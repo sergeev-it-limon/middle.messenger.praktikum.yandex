@@ -13,7 +13,7 @@ export class ChatsList extends BaseComponent<null, null, TChatsListBuildCtx> {
 
 	componentWillInit(): void {
 		const chats = new ChatsController();
-		this.chatsData = chats.getState();
+		this.chatsData = chats.getChatList();
 		if (this.chatsData === null) {
 			chats.get();
 		}

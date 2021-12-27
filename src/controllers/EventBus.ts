@@ -3,7 +3,6 @@ import { EventBus } from "../utils/buildEventBus";
 type TEvents = {
 	openAddUser: null;
 	openRemoveUser: null;
-	openRemoveChat: null;
 	editProfileStart: null;
 	editProfileEnd: null;
 	editPasswordStart: null;
@@ -11,7 +10,7 @@ type TEvents = {
 	openEditAvatar: null;
 	closeEditAvatar: null;
 	authStateUpdated: null;
-	chatsStateUpdated: null;
+	chatListUpdated: null;
 	openAddChat: null;
 };
 

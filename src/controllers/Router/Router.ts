@@ -1,3 +1,4 @@
+import { TParams } from ".";
 import { Route } from "./Route";
 import { TGetComponent, TPathname } from "./types";
 
@@ -77,5 +78,9 @@ export class Router {
 
 	public getRoute(pathname: TPathname): Route | undefined {
 		return this.routes.find((route) => route.match(pathname));
+	}
+
+	public getParams(): TParams {
+		return this.currentRoute?.getParams();
 	}
 }

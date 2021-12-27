@@ -1,3 +1,4 @@
+import { TParams } from ".";
 import { ParamsParser } from "./ParamsParser";
 import { TGetComponent, TPathname } from "./types";
 
@@ -43,6 +44,11 @@ export class Route {
 
 	public match(pathname: string): boolean {
 		return this.paramsParser.match(pathname);
+	}
+
+	public getParams(): TParams {
+		if (this.pathnameCur === null) return;
+		return this.paramsParser.getParams(this.pathnameCur);
 	}
 
 	private render() {
