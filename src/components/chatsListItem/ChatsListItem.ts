@@ -8,6 +8,7 @@ import { Link } from "../link";
 import { getClassName } from "../../utils/getClassName";
 import { TChat } from "../../controllers/chatsController/types";
 import userAvatar from "../../asserts/userAvatar.png";
+import { formatTime } from "../../utils/formatTime";
 
 type TChatItemProps = TChat;
 
@@ -55,12 +56,16 @@ export class ChatsListItem extends BaseComponent<null, TChatItemProps> {
 			className: this.getLinkClassName(),
 		});
 
+		const time = new Date(this.props.last_message?.time ?? 0);
+		const hours = time.getHours();
+		const minutes = time.getMinutes();
+
 		this.chatSelectableElem.update({
 			alt: this.props.title,
 			name: this.props.title,
 			previewText: this.props.last_message?.content ?? "",
 			src: this.props.avatar ?? userAvatar,
-			timeLastMsg: this.props.last_message?.time ?? "",
+			timeLastMsg: formatTime(hours, minutes),
 			unreadedMsgCnt: this.props.unread_count,
 		});
 	}

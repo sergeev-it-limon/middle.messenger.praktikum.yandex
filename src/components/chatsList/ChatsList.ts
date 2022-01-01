@@ -23,14 +23,14 @@ export class ChatsList extends BaseComponent<null, null, TChatsListBuildCtx> {
 		return htmlFromStr(
 			template({
 				style,
-				itemIds: this.chatsData?.map((item) => item.id) ?? [],
+				itemIds: this.buildContext?.map((item) => item.id) ?? [],
 			})
 		);
 	}
 
 	initChildren(): TChildren {
 		return (
-			this.chatsData?.reduce<TChildren>((items, chatData) => {
+			this.buildContext?.reduce<TChildren>((items, chatData) => {
 				const chatsListItem = new ChatsListItem(chatData);
 				chatsListItem.build(null);
 				items[`item_${chatData.id}`] = chatsListItem.ref;
