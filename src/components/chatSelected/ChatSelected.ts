@@ -107,9 +107,18 @@ export class ChatSelected extends BaseComponent<null, null, TBuildCtx> {
 		});
 	}
 
+	private initMessages(): void {
+		const userId = this.authController.getState()?.id;
+		if (!userId) {
+			eventBus.subscribe("authStateUpdated", this.handleAuth.bind(this));
+		} else {
+			this.handleAuth();
+		}
+	}
+
 	componentWillInit(): void {
-		eventBus.subscribe("authStateUpdated", this.handleAuth.bind(this));
 		eventBus.subscribe("messageReceived", this.handleMessageResived.bind(this));
+		this.initMessages();
 	}
 
 	render(): HTMLElement {
