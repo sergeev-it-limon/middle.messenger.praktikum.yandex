@@ -12,7 +12,7 @@ export class SelectedChatPage extends ChatPageTmpl {
 
 	initMainContent(): HTMLElement {
 		const selectedChat = new ChatSelected(null);
-		selectedChat.build(null);
+		selectedChat.build({ messages: [] });
 		return selectedChat.ref;
 	}
 

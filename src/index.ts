@@ -1,5 +1,6 @@
 import "regenerator-runtime/runtime";
 import "./common/commonStyles.css";
+import { AuthController } from "./controllers/authController";
 import { Router } from "./controllers/Router";
 import { AuthPage } from "./pages/authPage";
 import { Error404Page } from "./pages/error404Page";
@@ -9,6 +10,9 @@ import { ProfilePage } from "./pages/profilePage";
 import { SelectedChatPage } from "./pages/selectedChatPage";
 import { SignupPage } from "./pages/signupPage";
 import { buildGetComponent } from "./utils/buildgetComponent";
+
+const authController = new AuthController();
+authController.get();
 
 const router = new Router("#root");
 router

@@ -136,7 +136,7 @@ export abstract class BaseComponent<
 	}
 
 	private _componentWillInit(): void {
-		if (typeof this.componentWillInit === "function") {
+		if (typeof this.componentWillInit === "function" && !this.ref) {
 			this.componentWillInit();
 		}
 

@@ -25,3 +25,19 @@ export type TAddUsersPayload = {
 	users: number[];
 	chatId: number;
 };
+
+export type TTokenResponce = { token: string };
+
+export type TMessage = {
+	chat_id: number;
+	time: string;
+	user_id: number;
+	content: string;
+};
+
+export type TChatCur = {
+	token: string | null;
+	socket: WebSocket | null;
+	messages: TMessage[];
+	socketPingDescr: number | null;
+};

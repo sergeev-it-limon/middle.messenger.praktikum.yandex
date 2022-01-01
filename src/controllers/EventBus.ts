@@ -12,6 +12,7 @@ type TEvents = {
 	authStateUpdated: null;
 	chatListUpdated: null;
 	openAddChat: null;
+	messageReceived: null;
 };
 
 export const eventBus = new EventBus<TEvents>();

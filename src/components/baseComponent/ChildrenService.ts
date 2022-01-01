@@ -17,16 +17,16 @@ export class ChildrenService {
 	}
 
 	/** Добавить дочерние элементы */
-	public bindChildren(ref: HTMLElement): void {
-		if (!(ref instanceof HTMLElement)) {
-			console.error("ref is not instance of HTMLElement");
+	public bindChildren(ref: Node): void {
+		if (!(ref instanceof Node)) {
+			console.error("ref is not instance of Node");
 			return;
 		}
 		this.initChildrenPlacesSet(ref);
 		this.insertChildren();
 	}
 
-	private initChildrenPlacesSet(ref: HTMLElement) {
+	private initChildrenPlacesSet(ref: Node) {
 		this.childrenPlacesSet = getElemsByDataset(ref, CHILD_PLACE_ATTR);
 	}
 
