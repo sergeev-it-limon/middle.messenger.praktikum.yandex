@@ -1,5 +1,7 @@
 import { AuthController } from "../../controllers/authController";
 import { eventBus } from "../../controllers/EventBus";
+import { UsersController } from "../../controllers/usersController";
+import { TPutProfilePayload } from "../../controllers/usersController/types";
 import { getFormEntries } from "../../utils/getFormEntries";
 import { htmlFromStr } from "../../utils/htmlFrom";
 import { appRules, buildValidator } from "../../utils/validator";
@@ -34,6 +36,7 @@ export class ProfileContent extends BaseComponent<
 	TBuildCtx
 > {
 	private authController = new AuthController();
+	private usersController = new UsersController();
 	private isInitInfo = false;
 
 	private initProfileInfo(): void {
@@ -172,13 +175,13 @@ export class ProfileContent extends BaseComponent<
 		return fg;
 	}
 
-	private submitProfile(e: SubmitEvent): void {
+	private async submitProfile(e: SubmitEvent): Promise<void> {
 		e.preventDefault();
 		const form = e.currentTarget as HTMLFormElement;
-		const formData = getFormEntries(form);
+		const formData = getFormEntries<TPutProfilePayload>(form);
 
-		console.log("Сабмит формы редактирования профиля");
-		console.log(formData);
+		await this.usersController.putProfile(formData);
+		await this.authController.get();
 
 		eventBus.emit("editProfileEnd", null);
 	}
@@ -231,7 +234,7 @@ export class ProfileContent extends BaseComponent<
 
 	private getEditProfileForm(): FormCommon {
 		const { handlers, subscribe } = buildValidator({
-			submit: this.submitProfile,
+			submit: this.submitProfile.bind(this),
 			rules: {
 				email: appRules.email,
 				login: appRules.login,
