@@ -1,3 +1,4 @@
+import { AuthController } from "../../controllers/authController";
 import { eventBus } from "../../controllers/EventBus";
 import { getFormEntries } from "../../utils/getFormEntries";
 import { htmlFromStr } from "../../utils/htmlFrom";
@@ -18,32 +19,60 @@ type TProfileContentState = {
 	rootClassName: string;
 };
 
-export class ProfileContent extends BaseComponent<TProfileContentState, null> {
+type TBuildCtx = {
+	email: string;
+	login: string;
+	first_name: string;
+	second_name: string;
+	display_name: string;
+	phone: string;
+} | null;
+
+export class ProfileContent extends BaseComponent<
+	TProfileContentState,
+	null,
+	TBuildCtx
+> {
+	private authController = new AuthController();
+	private isInitInfo = false;
+
+	private initProfileInfo(): void {
+		const authInfo = this.authController.getState();
+		this.build({
+			email: authInfo?.email ?? "",
+			first_name: authInfo?.first_name ?? "",
+			login: authInfo?.login ?? "",
+			display_name: authInfo?.display_name ?? "",
+			phone: authInfo?.phone ?? "",
+			second_name: authInfo?.second_name ?? "",
+		});
+	}
+
 	private getProfileInfo(): DocumentFragment {
 		const fields = [
 			new LabeledTextLine({
 				label: "Почта",
-				value: "pochta@yandex.ru",
+				value: this.buildContext?.email ?? "",
 			}),
 			new LabeledTextLine({
 				label: "Логин",
-				value: "ivanivanov",
+				value: this.buildContext?.login ?? "",
 			}),
 			new LabeledTextLine({
 				label: "Имя",
-				value: "Иван",
+				value: this.buildContext?.first_name ?? "",
 			}),
 			new LabeledTextLine({
 				label: "Фамилия",
-				value: "Иванов",
+				value: this.buildContext?.second_name ?? "",
 			}),
 			new LabeledTextLine({
 				label: "Имя в чате",
-				value: "Иван",
+				value: this.buildContext?.display_name ?? "",
 			}),
 			new LabeledTextLine({
 				label: "Телефон",
-				value: "+7 (909) 967 30 30",
+				value: this.buildContext?.phone ?? "",
 			}),
 		];
 
@@ -61,37 +90,37 @@ export class ProfileContent extends BaseComponent<TProfileContentState, null> {
 		const fields = [
 			new InputString({
 				label: "Почта",
-				value: "pochta@yandex.ru",
+				value: this.buildContext?.email ?? "",
 				inputType: "text",
 				inputName: "email",
 			}),
 			new InputString({
 				label: "Логин",
-				value: "ivanivanov",
+				value: this.buildContext?.login ?? "",
 				inputType: "text",
 				inputName: "login",
 			}),
 			new InputString({
 				label: "Имя",
-				value: "Иван",
+				value: this.buildContext?.first_name ?? "",
 				inputType: "text",
 				inputName: "first_name",
 			}),
 			new InputString({
 				label: "Фамилия",
-				value: "Иванов",
+				value: this.buildContext?.second_name ?? "",
 				inputType: "text",
 				inputName: "second_name",
 			}),
 			new InputString({
 				label: "Имя в чате",
-				value: "Иван",
+				value: this.buildContext?.display_name ?? "",
 				inputType: "text",
-				inputName: "nick",
+				inputName: "display_name",
 			}),
 			new InputString({
 				label: "Телефон",
-				value: "+79099673030",
+				value: this.buildContext?.phone ?? "",
 				inputType: "text",
 				inputName: "phone",
 			}),
@@ -167,7 +196,10 @@ export class ProfileContent extends BaseComponent<TProfileContentState, null> {
 
 	private getHeader(): DocumentFragment {
 		const profileAvatar = new ProfileAvatar(null);
-		const pageHeader = new PageHeader({ text: "Иван" });
+		const pageHeader = new PageHeader({
+			text:
+				this.buildContext?.display_name || this.buildContext?.first_name || "",
+		});
 
 		profileAvatar.build(null);
 		pageHeader.build(null);
@@ -205,7 +237,7 @@ export class ProfileContent extends BaseComponent<TProfileContentState, null> {
 				login: appRules.login,
 				first_name: appRules.name,
 				second_name: appRules.name,
-				nick: [rules.required()],
+				display_name: [rules.required()],
 				phone: appRules.phone,
 			},
 		});
@@ -274,6 +306,19 @@ export class ProfileContent extends BaseComponent<TProfileContentState, null> {
 		});
 
 		return content;
+	}
+
+	componentWillInit(): void {
+		if (this.isInitInfo) return;
+
+		this.isInitInfo = true;
+		const state = this.authController.getState();
+
+		if (state === null) {
+			eventBus.subscribe("authStateUpdated", this.initProfileInfo.bind(this));
+		} else {
+			this.initProfileInfo();
+		}
 	}
 
 	render(): HTMLElement {

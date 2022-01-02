@@ -15,7 +15,7 @@ export class AuthController {
 		return AuthController.instance;
 	}
 
-	public getState(): TAuthState {
+	public getState(): TAuthState | null {
 		return this.state;
 	}
 
