@@ -207,6 +207,7 @@ const initHandlers = <T extends TInputRules>(
 	return {
 		focusIn: (e) => {
 			const input = e.target;
+			if (input instanceof HTMLButtonElement) return;
 
 			if (!(input instanceof HTMLInputElement)) {
 				console.error("validator expected HTMLInputElement");
@@ -221,6 +222,7 @@ const initHandlers = <T extends TInputRules>(
 		},
 		focusOut: (e) => {
 			const input = e.target;
+			if (input instanceof HTMLButtonElement) return;
 
 			if (!(input instanceof HTMLInputElement)) {
 				console.error("validator expected HTMLInputElement");
