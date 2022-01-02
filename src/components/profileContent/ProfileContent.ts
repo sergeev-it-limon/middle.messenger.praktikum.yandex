@@ -1,7 +1,10 @@
 import { AuthController } from "../../controllers/authController";
 import { eventBus } from "../../controllers/EventBus";
 import { UsersController } from "../../controllers/usersController";
-import { TPutProfilePayload } from "../../controllers/usersController/types";
+import {
+	TPutPasswordPayload,
+	TPutProfilePayload,
+} from "../../controllers/usersController/types";
 import { getFormEntries } from "../../utils/getFormEntries";
 import { htmlFromStr } from "../../utils/htmlFrom";
 import { appRules, buildValidator } from "../../utils/validator";
@@ -149,19 +152,13 @@ export class ProfileContent extends BaseComponent<
 				label: "Старый пароль",
 				value: "",
 				inputType: "password",
-				inputName: "oldPass",
+				inputName: "oldPassword",
 			}),
 			new InputString({
 				label: "Новый пароль",
 				value: "",
 				inputType: "password",
-				inputName: "newPass",
-			}),
-			new InputString({
-				label: "Повторите новый пароль",
-				value: "",
-				inputType: "password",
-				inputName: "confirmNewPass",
+				inputName: "newPassword",
 			}),
 		];
 
@@ -186,14 +183,14 @@ export class ProfileContent extends BaseComponent<
 		eventBus.emit("editProfileEnd", null);
 	}
 
-	private submitPassword(e: SubmitEvent): void {
+	private async submitPassword(e: SubmitEvent): Promise<void> {
 		e.preventDefault();
-		const form = e.currentTarget as HTMLFormElement;
-		const formData = getFormEntries(form);
+		const form = e.currentTarget;
+		if (!(form instanceof HTMLFormElement)) return;
+		const formData = getFormEntries<TPutPasswordPayload>(form);
 
-		console.log("Сабмит формы редактирования пароля");
-		console.log(formData);
-
+		await this.usersController.putPassword(formData);
+		form.reset();
 		eventBus.emit("editPasswordEnd", null);
 	}
 
@@ -299,7 +296,7 @@ export class ProfileContent extends BaseComponent<
 		content.build({
 			top,
 			bottom: buttonSubmit.ref,
-			handleSubmit: this.submitPassword,
+			handleSubmit: this.submitPassword.bind(this),
 		});
 
 		return content;
