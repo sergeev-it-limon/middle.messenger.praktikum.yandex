@@ -2,7 +2,7 @@ import { AuthController } from "../../controllers/authController";
 import { eventBus } from "../../controllers/EventBus";
 import { getFormEntries } from "../../utils/getFormEntries";
 import { htmlFromStr } from "../../utils/htmlFrom";
-import { appRules, buildValidator, rules } from "../../utils/validator";
+import { appRules, buildValidator } from "../../utils/validator";
 import { BaseComponent, TChildren } from "../baseComponent";
 import { ButtonMain } from "../buttonMain";
 import { FormCommon } from "../formCommon/FormCommon";
