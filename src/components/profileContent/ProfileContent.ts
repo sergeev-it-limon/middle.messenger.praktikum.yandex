@@ -237,7 +237,6 @@ export class ProfileContent extends BaseComponent<
 				login: appRules.login,
 				first_name: appRules.name,
 				second_name: appRules.name,
-				display_name: [rules.required()],
 				phone: appRules.phone,
 			},
 		});
@@ -246,27 +245,22 @@ export class ProfileContent extends BaseComponent<
 		const inputs = this.getProfileInputs();
 
 		subscribe((error) => {
-			const errorMessage = error.errors.join(", ");
+			const updateErr = (err: string, input: InputString): void => {
+				input.update({ ...input.props, errorMessage: err });
+			};
 
-			switch (error.name) {
-				case "email":
-					inputs[0].update({ ...inputs[0].props, errorMessage });
-					break;
-				case "login":
-					inputs[1].update({ ...inputs[1].props, errorMessage });
-					break;
-				case "first_name":
-					inputs[2].update({ ...inputs[2].props, errorMessage });
-					break;
-				case "second_name":
-					inputs[3].update({ ...inputs[3].props, errorMessage });
-					break;
-				case "display_name":
-					inputs[4].update({ ...inputs[4].props, errorMessage });
-					break;
-				case "phone":
-					inputs[5].update({ ...inputs[5].props, errorMessage });
-					break;
+			const inputsByNames = {
+				email: (err: string) => updateErr(err, inputs[0]),
+				login: (err: string) => updateErr(err, inputs[1]),
+				first_name: (err: string) => updateErr(err, inputs[2]),
+				second_name: (err: string) => updateErr(err, inputs[3]),
+				phone: (err: string) => updateErr(err, inputs[5]),
+			};
+
+			const input = inputsByNames[error.name];
+			if (typeof input === "function") {
+				const errorMessage = error.errors.join(", ");
+				input(errorMessage);
 			}
 		});
 
