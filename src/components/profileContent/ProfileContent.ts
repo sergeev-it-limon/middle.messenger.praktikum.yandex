@@ -261,7 +261,7 @@ export class ProfileContent extends BaseComponent<
 				case "second_name":
 					inputs[3].update({ ...inputs[3].props, errorMessage });
 					break;
-				case "nick":
+				case "display_name":
 					inputs[4].update({ ...inputs[4].props, errorMessage });
 					break;
 				case "phone":
