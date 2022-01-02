@@ -1,3 +1,4 @@
+import { AuthController } from "../../controllers/authController";
 import { eventBus } from "../../controllers/EventBus";
 import { htmlFromStr } from "../../utils/htmlFrom";
 import { BaseComponent, TActions, TChildren } from "../baseComponent";
@@ -11,7 +12,40 @@ type TProfileAvatarState = {
 	popupClassName: string;
 };
 
-export class ProfileAvatar extends BaseComponent<TProfileAvatarState> {
+type TProfileAvatarBuildCtx = {
+	src: string;
+} | null;
+
+export class ProfileAvatar extends BaseComponent<
+	TProfileAvatarState,
+	null,
+	TProfileAvatarBuildCtx
+> {
+	private authController = new AuthController();
+	private isInitSrc = false;
+
+	private initSrc(): void {
+		let src = this.authController.getState()?.avatar;
+		if (src === null || src === "") {
+			src =
+				"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=";
+		}
+		this.build({ src: src ?? "" });
+	}
+
+	componentWillInit(): void {
+		if (this.isInitSrc) return;
+
+		this.isInitSrc = true;
+		const src = this.authController.getState()?.avatar;
+
+		if (src === null) {
+			eventBus.subscribe("authStateUpdated", this.initSrc.bind(this));
+		} else {
+			this.initSrc();
+		}
+	}
+
 	render(): HTMLElement {
 		return htmlFromStr(template());
 	}
