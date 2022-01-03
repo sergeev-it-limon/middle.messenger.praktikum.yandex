@@ -27,7 +27,7 @@ export class ButtonMain extends BaseComponent<
 
 	protected initState(): TButtonMainState {
 		return {
-			rootClassName: style.root,
+			rootClassName: style?.root,
 			text: this.props.text,
 		};
 	}
