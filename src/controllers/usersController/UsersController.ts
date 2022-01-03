@@ -34,7 +34,7 @@ export class UsersController {
 	}
 
 	public async putAvatar(data: FormData): Promise<void> {
-		return this.http.put(`${BASE_URL}/profile`, {
+		return this.http.put(`${BASE_URL}/profile/avatar`, {
 			data,
 			withCredentials: true,
 		});

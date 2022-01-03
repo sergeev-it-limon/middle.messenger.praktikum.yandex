@@ -1,0 +1,22 @@
+@import "../../common/variables.css";
+
+.label {
+	font-family: Inter, sans-serif;
+	font-style: normal;
+	font-weight: 500;
+	font-size: var(--font-size-md);
+	text-align: center;
+	line-height: 37px;
+	background-color: transparent;
+	color: var(--main-color);
+	border: none;
+	cursor: pointer;
+
+	&[disabled] {
+		cursor: default;
+	}
+}
+
+.input {
+	display: none;
+}

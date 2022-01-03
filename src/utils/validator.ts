@@ -1,8 +1,9 @@
+import { InputFiles } from "typescript";
 import { EventBus } from "./buildEventBus";
 import { getFormEntries } from "./getFormEntries";
 
 type TRuleConfig = { message?: string };
-type TRuleFn = (value: string) => boolean;
+type TRuleFn = (value: FormDataEntryValue) => boolean;
 type TRuleInner = { rule: TRuleFn; message: string };
 
 type TMinConfig = TRuleConfig & { count: number };
@@ -11,32 +12,69 @@ export const rules = {
 	/** Латиница */
 	latin: (config?: TRuleConfig): TRuleInner => {
 		const { message = "Только латиница" } = config ?? {};
-		return { rule: (value) => /^[A-Za-z]*$/.test(value), message };
+		return {
+			rule: (value) => {
+				if (typeof value !== "string") return false;
+				return /^[A-Za-z]*$/.test(value);
+			},
+			message,
+		};
 	},
 	/** Кириллица */
 	cyrillic: (config?: TRuleConfig): TRuleInner => {
 		const { message = "Только кириллица" } = config ?? {};
-		return { rule: (value) => /^[А-Яа-я]*$/.test(value), message };
+		return {
+			rule: (value) => {
+				if (typeof value !== "string") return false;
+				return /^[А-Яа-я]*$/.test(value);
+			},
+			message,
+		};
 	},
 	/** Числа */
 	numbers: (config?: TRuleConfig): TRuleInner => {
 		const { message = "Только числа" } = config ?? {};
-		return { rule: (value) => /^\d*$/.test(value), message };
+		return {
+			rule: (value) => {
+				if (typeof value !== "string") return false;
+				return /^\d*$/.test(value);
+			},
+			message,
+		};
 	},
 	/** Обязательное поле */
 	required: (config?: TRuleConfig): TRuleInner => {
 		const { message = "Обязательно" } = config ?? {};
-		return { rule: (value) => /^.+$/.test(value), message };
+		return {
+			rule: (value) => {
+				if (value instanceof File) return true;
+				if (typeof value !== "string") return false;
+				return /^.+$/.test(value);
+			},
+			message,
+		};
 	},
 	/** Может содержать дефис */
 	hyphen: (config?: TRuleConfig): TRuleInner => {
 		const { message = "" } = config ?? {};
-		return { rule: (value) => /-/.test(value), message };
+		return {
+			rule: (value) => {
+				if (typeof value !== "string") return false;
+				return /-/.test(value);
+			},
+			message,
+		};
 	},
 	/** Может содержать нижнее подчеркивание */
 	underscore: (config?: TRuleConfig): TRuleInner => {
 		const { message = "" } = config ?? {};
-		return { rule: (value) => /_/.test(value), message };
+		return {
+			rule: (value) => {
+				if (typeof value !== "string") return false;
+				return /_/.test(value);
+			},
+			message,
+		};
 	},
 	/** Минимальное кол-во символов */
 	min: minOrMax(true),
@@ -45,12 +83,24 @@ export const rules = {
 	/** Начинается с заглавной буквы */
 	capitalFirst: (config?: TRuleConfig): TRuleInner => {
 		const { message = "Должно начинаться с заглавной буквы" } = config ?? {};
-		return { rule: (value) => /^[A-ZА-Я]/.test(value), message };
+		return {
+			rule: (value) => {
+				if (typeof value !== "string") return false;
+				return /^[A-ZА-Я]/.test(value);
+			},
+			message,
+		};
 	},
 	/** Регулярное выражение */
 	regExp: (config: TRuleConfig & { exp: RegExp }): TRuleInner => {
 		const { message = "", exp } = config ?? {};
-		return { rule: (value) => exp.test(value), message };
+		return {
+			rule: (value) => {
+				if (typeof value !== "string") return false;
+				exp.test(value);
+			},
+			message,
+		};
 	},
 	/** Принимает массив правил, если любое из них проходит, значит значение удовлетворяет правилу */
 	or: (config: TRuleConfig & { rules: TRuleInner[] }): TRuleInner => {
@@ -116,7 +166,10 @@ function minOrMax(isMin: boolean) {
 		const { message = "", count } = config;
 
 		return {
-			rule: (value) => (isMin ? value.length >= count : value.length <= count),
+			rule: (value) => {
+				if (typeof value !== "string") return false;
+				return isMin ? value.length >= count : value.length <= count;
+			},
 			message,
 		};
 	};
@@ -148,6 +201,7 @@ type TEventData<T extends TInputRules> = {
 type TBuildConfig<T extends TInputRules> = {
 	submit: (e: SubmitEvent) => void;
 	rules: T;
+	fileInputName?: string;
 };
 
 class ValidatorEventBus<T extends TInputRules> extends EventBus<{
@@ -157,7 +211,7 @@ class ValidatorEventBus<T extends TInputRules> extends EventBus<{
 export const buildValidator = <T extends TInputRules>(
 	config: TBuildConfig<T>
 ): TValidator<T> => {
-	const { rules, submit } = config;
+	const { rules, submit, fileInputName = null } = config;
 
 	const validatorEventBus = new ValidatorEventBus<T>();
 	const errors = initErrors(rules);
@@ -175,7 +229,7 @@ export const buildValidator = <T extends TInputRules>(
 
 	const validator: TValidator<T> = {
 		subscribe: initSubscribe(validatorEventBus),
-		handlers: initHandlers(rules, errorsProxy, submit),
+		handlers: initHandlers(rules, errorsProxy, submit, fileInputName),
 	};
 
 	return validator;
@@ -199,10 +253,11 @@ const initErrors = <T extends TInputRules>(rules: T): Errors<T> => {
 const initHandlers = <T extends TInputRules>(
 	rules: T,
 	errors: Errors<T>,
-	submit: (e: SubmitEvent) => void
+	submit: (e: SubmitEvent) => void,
+	fileInputName: string
 ): THandlers => {
 	const state: { [key in string]: { isBlur: boolean } } = {};
-	const validateAll = initValidateAll(rules, errors);
+	const validateAll = initValidateAll(rules, errors, fileInputName);
 
 	return {
 		focusIn: (e) => {
@@ -218,7 +273,12 @@ const initHandlers = <T extends TInputRules>(
 			const name = input.name;
 
 			if (!state[name]?.isBlur) return;
-			changeErrors(name, rules, errors, input.value);
+			changeErrors(
+				name,
+				rules,
+				errors,
+				getInputValue(name, input, fileInputName)
+			);
 		},
 		focusOut: (e) => {
 			const input = e.target;
@@ -233,7 +293,12 @@ const initHandlers = <T extends TInputRules>(
 			const name = input.name;
 
 			state[name] = { isBlur: true };
-			changeErrors(name, rules, errors, input.value);
+			changeErrors(
+				name,
+				rules,
+				errors,
+				getInputValue(name, input, fileInputName)
+			);
 		},
 		input: (e) => {
 			const input = e.target;
@@ -247,12 +312,21 @@ const initHandlers = <T extends TInputRules>(
 			const name = input.name;
 
 			if (!state[name]?.isBlur) return;
-			changeErrors(name, rules, errors, input.value);
+			changeErrors(
+				name,
+				rules,
+				errors,
+				getInputValue(name, input, fileInputName)
+			);
 		},
 		submit: (e: SubmitEvent) => {
 			e.preventDefault();
+			if (!(e.target instanceof HTMLFormElement)) {
+				console.error("Expected e is HTMLFormElement");
+				return;
+			}
 
-			const formData = getFormEntriesFromEvent(e);
+			const formData = getFormEntriesFromEvent(e, fileInputName);
 			const names = Object.keys(formData);
 			for (const name of names) {
 				state[name] = { isBlur: true };
@@ -263,11 +337,22 @@ const initHandlers = <T extends TInputRules>(
 	};
 };
 
+const getInputValue = (
+	name: string,
+	input: HTMLInputElement,
+	fileInputName
+): FormDataEntryValue => {
+	if (name === fileInputName) {
+		return input.files[0];
+	}
+	return input.value;
+};
+
 const changeErrors = <T extends TInputRules>(
 	name: keyof T,
 	rules: T,
 	errors: Errors<T>,
-	value: string
+	value: FormDataEntryValue
 ): void => {
 	const inputRules = rules[name];
 
@@ -286,16 +371,17 @@ const changeErrors = <T extends TInputRules>(
 
 const initValidateAll = <T extends TInputRules>(
 	rules: T,
-	errors: Errors<T>
+	errors: Errors<T>,
+	fileInputName: string
 ) => {
 	return (e: SubmitEvent) => {
-		const formData = getFormEntriesFromEvent(e);
+		const formData = getFormEntriesFromEvent(e, fileInputName);
 
 		for (const name of Object.keys(rules)) {
 			const value = formData[name];
 
-			if (typeof value !== "string") {
-				console.error("validator expected only string in inputs");
+			if (typeof value !== "string" && !(value instanceof File)) {
+				console.error("validator expected only string or file in inputs");
 				console.log(`inputName: ${name}`);
 				console.log(`inputValue: ${value}`);
 				return false;
@@ -308,7 +394,7 @@ const initValidateAll = <T extends TInputRules>(
 	};
 };
 
-const getFormEntriesFromEvent = (e: Event) => {
+const getFormEntriesFromEvent = (e: Event, fileInputName: string) => {
 	const form = e.currentTarget;
 
 	if (!(form instanceof HTMLFormElement)) {
@@ -317,7 +403,14 @@ const getFormEntriesFromEvent = (e: Event) => {
 		return {};
 	}
 
-	return getFormEntries(form);
+	const formEntries = getFormEntries(form);
+
+	const fileInput = form.querySelector(`[name="${fileInputName}"]`);
+	if (fileInput instanceof HTMLInputElement) {
+		formEntries[fileInputName] = fileInput.files[0];
+	}
+
+	return formEntries;
 };
 
 const isError = <T extends TInputRules>(rules: Errors<T>) => {

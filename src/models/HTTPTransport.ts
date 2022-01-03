@@ -96,7 +96,7 @@ export class HTTPTransport {
 				xhr.setRequestHeader(key, headers[key]);
 			});
 
-			if (headers["Content-type"] === undefined) {
+			if (headers["Content-type"] === undefined && !(data instanceof FormData)) {
 				xhr.setRequestHeader("Content-type", "application/json");
 			}
 
