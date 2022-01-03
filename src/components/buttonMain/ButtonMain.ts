@@ -25,14 +25,14 @@ export class ButtonMain extends BaseComponent<
 		return htmlFromStr(template());
 	}
 
-	initState(): TButtonMainState {
+	protected initState(): TButtonMainState {
 		return {
 			rootClassName: style.root,
 			text: this.props.text,
 		};
 	}
 
-	propsToState(): void {
+	protected propsToState(): void {
 		this.state.text = this.props.text;
 	}
 
@@ -40,7 +40,8 @@ export class ButtonMain extends BaseComponent<
 		const actions: TActions = {};
 
 		if (typeof this.buildContext?.handleClick === "function") {
-			actions.handleClick = this.buildContext.handleClick;
+			(actions.handleClick as unknown as (e: MouseEvent) => void) =
+				this.buildContext.handleClick;
 		}
 
 		return actions;
