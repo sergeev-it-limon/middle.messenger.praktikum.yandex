@@ -19,9 +19,9 @@ export class ParamsParser {
 
 	private initRegExp(): void {
 		const pattern = this.template
-			.replaceAll("/", "\\/")
-			.replaceAll(/:(\w+)/g, "(?<$1>\\w+)")
-			.replaceAll("*", ".*");
+			.replace(/\//g, "\\/")
+			.replace(/:(\w+)/g, "(?<$1>\\w+)")
+			.replace(/\*/g, ".*");
 		this.regExp = new RegExp(`^${pattern}$`);
 	}
 }
