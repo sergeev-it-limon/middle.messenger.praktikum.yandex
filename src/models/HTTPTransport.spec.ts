@@ -1,4 +1,3 @@
-import { DOMWindow, JSDOM } from "jsdom";
 import { expect } from "chai";
 import sinon from "sinon";
 import XMLHttpRequest from "xhr2";
@@ -11,14 +10,7 @@ describe("HTTPTransport", () => {
 	const sandbox = sinon.createSandbox();
 
 	beforeEach(() => {
-		const dom = new JSDOM('<div id="app"></div>', {
-			url: "http://localhost:3000",
-		});
-
-		global.document = dom.window.document;
-		(global.window as unknown as DOMWindow) = dom.window;
 		(global.XMLHttpRequest as new () => XMLHttpRequest) = XMLHttpRequest;
-
 		http = new HTTPTransport();
 	});
 
