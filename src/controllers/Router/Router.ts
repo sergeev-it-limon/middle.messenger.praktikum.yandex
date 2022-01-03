@@ -4,7 +4,7 @@ import { TGetComponent, TPathname } from "./types";
 
 export class Router {
 	/** Инстанс роутера (чтобы использовать как синглтон) */
-	private static instance: Router;
+	private static instance: Router | null = null;
 
 	/** Роуты приложения */
 	private routes: Route[];
@@ -16,8 +16,11 @@ export class Router {
 	private currentRoute: Route | null;
 
 	constructor(rootQuery?: string) {
-		if (Router.instance || typeof rootQuery !== "string") {
+		if (Router.instance !== null) {
 			return Router.instance;
+		}
+		if (rootQuery === undefined) {
+			throw new Error("rootQuery is not defined");
 		}
 
 		this.routes = [];
@@ -26,6 +29,10 @@ export class Router {
 		this.rootQuery = rootQuery;
 
 		Router.instance = this;
+	}
+
+	public destruct(): void {
+		Router.instance = null;
 	}
 
 	use(pathname: TPathname, getComponent: TGetComponent): Router {
