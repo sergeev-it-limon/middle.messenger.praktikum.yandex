@@ -5,7 +5,7 @@ import XMLHttpRequest from "xhr2";
 import nock from "nock";
 import { HTTPTransport } from "./HTTPTransport";
 
-describe.only("HTTPTransport", () => {
+describe("HTTPTransport", () => {
 	let http: HTTPTransport;
 	const nockScope = nock("http://test.com");
 	const sandbox = sinon.createSandbox();
