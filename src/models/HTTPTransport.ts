@@ -25,7 +25,7 @@ type TRequest = <
 ) => Promise<TDataRes>;
 
 export class HTTPTransport {
-	get: TRequest = (url, options = {}) => {
+	public get: TRequest = (url, options = {}) => {
 		return this.request(
 			url,
 			{ ...options, method: METHODS.GET },
@@ -33,7 +33,7 @@ export class HTTPTransport {
 		);
 	};
 
-	post: TRequest = (url, options = {}) => {
+	public post: TRequest = (url, options = {}) => {
 		return this.request(
 			url,
 			{ ...options, method: METHODS.POST },
@@ -41,7 +41,7 @@ export class HTTPTransport {
 		);
 	};
 
-	put: TRequest = (url, options = {}) => {
+	public put: TRequest = (url, options = {}) => {
 		return this.request(
 			url,
 			{ ...options, method: METHODS.PUT },
@@ -49,7 +49,7 @@ export class HTTPTransport {
 		);
 	};
 
-	delete: TRequest = (url, options = {}) => {
+	public delete: TRequest = (url, options = {}) => {
 		return this.request(
 			url,
 			{ ...options, method: METHODS.DELETE },
@@ -57,7 +57,7 @@ export class HTTPTransport {
 		);
 	};
 
-	request = <TDataRes, TDataReq extends XMLHttpRequestBodyInit>(
+	private request = <TDataRes, TDataReq extends XMLHttpRequestBodyInit>(
 		url: string,
 		options: TOptionsInternal<TDataReq>,
 		timeout = 5000
@@ -69,7 +69,7 @@ export class HTTPTransport {
 			withCredentials = false,
 		} = options ?? {};
 
-		return new Promise(function (resolve, reject) {
+		return new Promise((resolve, reject) => {
 			if (!method) {
 				reject("No method");
 				return;
@@ -79,7 +79,18 @@ export class HTTPTransport {
 			xhr.withCredentials = withCredentials;
 			const isGet = method === METHODS.GET;
 
-			xhr.open(method, isGet && !!data ? `${url}${queryStringify(data)}` : url);
+			if (isGet && !!data) {
+				if (typeof data !== "string") {
+					console.error(`unexpected data type for get-request: ${typeof data}`);
+					reject(
+						new Error(`unexpected data type for get-request: ${typeof data}`)
+					);
+					return;
+				}
+				xhr.open(method, `${url}${queryStringify(JSON.parse(data))}`);
+			} else {
+				xhr.open(method, url);
+			}
 
 			Object.keys(headers).forEach((key) => {
 				xhr.setRequestHeader(key, headers[key]);
