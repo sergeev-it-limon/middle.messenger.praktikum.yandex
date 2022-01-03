@@ -35,7 +35,7 @@ export class Router {
 		Router.instance = null;
 	}
 
-	use(pathname: TPathname, getComponent: TGetComponent): Router {
+	public use(pathname: TPathname, getComponent: TGetComponent): Router {
 		const route = new Route({
 			pathname,
 			getComponent,
@@ -46,33 +46,17 @@ export class Router {
 		return this;
 	}
 
-	start(): void {
+	public start(): void {
 		window.onpopstate = () => {
-			this._onRoute(document.location.pathname);
+			this.onRoute(document.location.pathname);
 		};
 
-		this._onRoute(document.location.pathname);
-	}
-
-	_onRoute(pathname: TPathname): void {
-		const route = this.getRoute(pathname);
-
-		if (route === undefined) {
-			console.error(`can\'not find route for pathname: ${pathname}`);
-			return;
-		}
-
-		if (this.currentRoute && !this.currentRoute.match(pathname)) {
-			this.currentRoute.leave();
-		}
-
-		this.currentRoute = route;
-		route.navigate(pathname);
+		this.onRoute(document.location.pathname);
 	}
 
 	public go(pathname: string): void {
 		this.history.pushState({}, "", pathname);
-		this._onRoute(pathname);
+		this.onRoute(pathname);
 	}
 
 	public back(): void {
@@ -89,5 +73,21 @@ export class Router {
 
 	public getParams(): TParams {
 		return this.currentRoute?.getParams();
+	}
+
+	private onRoute(pathname: TPathname): void {
+		const route = this.getRoute(pathname);
+
+		if (route === undefined) {
+			console.error(`can\'not find route for pathname: ${pathname}`);
+			return;
+		}
+
+		if (this.currentRoute && !this.currentRoute.match(pathname)) {
+			this.currentRoute.leave();
+		}
+
+		this.currentRoute = route;
+		route.navigate(pathname);
 	}
 }
