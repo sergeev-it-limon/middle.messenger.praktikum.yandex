@@ -1,5 +1,6 @@
 import { eventBus } from "../../controllers/EventBus";
 import { UsersController } from "../../controllers/usersController";
+import { AuthController } from "../../controllers/authController";
 import { htmlFromStr } from "../../utils/htmlFrom";
 import { BaseComponent, TActions, TChildren } from "../baseComponent";
 import { ButtonMain } from "../buttonMain";
@@ -23,6 +24,8 @@ export class ProfileEditImgModal extends BaseComponent<
 	null
 > {
 	private usersController = new UsersController();
+	private authController = new AuthController();
+
 	private handleClose(): void {
 		this.state.outerWrapperClassName = `${style.outerWrapper} ${style.outerWrapper_close}`;
 	}
@@ -37,9 +40,10 @@ export class ProfileEditImgModal extends BaseComponent<
 			const inputFile = form.querySelector('[name="file"]') as HTMLInputElement;
 
 			const formData = new FormData();
-			formData.append("file", inputFile.files[0]);
+			formData.append("avatar", inputFile.files[0]);
 
 			await this.usersController.putAvatar(formData);
+			await this.authController.get();
 			this.handleClose();
 		} catch (e) {
 			console.log(e);

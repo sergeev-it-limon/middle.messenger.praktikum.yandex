@@ -1,5 +1,6 @@
 import { AuthController } from "../../controllers/authController";
 import { eventBus } from "../../controllers/EventBus";
+import { getImgSrc } from "../../utils/getImgSrc";
 import { htmlFromStr } from "../../utils/htmlFrom";
 import { BaseComponent, TActions, TChildren } from "../baseComponent";
 import { ImageAvatar } from "../imageAvatar";
@@ -27,17 +28,19 @@ export class ProfileAvatar extends BaseComponent<
 	private initSrc(): void {
 		let src = this.authController.getState()?.avatar;
 		if (src === null || src === "") {
-			src =
-				"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=";
+			this.build({
+				src: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=",
+			});
+		} else {
+			this.build({ src: getImgSrc(src) });
 		}
-		this.build({ src: src ?? "" });
 	}
 
 	componentWillInit(): void {
 		if (this.isInitSrc) return;
 
 		this.isInitSrc = true;
-		const src = this.authController.getState()?.avatar;
+		const src = this.authController.getState()?.avatar ?? null;
 
 		if (src === null) {
 			eventBus.subscribe("authStateUpdated", this.initSrc.bind(this));
@@ -61,7 +64,7 @@ export class ProfileAvatar extends BaseComponent<
 		const imageAvatar = new ImageAvatar({
 			alt: "user avatar",
 			sizeMod: TSizeMod.lg,
-			src: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=",
+			src: this.buildContext?.src ?? "",
 		});
 
 		imageAvatar.build(null);

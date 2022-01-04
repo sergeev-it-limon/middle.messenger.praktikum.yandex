@@ -97,7 +97,7 @@ export const rules = {
 		return {
 			rule: (value) => {
 				if (typeof value !== "string") return false;
-				exp.test(value);
+				return exp.test(value);
 			},
 			message,
 		};
