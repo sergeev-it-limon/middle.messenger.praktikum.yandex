@@ -9,7 +9,7 @@ import { HomePage } from "./pages/homePage";
 import { ProfilePage } from "./pages/profilePage";
 import { SelectedChatPage } from "./pages/selectedChatPage";
 import { SignupPage } from "./pages/signupPage";
-import { buildGetComponent } from "./utils/buildgetComponent";
+import { buildGetComponent } from "./utils/buildGetComponent";
 
 const authController = new AuthController();
 authController.get();
