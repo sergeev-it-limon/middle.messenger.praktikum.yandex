@@ -2,9 +2,8 @@
 
 Pull request:
 
-
 Публикация:
-https://deploy--upbeat-pare-d83e5d.netlify.app/
+https://optimistic-darwin-a6d8df.netlify.app/
 
 Макеты:
 https://www.figma.com/file/XUCnuti72FOGIadvpPdxLq/yandex-first-project?node-id=0%3A1
@@ -13,6 +12,7 @@ https://www.figma.com/file/XUCnuti72FOGIadvpPdxLq/yandex-first-project?node-id=0
 
 - `npm run start` — запуск версии для разработчика,
 - `npm run build` — сборка стабильной версии.
+- `npm run test` — запуск тестов.
 
 ## Примечание
 
