@@ -23,7 +23,7 @@ export class Link extends BaseComponent<TLinkState, TLinkProps, TLinkBuildCtx> {
 		this.router.go(this.props.href);
 	}
 
-	render() {
+	render(): HTMLElement {
 		return htmlFromStr(template());
 	}
 

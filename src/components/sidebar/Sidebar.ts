@@ -14,7 +14,7 @@ export class Sidebar extends BaseComponent {
 	private chatsController = new ChatsController();
 	private chatsList = new ChatsList(null);
 
-	private updateChatsList() {
+	private updateChatsList(): void {
 		this.chatsList.build(this.chatsController.getChatList());
 	}
 
@@ -22,7 +22,7 @@ export class Sidebar extends BaseComponent {
 		eventBus.emit("openAddChat", null);
 	}
 
-	componentWillInit() {
+	componentWillInit(): void {
 		if (this.chatsController.getChatList() === null) {
 			this.chatsController.get();
 		}

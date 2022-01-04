@@ -79,7 +79,7 @@ export class Router {
 		const route = this.getRoute(pathname);
 
 		if (route === undefined) {
-			console.error(`can\'not find route for pathname: ${pathname}`);
+			console.error(`can'not find route for pathname: ${pathname}`);
 			return;
 		}
 

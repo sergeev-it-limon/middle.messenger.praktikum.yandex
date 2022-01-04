@@ -1,3 +1,5 @@
+/* eslint @typescript-eslint/no-empty-function: off */
+
 import { DOMWindow, JSDOM } from "jsdom";
 import { expect } from "chai";
 import sinon from "sinon";
