@@ -1,10 +1,9 @@
 ## Проектная работа 2-го спринта для курса "Мидл фронтенд-разработчик"
 
 Pull request:
-https://github.com/sergeev-it-limon/middle.messenger.praktikum.yandex/pull/6
 
 Публикация:
-https://deploy--upbeat-pare-d83e5d.netlify.app/
+https://optimistic-darwin-a6d8df.netlify.app/
 
 Макеты:
 https://www.figma.com/file/XUCnuti72FOGIadvpPdxLq/yandex-first-project?node-id=0%3A1
@@ -13,6 +12,7 @@ https://www.figma.com/file/XUCnuti72FOGIadvpPdxLq/yandex-first-project?node-id=0
 
 - `npm run start` — запуск версии для разработчика,
 - `npm run build` — сборка стабильной версии.
+- `npm run test` — запуск тестов.
 
 ## Примечание
 
