@@ -1,10 +1,10 @@
-## Проектная работа 3-го спринта для курса "Мидл фронтенд-разработчик"
+## Проектная работа 4-го спринта для курса "Мидл фронтенд-разработчик"
 
 Pull request:
-https://github.com/sergeev-it-limon/middle.messenger.praktikum.yandex/pull/7
+
 
 Публикация:
-https://optimistic-darwin-a6d8df.netlify.app/
+
 
 Макеты:
 https://www.figma.com/file/XUCnuti72FOGIadvpPdxLq/yandex-first-project?node-id=0%3A1
