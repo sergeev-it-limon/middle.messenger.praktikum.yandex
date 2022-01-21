@@ -6,15 +6,16 @@ import style from "./sendMessageForm.css";
 import { InputSendMessage } from "../inputSendMessage";
 import { ButtonSubmitSendMessageForm } from "../buttonSubmitSendMessageForm";
 import { PopupAddFile } from "../popupAddFile";
+import { ChatsController } from "../../controllers/chatsController";
 
 export class SendMessageForm extends BaseComponent {
+	private chatsController = new ChatsController();
+
 	handleSubmit(e: SubmitEvent): void {
 		e.preventDefault();
 		const form = e.currentTarget as HTMLFormElement;
-		const formData = getFormEntries(form);
-
-		console.log("Сабмит формы ввода сообщения");
-		console.log(formData);
+		const { message } = getFormEntries<{ message: string }>(form);
+		this.chatsController.sendMessage(message);
 	}
 
 	render(): HTMLElement {
@@ -39,7 +40,7 @@ export class SendMessageForm extends BaseComponent {
 
 	initActions(): TActions {
 		return {
-			handleSubmit: this.handleSubmit,
+			handleSubmit: this.handleSubmit.bind(this),
 		};
 	}
 }

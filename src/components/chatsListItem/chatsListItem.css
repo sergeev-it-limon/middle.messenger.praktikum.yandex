@@ -10,6 +10,7 @@
 	color: inherit;
 	text-decoration: inherit;
 	transition-duration: 0.2s;
+	cursor: pointer;
 
 	&_active {
 		background-color: var(--main-hover-color);

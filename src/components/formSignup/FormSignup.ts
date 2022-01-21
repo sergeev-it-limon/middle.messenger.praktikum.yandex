@@ -8,19 +8,27 @@ import { htmlFromStr } from "../../utils/htmlFrom";
 import { getFormEntries } from "../../utils/getFormEntries";
 import { ButtonTransparent } from "../buttonTransparent";
 import { appRules, buildValidator } from "../../utils/validator";
+import { Router } from "../../controllers/Router";
+import { AuthController } from "../../controllers/authController/AuthController";
+import { TAuthSignup } from "../../controllers/authController/types";
 
 export class FormSignup extends BaseComponent {
-	private handleSubmit(e: SubmitEvent): void {
-		e.preventDefault();
-		const form = e.currentTarget as HTMLFormElement;
-		const formData = getFormEntries(form);
+	private async handleSubmit(e: SubmitEvent): Promise<void> {
+		try {
+			e.preventDefault();
+			const form = e.currentTarget as HTMLFormElement;
+			const formData = getFormEntries<TAuthSignup>(form);
 
-		console.log(`Сабмит формы регистрации пользователя`);
-		console.log(formData);
+			const auth = new AuthController();
 
-		setTimeout(() => {
-			location.assign("/home");
-		}, 3000);
+			await auth.signup(formData);
+			await auth.get();
+
+			const router = new Router();
+			router.go("/messenger");
+		} catch (e) {
+			console.error(e);
+		}
 	}
 
 	render(): HTMLElement {
@@ -145,7 +153,12 @@ export class FormSignup extends BaseComponent {
 
 		header.build(null);
 		buttonSignup.build(null);
-		buttonAuth.build({ handleClick: () => location.assign("/") });
+		buttonAuth.build({
+			handleClick: () => {
+				const router = new Router();
+				router.go("/");
+			},
+		});
 
 		const top = document.createDocumentFragment();
 		top.appendChild(header.ref);

@@ -13,7 +13,7 @@ export class ProfilePage extends BaseComponent {
 	initChildren(): TChildren {
 		const cmnPageTmpl = new CmnPageTmpl(null);
 
-		const leftNavPanel = new LeftNavPanel({ linkTo: "/home" });
+		const leftNavPanel = new LeftNavPanel({ linkTo: "/messenger" });
 		const main = new ProfileContent(null);
 
 		leftNavPanel.build(null);

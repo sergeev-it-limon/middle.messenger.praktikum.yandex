@@ -1,4 +1,7 @@
+import { ChatsController } from "../../controllers/chatsController";
 import { eventBus } from "../../controllers/EventBus";
+import { Router } from "../../controllers/Router";
+import { UsersController } from "../../controllers/usersController";
 import { getFormEntries } from "../../utils/getFormEntries";
 import { htmlFromStr } from "../../utils/htmlFrom";
 import { BaseComponent, TActions, TChildren } from "../baseComponent";
@@ -25,6 +28,10 @@ export class ModalAddRemoveUser extends BaseComponent<
 	TModalAddRemoveUserState,
 	TModalAddRemoveUserProps
 > {
+	private router = new Router();
+	private usersController = new UsersController();
+	private chatsController = new ChatsController();
+
 	private handleClose(): void {
 		this.state.outerWrapperClassName = `${style.outerWrapper} ${style.outerWrapper_close}`;
 	}
@@ -33,15 +40,47 @@ export class ModalAddRemoveUser extends BaseComponent<
 		this.state.outerWrapperClassName = `${style.outerWrapper} ${style.outerWrapper_open}`;
 	}
 
-	private handleSubmit(e: SubmitEvent): void {
+	private async handleSubmit(e: SubmitEvent): Promise<void> {
 		e.preventDefault();
 		const form = e.currentTarget as HTMLFormElement;
-		const formData = getFormEntries(form);
+		const formData = getFormEntries<{ login: string }>(form);
 
-		const typeHint =
-			this.props.typeModal === "remove" ? "удаления" : "добавления";
-		console.log(`Сабмит формы ${typeHint} пользователя`);
-		console.log(formData);
+		const userIds = await this.getUserIdsByLogin(formData.login);
+		if (userIds === undefined) return;
+
+		const { chatId } = this.router.getParams() ?? {};
+
+		if (typeof chatId !== "string") {
+			console.error(`chats id not found ${chatId}`);
+			return;
+		}
+
+		if (this.props.typeModal === "remove") {
+			await this.chatsController.deleteUsers({
+				chatId: Number(chatId),
+				users: userIds,
+			});
+		} else {
+			await this.chatsController.addUsers({
+				chatId: Number(chatId),
+				users: userIds,
+			});
+		}
+
+		this.handleClose();
+	}
+
+	private async getUserIdsByLogin(
+		login: string
+	): Promise<number[] | undefined> {
+		try {
+			const users = await this.usersController.search({ login });
+			if (users === null) return;
+			return users.map((user) => user.id);
+		} catch (e) {
+			console.error(e);
+			return;
+		}
 	}
 
 	componentWillInit(): void {

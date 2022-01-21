@@ -1,10 +1,14 @@
 import { eventBus } from "../../controllers/EventBus";
+import { UsersController } from "../../controllers/usersController";
+import { AuthController } from "../../controllers/authController";
 import { htmlFromStr } from "../../utils/htmlFrom";
 import { BaseComponent, TActions, TChildren } from "../baseComponent";
 import { ButtonMain } from "../buttonMain";
-import { ButtonTransparent } from "../buttonTransparent";
+import { InputFile } from "../inputFile";
 import style from "./profileEditImgModal.css";
 import { template } from "./profileEditImgModal.tmpl.js";
+import { FormCommon } from "../formCommon";
+import { buildValidator, rules } from "../../utils/validator";
 
 type TProfileEditImgModalState = {
 	outerWrapperClassName: string;
@@ -19,12 +23,31 @@ export class ProfileEditImgModal extends BaseComponent<
 	TProfileEditImgModalState,
 	null
 > {
+	private usersController = new UsersController();
+	private authController = new AuthController();
+
 	private handleClose(): void {
 		this.state.outerWrapperClassName = `${style.outerWrapper} ${style.outerWrapper_close}`;
 	}
 
 	private handleOpen(): void {
 		this.state.outerWrapperClassName = `${style.outerWrapper} ${style.outerWrapper_open}`;
+	}
+
+	private async handleSubmit(e: SubmitEvent): Promise<void> {
+		try {
+			const form = e.currentTarget as HTMLFormElement;
+			const inputFile = form.querySelector('[name="file"]') as HTMLInputElement;
+
+			const formData = new FormData();
+			formData.append("avatar", inputFile.files[0]);
+
+			await this.usersController.putAvatar(formData);
+			await this.authController.get();
+			this.handleClose();
+		} catch (e) {
+			console.log(e);
+		}
 	}
 
 	componentWillInit(): void {
@@ -47,19 +70,37 @@ export class ProfileEditImgModal extends BaseComponent<
 	}
 
 	initChildren(): TChildren {
-		const changeBtn = new ButtonTransparent({
+		const { handlers } = buildValidator({
+			submit: this.handleSubmit.bind(this),
+			rules: {
+				file: [rules.required()],
+			},
+			fileInputName: "file",
+		});
+
+		const form = new FormCommon({ formClassName: style.form });
+
+		const inputFile = new InputFile({
 			text: "Выберите файл на компьютере",
-			type: "button",
+			accept: "image/*",
 		});
 
 		const buttonMain = new ButtonMain({ text: "Поменять" });
 
-		changeBtn.build(null);
+		inputFile.build(null);
 		buttonMain.build(null);
 
+		form.build({
+			top: inputFile.ref,
+			bottom: buttonMain.ref,
+			handleFocusIn: handlers.focusIn,
+			handleFocusOut: handlers.focusOut,
+			handleInput: handlers.input,
+			handleSubmit: handlers.submit,
+		});
+
 		return {
-			changeBtn: changeBtn.ref,
-			buttonMain: buttonMain.ref,
+			form: form.ref,
 		};
 	}
 

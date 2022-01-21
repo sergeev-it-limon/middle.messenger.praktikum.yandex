@@ -1,4 +1,8 @@
 {
+	"ts-node": {
+		"files": true
+	},
+	"files": ["./customTypings/importXhr2.d.ts"],
 	"compilerOptions": {
 		"outDir": "dist",
 		"target": "ESNext",
