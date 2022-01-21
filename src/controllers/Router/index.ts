@@ -1,2 +1,2 @@
 export { Router } from "./Router";
-export { TParams } from "./types";
+export type { TParams } from "./types";
