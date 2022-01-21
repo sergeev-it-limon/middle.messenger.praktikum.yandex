@@ -8,16 +8,24 @@ import addUserIcon from "./addUser.png";
 import removeChatIcon from "./removeChat.png";
 import removeUserIcon from "./removeUser.png";
 import { eventBus } from "../../controllers/EventBus";
+import { ChatsController } from "../../controllers/chatsController";
+import { Router } from "../../controllers/Router";
 
 export class PopupChatActionsContent extends BaseComponent {
+	private router = new Router();
+	private chatsController = new ChatsController();
+
 	handleOpenAddUserModal(): void {
 		eventBus.emit("openAddUser", null);
 	}
 	handleOpenRemoveUserModal(): void {
 		eventBus.emit("openRemoveUser", null);
 	}
-	handleOpenRemoveChatModal(): void {
-		eventBus.emit("openRemoveChat", null);
+	private async removeChat(): Promise<void> {
+		const params = this.router.getParams();
+		if (typeof params?.chatId !== "string") return;
+		await this.chatsController.delete(Number(params.chatId));
+		this.router.go("/messenger");
 	}
 
 	protected render(): HTMLElement {
@@ -61,7 +69,7 @@ export class PopupChatActionsContent extends BaseComponent {
 			handleClick: this.handleOpenRemoveUserModal.bind(this),
 		});
 		buttonRemoveChat.build({
-			handleClick: this.handleOpenRemoveChatModal.bind(this),
+			handleClick: this.removeChat.bind(this),
 		});
 
 		list.build({

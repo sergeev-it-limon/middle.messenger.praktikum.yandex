@@ -1,3 +1,4 @@
+import { getClassName } from "../../utils/getClassName";
 import { htmlFromStr } from "../../utils/htmlFrom";
 import { BaseComponent, TActions } from "../baseComponent";
 import style from "./popupChatActionsTrigger.css";
@@ -29,9 +30,10 @@ export class PopupChatActionsTrigger extends BaseComponent<
 	}
 
 	propsToState(): void {
-		const activeClassName = `${style.root} ${style.root_active}`;
-		const className = this.props.isActive ? activeClassName : style.root;
-		this.state.className = className;
+		this.state.className = getClassName(style.root, [
+			style.root_active,
+			this.props.isActive,
+		]);
 	}
 
 	initActions(): TActions {

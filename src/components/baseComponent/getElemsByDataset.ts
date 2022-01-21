@@ -2,7 +2,7 @@ export type TElemsByDataset = { [key: string]: HTMLElement[] };
 
 /** Возвращает список элементов, найденых в ref по указанному дата-атрибуту, сгруппированых по значению атрибута */
 export function getElemsByDataset(
-	ref: HTMLElement,
+	ref: Node,
 	datasetAttr: string
 ): TElemsByDataset {
 	if (ref == null) {
@@ -12,11 +12,14 @@ export function getElemsByDataset(
 		return {};
 	}
 
+	if (!(ref instanceof HTMLElement)) return {};
+
 	const datasetKey = getDatasetKey(datasetAttr);
 
 	const elemsWithAttr = Array.from(ref.querySelectorAll(datasetAttr));
 
-	if (ref.dataset[datasetKey] != null) {
+	const attrValue = ref.dataset[datasetKey];
+	if (typeof attrValue === "string") {
 		elemsWithAttr.push(ref);
 	}
 

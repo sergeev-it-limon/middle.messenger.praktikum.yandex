@@ -2,117 +2,123 @@ import { BaseComponent, TChildren } from "../baseComponent";
 import { htmlFromStr } from "../../utils/htmlFrom";
 import { template } from "./chatSelected.tmpl.js";
 import style from "./chatSelected.css";
-import { getSelectedChatData } from "../../mocks/getSelectedChatData";
-import { TMessage, TMessagesByDay } from "./chatSelectedTypes";
-import { MessageImage } from "../messageImage";
+// import { getSelectedChatData } from "../../mocks/getSelectedChatData";
+// import { TMessagesByDay } from "./chatSelectedTypes";
+// import { MessageImage } from "../messageImage";
 import { Message } from "../message";
 import { Divider } from "../divider";
 import { SendMessageForm } from "../sendMessageForm";
 import { ImageAvatar } from "../imageAvatar";
 import { PopupChatActions } from "../popupChatActions";
+import { TSizeMod } from "../imageAvatar/ImageAvatar";
+import { ChatsController } from "../../controllers/chatsController";
+import { Router } from "../../controllers/Router";
+import { AuthController } from "../../controllers/authController";
+import { eventBus } from "../../controllers/EventBus";
+import { TMessage } from "../../controllers/chatsController/types";
 
 type TMesMeta = {
-	id: number;
+	id: string;
 	type: "myMessage" | "message" | "date";
 	dateValue?: string;
 };
 
-export class ChatSelected extends BaseComponent {
-	messagesData: TMessagesByDay[];
+type TBuildCtx = {
+	messages: TMessage[] | null;
+};
+
+export class ChatSelected extends BaseComponent<null, null, TBuildCtx> {
+	private authController = new AuthController();
+	private router = new Router();
+	private chatsController = new ChatsController();
 
 	getMeta(): TMesMeta[] {
-		return this.messagesData.reduce<TMesMeta[]>((meta, mesByDay) => {
-			meta.push(this.getDateMeta(mesByDay.timeDay));
-
-			for (const mes of mesByDay.messages) {
-				meta.push(this.getMessageMeta(mes));
-			}
-
-			return meta;
-		}, []);
+		return (
+			this.buildContext.messages?.map<TMesMeta>((mes) => {
+				return this.getMessageMeta(mes);
+			}) ?? []
+		);
 	}
 
 	getMessageMeta(mes: TMessage): TMesMeta {
-		const mesMeta: TMesMeta = { id: 0, type: "message" };
+		const mesMeta: TMesMeta = { id: "", type: "message" };
 
-		if (mes.isMy) {
+		if (this.isMy(mes)) {
 			mesMeta.type = "myMessage";
 		} else {
 			mesMeta.type = "message";
 		}
 
-		mesMeta.id = mes.id;
+		mesMeta.id = this.getMesId(mes);
 
 		return mesMeta;
 	}
 
-	getDateMeta(time: number): TMesMeta {
-		const date = new Date(time);
-
-		const day = date.getDate();
-		const month = date.getMonth();
-		const year = date.getFullYear();
-
-		const dateStr = `${day}.${month}.${year}`;
-		const dateStrNorm = dateStr.replace(/^\d(?=\.)|(?<=\.)\d(?=\.)/g, "0$&");
-
-		return {
-			type: "date",
-			id: time,
-			dateValue: dateStrNorm,
-		};
-	}
-
-	mesDataToShallowArr(mesData: TMessagesByDay[]): TMessage[] {
-		return mesData.reduce<TMessage[]>((acc, mesByDay) => {
-			return acc.concat(mesByDay.messages);
-		}, []);
-	}
-
-	getImgMesChild(mes: TMessage): HTMLElement {
-		const imgMes = new MessageImage({
-			src: mes.content.src ?? "",
-			time: mes.content.time,
-		});
-		imgMes.build(null);
-		return imgMes.ref;
+	private isMy(mes: TMessage) {
+		const myId = this.authController.getState()?.id;
+		return mes.user_id === myId;
 	}
 
 	getTextMesChild(mes: TMessage): HTMLElement {
 		const textMes = new Message({
-			text: mes.content.text ?? "",
-			time: mes.content.time,
-			type: mes.isMy ? "my" : "default",
+			text: mes.content ?? "",
+			time: new Date(mes.time).getTime(),
+			type: this.isMy(mes) ? "my" : "default",
 		});
 		textMes.build(null);
 		return textMes.ref;
 	}
 
-	initSelectedChatData(): void {
-		this.messagesData = getSelectedChatData();
+	private getMesId(mes: TMessage) {
+		return `${mes.user_id}${mes.chat_id}${mes.time}`;
 	}
 
 	getMessages(): TChildren {
-		const mesDataShallow = this.mesDataToShallowArr(this.messagesData);
+		return (
+			this.buildContext.messages?.reduce<TChildren>((children, mes) => {
+				return {
+					...children,
+					[`message_${this.getMesId(mes)}`]: this.getTextMesChild(mes),
+				};
+			}, {}) ?? {}
+		);
+	}
 
-		const mesChildren = mesDataShallow.reduce<TChildren>((children, mes) => {
-			switch (mes.type) {
-				case "message":
-					children[`message_${mes.id}`] = this.getTextMesChild(mes);
-					break;
-				case "image":
-					children[`message_${mes.id}`] = this.getImgMesChild(mes);
-					break;
-			}
+	private async handleAuth(): Promise<void> {
+		const { chatId = null } = this.router.getParams() ?? {};
+		const userId = this.authController.getState()?.id;
+		if (chatId === null || userId === undefined) return;
 
-			return children;
-		}, {});
+		await this.chatsController.initWsConnection(userId, Number(chatId));
+		return this.chatsController.fetchAllMessages();
+	}
 
-		return mesChildren;
+	private handleMessageResived() {
+		this.build({
+			messages: this.sortMessages(this.chatsController.getMessages()),
+		});
+	}
+
+	private sortMessages(messages: TMessage[]): TMessage[] {
+		return messages.slice().sort((a, b) => {
+			const timeA = new Date(a.time).getTime();
+			const timeB = new Date(b.time).getTime();
+			return timeA - timeB;
+		});
+	}
+
+	private initMessages(): void {
+		const userId = this.authController.getState()?.id;
+		if (!userId) {
+			eventBus.subscribe("authStateUpdated", this.handleAuth.bind(this));
+		} else {
+			this.handleAuth();
+		}
 	}
 
 	componentWillInit(): void {
-		this.initSelectedChatData();
+		eventBus.subscribe("messageReceived", this.handleMessageResived.bind(this));
+		this.initMessages();
 	}
 
 	render(): HTMLElement {
@@ -134,7 +140,7 @@ export class ChatSelected extends BaseComponent {
 
 		const imageAvatar = new ImageAvatar({
 			alt: "avatar",
-			sizeMod: "sm",
+			sizeMod: TSizeMod.sm,
 			src: "https://images.unsplash.com/photo-1616213320857-b5c3669e472e?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=334&q=80",
 		});
 		imageAvatar.build(null);

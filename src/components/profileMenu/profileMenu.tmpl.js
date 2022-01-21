@@ -1,6 +1,6 @@
 import pug from "pug-runtime";
 
 export const template = pug`
-section(data-state='class:root')
+section
   div(data-component='content')
 `;

@@ -1,6 +1,8 @@
 type TFormData = { [key: string]: FormDataEntryValue };
 
-export const getFormEntries = (form: HTMLFormElement): TFormData => {
+export const getFormEntries = <T extends TFormData>(
+	form: HTMLFormElement
+): T => {
 	const formData = new FormData(form);
 	const entries = formData.entries();
 
@@ -9,5 +11,5 @@ export const getFormEntries = (form: HTMLFormElement): TFormData => {
 		entriesObj[entry[0]] = entry[1];
 	}
 
-	return entriesObj;
+	return entriesObj as T;
 };

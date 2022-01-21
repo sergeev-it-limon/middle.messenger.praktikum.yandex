@@ -2,33 +2,41 @@ import { BaseComponent, TChildren } from "../baseComponent";
 import { htmlFromStr } from "../../utils/htmlFrom";
 import { template } from "./chatsList.tmpl.js";
 import style from "./chatsList.css";
-import { getChatsData } from "../../mocks/getChatsData";
-import { TChatItem } from "./types";
 import { ChatsListItem } from "../chatsListItem";
+import { ChatsController } from "../../controllers/chatsController";
+import { TChat } from "../../controllers/chatsController/types";
 
-export class ChatsList extends BaseComponent {
-	private chatsData: TChatItem[];
+type TChatsListBuildCtx = TChat[] | null;
+
+export class ChatsList extends BaseComponent<null, null, TChatsListBuildCtx> {
+	private chatsData: TChat[] | null;
 
 	componentWillInit(): void {
-		this.chatsData = getChatsData();
+		const chats = new ChatsController();
+		this.chatsData = chats.getChatList();
+		if (this.chatsData === null) {
+			chats.get();
+		}
 	}
 
 	render(): HTMLElement {
 		return htmlFromStr(
 			template({
 				style,
-				itemIds: this.chatsData.map((item) => item.chatId),
+				itemIds: this.buildContext?.map((item) => item.id) ?? [],
 			})
 		);
 	}
 
 	initChildren(): TChildren {
-		return this.chatsData.reduce<TChildren>((items, chatData) => {
-			const chatsListItem = new ChatsListItem(chatData);
-			chatsListItem.build(null);
-			items[`item_${chatData.chatId}`] = chatsListItem.ref;
+		return (
+			this.buildContext?.reduce<TChildren>((items, chatData) => {
+				const chatsListItem = new ChatsListItem(chatData);
+				chatsListItem.build(null);
+				items[`item_${chatData.id}`] = chatsListItem.ref;
 
-			return items;
-		}, {});
+				return items;
+			}, {}) ?? {}
+		);
 	}
 }

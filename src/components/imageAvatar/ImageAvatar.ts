@@ -3,7 +3,11 @@ import { htmlFromStr } from "../../utils/htmlFrom";
 import { template } from "./imageAvatar.tmpl.js";
 import style from "./imageAvatar.css";
 
-export type TSizeMod = "sm" | "md" | "lg";
+export enum TSizeMod {
+	sm = "sm",
+	md = "md",
+	lg = "lg",
+}
 
 type TImageAvatarProps = {
 	sizeMod: TSizeMod;
@@ -25,13 +29,13 @@ export class ImageAvatar extends BaseComponent<
 		let styleSize;
 
 		switch (sizeMod) {
-			case "sm":
+			case TSizeMod.sm:
 				styleSize = style.size_sm;
 				break;
-			case "md":
+			case TSizeMod.md:
 				styleSize = style.size_md;
 				break;
-			case "lg":
+			case TSizeMod.lg:
 				styleSize = style.size_lg;
 				break;
 			default:

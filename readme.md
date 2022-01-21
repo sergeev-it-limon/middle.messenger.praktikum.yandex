@@ -2,9 +2,7 @@
 
 Pull request:
 
-
 Публикация:
-
 
 Макеты:
 https://www.figma.com/file/XUCnuti72FOGIadvpPdxLq/yandex-first-project?node-id=0%3A1

@@ -1,3 +1,4 @@
+import { getClassName } from "../../utils/getClassName";
 import { htmlFromStr } from "../../utils/htmlFrom";
 import { BaseComponent } from "../baseComponent";
 import style from "./inputString.css";
@@ -28,8 +29,10 @@ export class InputString extends BaseComponent<
 	TInputStringProps
 > {
 	private getInputStringClassName(): string {
-		const errorClassName = `${style.inputString} ${style.error}`;
-		return this.props.errorMessage ? errorClassName : style.inputString;
+		return getClassName(style.inputString, [
+			style.error,
+			Boolean(this.props.errorMessage),
+		]);
 	}
 
 	protected render(): HTMLElement {

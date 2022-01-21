@@ -1,3 +1,4 @@
+import { AuthController } from "../../controllers/authController";
 import { eventBus } from "../../controllers/EventBus";
 import { htmlFromStr } from "../../utils/htmlFrom";
 import { BaseComponent, TChildren } from "../baseComponent";
@@ -15,8 +16,14 @@ export class ProfileMenu extends BaseComponent {
 		eventBus.emit("editPasswordStart", null);
 	}
 
-	private handleExit(): void {
-		location.assign("/");
+	private async handleExit(): Promise<void> {
+		try {
+			const auth = new AuthController();
+			await auth.logout();
+			location.assign("/");
+		} catch (e) {
+			console.error(e);
+		}
 	}
 
 	render(): HTMLElement {
