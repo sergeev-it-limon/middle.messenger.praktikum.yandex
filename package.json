@@ -5,6 +5,7 @@
 	"scripts": {
 		"start": "cross-env NODE_ENV=development webpack serve --open",
 		"build": "cross-env NODE_ENV=production webpack",
+		"prod": "node server/index.js",
 		"lint": "esw src --ext .ts --watch --clear",
 		"fix": "eslint src --ext .ts --fix",
 		"style-lint": "stylelint src/**/*.css",
