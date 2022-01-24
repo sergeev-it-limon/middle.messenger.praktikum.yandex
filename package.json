@@ -10,7 +10,9 @@
 		"fix": "eslint src --ext .ts --fix",
 		"style-lint": "stylelint src/**/*.css",
 		"style-fix": "stylelint src/**/*.css --fix",
-		"test": "mocha --require ./test/setup.js ./src/**/*.spec.ts"
+		"test": "mocha --require ./test/setup.js ./src/**/*.spec.ts",
+		"prepare": "husky install",
+		"husky": "husky"
 	},
 	"repository": {
 		"type": "git",
@@ -46,6 +48,7 @@
 		"eslint-webpack-plugin": "~3.1.1",
 		"glob": "~7.1.7",
 		"html-webpack-plugin": "~5.5.0",
+		"husky": "^7.0.0",
 		"jsdom": "~19.0.0",
 		"mini-css-extract-plugin": "~2.5.2",
 		"mocha": "~9.1.3",

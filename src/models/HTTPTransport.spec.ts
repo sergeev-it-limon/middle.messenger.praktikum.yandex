@@ -3,6 +3,7 @@ import sinon from "sinon";
 import XMLHttpRequest from "xhr2";
 import nock from "nock";
 import { HTTPTransport } from "./HTTPTransport";
+import { JSDOM } from "jsdom";
 
 describe("HTTPTransport", () => {
 	let http: HTTPTransport;
@@ -12,6 +13,12 @@ describe("HTTPTransport", () => {
 	beforeEach(() => {
 		(global.XMLHttpRequest as new () => XMLHttpRequest) = XMLHttpRequest;
 		http = new HTTPTransport();
+		
+		const dom = new JSDOM('<div id="app"></div>', {
+			url: "http://localhost:3000",
+		});
+
+		global.FormData = dom.window.FormData;
 	});
 
 	afterEach(() => {
