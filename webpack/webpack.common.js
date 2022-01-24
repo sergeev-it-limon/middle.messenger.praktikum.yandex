@@ -10,8 +10,7 @@ module.exports = {
 	entry: paths.entry,
 	output: {
 		path: paths.outputPath,
-		publicPath: paths.publicPath,
-		// assetModuleFilename: "assets/[hash][ext][query]",
+		publicPath: isProduction ? paths.publicPath : "/", // Для корректной работы dev-сервера
 		clean: true,
 	},
 	module: {
@@ -48,6 +47,7 @@ module.exports = {
 		new HtmlWebpackPlugin({
 			template: paths.htmlTemplate,
 			favicon: paths.faviconPath,
+			publicPath: isProduction ? paths.publicPath : "/", // Для корректной работы dev-сервера
 		}),
 
 		// Запускается только в режиме прода по умолчанию, оставил тут,

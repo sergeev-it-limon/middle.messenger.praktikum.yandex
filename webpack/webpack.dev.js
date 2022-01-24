@@ -4,9 +4,6 @@ module.exports = {
 	mode: "development",
 	devtool: "inline-source-map",
 	devServer: {
-		devMiddleware: {
-			publicPath: paths.publicPath,
-		},
 		historyApiFallback: true,
 		port: 3000
 	},
