@@ -8,6 +8,7 @@ module.exports = {
 			publicPath: paths.publicPath,
 		},
 		historyApiFallback: true,
+		port: 3000
 	},
 	output: {
 		filename: "[name].bundle.[fullhash].js",
