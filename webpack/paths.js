@@ -4,6 +4,6 @@ module.exports = {
 	entry: path.resolve(__dirname, "../src/index.ts"),
 	outputPath: path.resolve(__dirname, "../dist"),
 	htmlTemplate: path.resolve(__dirname, "../static/index.html"),
-	publicPath: "/",
+	publicPath: "/dist/",
 	faviconPath: path.resolve(__dirname, "../static/favicon.ico"),
 };
