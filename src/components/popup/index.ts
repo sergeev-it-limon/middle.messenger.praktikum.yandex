@@ -1,1 +1,2 @@
-export { Popup, TPopupMeta } from "./Popup";
+export { Popup } from "./Popup";
+export type { TPopupMeta } from "./Popup";
